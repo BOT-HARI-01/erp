@@ -1,0 +1,177 @@
+/* Page Layout */
+.main-content {
+    margin-left: 250px; 
+    padding-top: 60px;
+    background-color: var(--bg-light);
+    width: calc(100% - 250px);
+    margin-top: 40vh;
+}
+
+.dashboard-wrapper {
+    padding: 30px;
+    max-width: 100%;
+}
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    color: var(--text-dark);
+}
+
+/* Common Card Style */
+.hostel-card {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.hostel-card h3 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin: 0;
+    margin-bottom: 15px; /* Default margin for cards without .card-header */
+}
+
+.card-header h3 {
+    margin-bottom: 0;
+}
+
+/* Status Badges */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge.allocated {
+    background-color: #e6ffe6;
+    color: #28a745;
+    border: 1px solid #b3ffb3;
+}
+
+.badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.badge.not-allocated {
+    background-color: #ffe6e6;
+    color: #c0392b;
+    border: 1px solid #ffcccc;
+}
+
+/* Allocation Details Grid */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item label {
+    font-size: 0.85rem;
+    color: var(--text-grey);
+    margin-bottom: 5px;
+}
+
+.detail-item span {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+/* Roommates Table */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.simple-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+}
+
+.simple-table th {
+    text-align: left;
+    background: #f9f9f9;
+    padding: 12px;
+    color: var(--text-grey);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.simple-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    color: var(--text-dark);
+}
+
+/* Fee Summary Section */
+.grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.fee-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.total-row {
+    border-bottom: none;
+    border-top: 2px solid #f0f0f0;
+    margin-top: 10px;
+    padding-top: 15px;
+}
+
+.text-green { color: #28a745; }
+.text-red { color: #c0392b; }
+
+/* Amenities List */
+.amenity-list {
+    list-style: none;
+    padding: 0;
+}
+
+.amenity-list li {
+    padding: 8px 0;
+    color: var(--text-grey);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amenity-list li strong {
+    color: var(--text-dark);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}

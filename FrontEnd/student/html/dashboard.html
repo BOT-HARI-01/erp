@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard - SIH25103</title>
+
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+      <div id="header-container"></div>
+
+      <div class="dashboard-wrapper">
+        <div class="alert-box danger">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div>
+            <h4>Attendance Warning</h4>
+            <p>
+              Your attendance in <strong>Data Structures</strong> is below 75%.
+              Please contact your Class Teacher.
+            </p>
+          </div>
+        </div>
+
+        <div class="welcome-section">
+          <h2>Welcome back, <span id="welcome-name">Student</span></h2>
+          <p>Here is your daily overview.</p>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card profile-card">
+            <div class="card-header">
+              <h3>My Profile</h3>
+              <a href="profile.html" class="link-btn">View Full</a>
+            </div>
+            <div class="profile-details">
+              <div class="detail-row">
+                <span>Name:</span> <strong id="profile-name">Loading...</strong>
+              </div>
+              <div class="detail-row">
+                <span>Year/Sem:</span>
+                <strong id="profile-year">Loading...</strong>
+              </div>
+              <div class="detail-row">
+                <span>Branch:</span>
+                <strong id="profile-branch">Loading...</strong>
+              </div>
+              <div class="detail-row">
+                <span>Class Teacher:</span>
+                <strong id="profile-teacher">Loading...</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card stats-card">
+            <h3>Attendance Overview</h3>
+            <div class="chart-container">
+              <div
+                class="circular-progress"
+                style="--progress: 270deg; --color: #e74c3c"
+              >
+                <div class="inner-circle">
+                  <span>72%</span>
+                  <small>Avg</small>
+                </div>
+              </div>
+              <p class="chart-label">Attendance Risk</p>
+            </div>
+          </div>
+
+          <div class="card stats-card">
+            <h3>Academic Performance</h3>
+            <div class="gpa-display">
+              <span class="gpa-score">8.4</span>
+              <span class="gpa-scale">/ 10.0 CGPA</span>
+            </div>
+            <p class="chart-label">Last Semester: 8.2 SGPA</p>
+          </div>
+
+          <div class="card notification-card">
+            <h3>Recent Updates</h3>
+            <ul class="notif-list">
+              <li>
+                <span class="icon pending">
+                  <i class="fas fa-credit-card"></i>
+                </span>
+                <div>
+                  <strong>Fee Pending</strong>
+                  <p>Semester 6 tuition fee due.</p>
+                </div>
+              </li>
+              <li>
+                <span class="icon info">
+                  <i class="fas fa-book"></i>
+                </span>
+                <div>
+                  <strong>Book Return</strong>
+                  <p>"Intro to Algorithms" due tomorrow.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+  </body>
+</html>

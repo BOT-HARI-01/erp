@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees & Payments - Admin ERP</title>
+    
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/fees.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+        <div id="header-container"></div>
+
+        <div class="dashboard-wrapper">
+            
+            <div class="page-header">
+                <h2>Fees & Payments Management</h2>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn-action" onclick="openModal('structureModal')">
+                    <i class="fas fa-plus-circle"></i> Add Fee Structure
+                </button>
+                <button class="btn-action" onclick="openModal('paymentModal')">
+                    <i class="fas fa-rupee-sign"></i> Record Payment
+                </button>
+            </div>
+
+            <div class="search-section">
+                <input type="text" id="rollSearch" placeholder="Enter Student Roll No (e.g., 21B81A0501)">
+                <button onclick="fetchPaymentDetails()">Search Details</button>
+            </div>
+
+            <div id="fee-results">
+                <p style="text-align:center; color:#666; margin-top:20px;">Enter a Roll Number to view fee status.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="structureModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('structureModal')">&times;</span>
+            <h3>Create Fee Structure</h3>
+            
+            <div class="form-group">
+                <label>Academic Year</label>
+                <input type="number" id="fs-year" placeholder="e.g. 1, 2, 3, 4">
+            </div>
+            
+            <div class="form-group">
+                <label>Quota</label>
+                <select id="fs-quota">
+                    <option value="CONVENER">Convener</option>
+                    <option value="MANAGEMENT">Management</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Residence Type</label>
+                <select id="fs-residence">
+                    <option value="DAY_SCHOLAR">Day Scholar</option>
+                    <option value="HOSTELER">Hosteler</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tuition Fee (₹)</label>
+                <input type="number" id="fs-tuition">
+            </div>
+
+            <div class="form-group">
+                <label>Bus/Transport Fee (₹)</label>
+                <input type="number" id="fs-bus">
+            </div>
+
+            <div class="form-group">
+                <label>Hostel Fee (₹)</label>
+                <input type="number" id="fs-hostel">
+            </div>
+
+            <button class="primary-btn" onclick="createFeeStructure()">Save Structure</button>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
+            <h3>Record Student Payment</h3>
+            
+            <div class="form-group">
+                <label>Student Roll Number</label>
+                <input type="text" id="pay-roll" placeholder="e.g. 21B81A0501">
+            </div>
+
+            <div class="form-group">
+                <label>Fee Type</label>
+                <select id="pay-type">
+                    <option value="TUITION">Tuition Fee</option>
+                    <option value="HOSTEL">Hostel Fee</option>
+                    <option value="BUS">Bus Fee</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Amount (₹)</label>
+                <input type="number" id="pay-amount" placeholder="Enter amount paid">
+            </div>
+
+            <div class="form-group">
+                <label>Payment Mode</label>
+                <select id="pay-mode">
+                    <option value="CASH">Cash</option>
+                    <option value="UPI">UPI</option>
+                    <option value="BANK_TRANSFER">Bank Transfer</option>
+                    <option value="DD">Demand Draft</option>
+                </select>
+            </div>
+
+            <button class="primary-btn" onclick="updatePayment()">Submit Payment</button>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/fees.js"></script>
+</body>
+</html>

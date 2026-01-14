@@ -1,0 +1,47 @@
+{
+  "count": 5,
+  "credentials": [
+    {
+      "email": "5001@vvit.net",
+      "password": "cMtJ9vnz"
+    },
+    {
+      "email": "5002@vvit.net",
+      "password": "cMtJ9vnz"
+    },
+    {
+      "email": "5003@vvit.net",
+      "password": "cMtJ9vnz"
+    },
+    {
+      "email": "5004@vvit.net",
+      "password": "cMtJ9vnz"
+    },
+    {
+      "email": "5005@vvit.net",
+      "password": "cMtJ9vnz"
+    }
+  ]
+}
+
+{
+  "count": 4,
+  "credentials": [
+    {
+      "email": "rajesh.m@vvit.net",
+      "password": "kL9dQrY4"
+    },
+    {
+      "email": "anita.d@vvit.net",
+      "password": "kL9dQrY4"
+    },
+    {
+      "email": "suresh.n@vvit.net",
+      "password": "kL9dQrY4"
+    },
+    {
+      "email": "kavita.i@vvit.net",
+      "password": "kL9dQrY4"
+    }
+  ]
+}

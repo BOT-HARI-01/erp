@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Management - Admin ERP</title>
+    
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/hostel.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+        <div id="header-container"></div>
+
+        <div class="dashboard-wrapper">
+            
+            <div class="page-header">
+                <h2>Hostel Management</h2>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-file-excel"></i> Upload Room List (Excel)</h3>
+                <p style="margin-bottom: 15px; color: #666; font-size: 0.9rem;">
+                    Upload an Excel file containing columns: <strong>Room Number, Sharing, Type, Capacity</strong>.
+                </p>
+                <input type="file" id="roomFile" accept=".xlsx, .xls">
+                <button onclick="uploadRooms()">
+                    <i class="fas fa-upload"></i> Upload Rooms
+                </button>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-key"></i> Allocate Room</h3>
+                <div class="form-group">
+                    <label>Student Roll Number</label>
+                    <input type="text" id="alloc-roll" placeholder="e.g. 21B81A0501">
+                </div>
+                <div class="form-group">
+                    <label>Room ID (Database ID)</label>
+                    <input type="number" id="alloc-room-id" placeholder="e.g. 101">
+                </div>
+                <button onclick="allocateRoom()">
+                    <i class="fas fa-check-circle"></i> Allocate
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/hostel.js"></script>
+</body>
+</html>

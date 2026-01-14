@@ -1,0 +1,146 @@
+:root {
+    /* Theme Variables */
+    --primary-color: #0d47a1; /* Deep Blue Accent */
+    --text-dark: #121212;     /* Almost Black */
+    --text-grey: #555555;     /* Dark Grey */
+    --bg-light: #f4f6f8;      /* Light background */
+    --white: #ffffff;
+    --border-color: #d1d5db;  /* Light grey border */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    height: 100vh;
+    /* Flex centering for the Login Page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- LOGIN CONTAINER --- */
+.login-container {
+    background: var(--white);
+    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Clean rounded corners */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Very subtle shadow */
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h2 {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.login-header p {
+    color: var(--text-grey);
+    font-size: 0.9rem;
+}
+
+/* --- FORM ELEMENTS (The Fix) --- */
+.form-group {
+    margin-bottom: 1.2rem;
+    width: 100%; /* Ensure it fills container */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Styling Inputs and Selects specifically */
+.form-group input, 
+.form-group select {
+    width: 100%;                /* Full width */
+    padding: 0.8rem;            /* Comfortable padding */
+    border: 1px solid var(--border-color);
+    background: #fafafa;
+    color: var(--text-dark);
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Focus State */
+.form-group input:focus, 
+.form-group select:focus {
+    border-color: var(--primary-color);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1); /* Subtle blue glow */
+}
+
+/* Select specific fix to ensure text isn't grayed out */
+.form-group select {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+/* --- BUTTONS & LINKS --- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: var(--text-grey);
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.forgot-password:hover {
+    color: var(--primary-color);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--text-dark); /* Black button */
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: var(--primary-color); /* Blue on hover */
+}
+
+/* --- ERROR MESSAGE --- */
+.error-message {
+    margin-top: 1rem;
+    color: #c53030; /* Red text for errors */
+    text-align: center;
+    font-size: 0.9rem;
+    min-height: 20px;
+}

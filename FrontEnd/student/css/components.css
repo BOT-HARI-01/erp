@@ -1,0 +1,136 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ffffff; /* White Background */
+    color: #121212;      /* Black Text */
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e0e0e0; /* Light grey border to separate from dashboard */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.02); /* Very subtle shadow */
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-header h3 {
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #121212; /* Black Text */
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+}
+
+/* Default Link State */
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #121212; /* Black Text */
+    text-decoration: none;
+    transition: 0.3s;
+    border-left: 4px solid transparent;
+    font-weight: 500;
+}
+
+/* Hover & Active State -> Blue Background */
+.nav-links li a:hover,
+.nav-links li a.active {
+    background: var(--primary-color); /* Uses the Blue from style.css */
+    color: #ffffff; /* White Text */
+    border-left-color: #002171; /* Darker blue accent on the edge */
+}
+
+.nav-links .icon {
+    width: 20px;
+    margin-right: 12px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.logout-item {
+    margin-top: auto;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Header Styles */
+.top-bar {
+    position: fixed;
+    left: 250px;
+    top: 0;
+    right: 0;
+    height: 60px;
+    background: #ffffff; /* White Background */
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 100;
+}
+
+.toggle-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    color: #121212;
+}
+
+.user-info {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    gap: 15px;
+    color: #121212;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.user-role {
+    font-size: 0.85rem;
+    color: #555555; /* Grey for role text */
+}
+
+.profile-pic {
+    width: 35px;
+    height: 35px;
+    background: var(--primary-color); /* Blue Circle */
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        left: -250px;
+    }
+    .sidebar.active {
+        left: 0;
+    }
+    .top-bar {
+        left: 0;
+    }
+    .toggle-btn {
+        display: block;
+    }
+}

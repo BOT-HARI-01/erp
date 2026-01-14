@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Dashboard - ERP</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../css/components.css"> <link rel="stylesheet" href="../css/faculty.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <div class="main-content">
+        <div id="header-container"></div>
+
+        <div class="dashboard-wrapper">
+            
+            <div class="welcome-card">
+                <div class="welcome-text">
+                    <h2>Welcome back, <span id="fac-name">Professor</span>! 👋</h2>
+                    <p>Glad to see you—let’s make today productive.</p>
+                </div>
+                <div class="date-display" id="current-date">...</div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="card">
+                    <h3><i class="fas fa-id-card"></i> My Profile</h3>
+                    <div class="profile-details">
+                        <div class="detail-row"><span>Name:</span> <strong id="p-name">Loading...</strong></div>
+                        <div class="detail-row"><span>Qualification:</span> <strong id="p-qual">Loading...</strong></div>
+                        <div class="detail-row"><span>Experience:</span> <strong id="p-exp">Loading...</strong></div>
+                        <div class="detail-row"><span>Class Teacher:</span> <strong class="highlight">CSE - III Year - A</strong></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fas fa-calendar-alt"></i> Today's Timetable</h3>
+                    <div id="timetable-display" class="timetable-placeholder">
+                        <img id="tt-image" src="" alt="Timetable not uploaded" style="max-width:100%; display:none;">
+                        <p id="tt-msg">Loading schedule...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script>
+        // Init Dashboard specific logic
+        document.addEventListener("DOMContentLoaded", loadFacultyDashboard);
+    </script>
+</body>
+</html>
