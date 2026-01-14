@@ -8,7 +8,7 @@ async function loadFacultyDashboard() {
         const token = localStorage.getItem('token');
         
         // 1. Fetch Profile
-        const resProfile = await fetch('/faculty/profile', {
+        const resProfile = await fetch('http://127.0.0.1::8000/faculty/profile', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
         if(resProfile.ok) {
@@ -20,7 +20,7 @@ async function loadFacultyDashboard() {
         }
 
         // 2. Fetch Timetable
-        const resTT = await fetch('/faculty/timetable', {
+        const resTT = await fetch('http://127.0.0.1::8000/faculty/timetable', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
         const ttData = await resTT.json();
@@ -89,7 +89,7 @@ async function submitAttendance() {
     });
 
     try {
-        const res = await fetch('/faculty/attendance/mark', {
+        const res = await fetch('http://127.0.0.1::8000/faculty/attendance/mark', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -238,7 +238,7 @@ async function lookupStudent() {
     if(!roll) { alert("Enter Roll No"); return; }
 
     try {
-        const res = await fetch(`/faculty/student/${roll}`, {
+        const res = await fetch(`http://127.0.0.1::8000/faculty/student/${roll}`, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         });
         

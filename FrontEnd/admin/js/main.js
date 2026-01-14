@@ -1,4 +1,6 @@
 // Function to load HTML components
+if (!localStorage.getItem('token')) window.location.href = '../../index.html'
+
 function loadComponent(elementId, filePath) {
     fetch(filePath)
         .then(response => {

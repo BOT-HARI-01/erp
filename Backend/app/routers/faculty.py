@@ -12,8 +12,9 @@ from app.services.internal_marks_service import update_internal_marks , get_inte
 from app.services.excel_marks_service import upload_internal_marks_excel
 from app.schemas.attendance import AttendanceCreate
 from app.services.attendance_service import get_student_attendance, mark_attendance
+from app.models.student import Student
+from app.models.academic import Academic
 router = APIRouter(prefix="/faculty", tags=["Faculty"])
-
 def get_db():
     db = SessionLocal()
     try:
@@ -138,3 +139,31 @@ def view_faculty_timetable(
     return {
         "image_url": timetable.image_path
     }
+# --- Add this to app/routers/faculty.py ---
+
+@router.get("/class-students")
+def get_students_by_class(
+    year: int,
+    semester: int,
+    section: str,
+    branch: str = "CSE", # Default or pass from FE
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user)
+):
+    if user["role"] != "FACULTY":
+        raise HTTPException(status_code=403, detail="Authorized for Faculty only")
+
+    # Join Academic and Student tables
+    results = db.query(Student.roll_no, Student.first_name, Student.last_name)\
+        .join(Academic, Academic.sid == Student.id)\
+        .filter(
+            Academic.year == year,
+            Academic.semester == semester,
+            Academic.section == section,
+            Academic.branch == branch
+        ).all()
+
+    return [
+        {"roll_no": r.roll_no, "name": f"{r.first_name} {r.last_name}"}
+        for r in results
+    ]

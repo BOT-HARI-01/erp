@@ -5,11 +5,20 @@ from app.core.database import get_db
 from app.core.dependencies import get_current_user
 from app.schemas.library import IssueBooksRequest, ReturnBooksRequest
 from app.services.library_service import *
-
+from app.models.library_books import LibraryBooks
 router = APIRouter(prefix="/library", tags=["Library"])
 
 
-
+@router.get("/books")
+def get_library_catalog(
+    search: str = None,
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user)
+):
+    query = db.query(LibraryBooks)
+    if search:
+        query = query.filter(LibraryBooks.title.contains(search))
+    return query.limit(50).all()
 
 @router.post("/books/upload")
 def upload_books(

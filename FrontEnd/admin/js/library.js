@@ -1,13 +1,23 @@
-// Set Default Dates
+// Set Default Dates and Load Catalog on Page Load
 document.addEventListener("DOMContentLoaded", () => {
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('issue-date').value = today;
-    document.getElementById('actual-return-date').value = today;
+    
+    const issueDateEl = document.getElementById('issue-date');
+    const returnDateEl = document.getElementById('actual-return-date');
+    const dueDateEl = document.getElementById('return-due-date');
+
+    if(issueDateEl) issueDateEl.value = today;
+    if(returnDateEl) returnDateEl.value = today;
     
     // Set Return Due date to 15 days from now
-    const due = new Date();
-    due.setDate(due.getDate() + 15);
-    document.getElementById('return-due-date').value = due.toISOString().split('T')[0];
+    if(dueDateEl) {
+        const due = new Date();
+        due.setDate(due.getDate() + 15);
+        dueDateEl.value = due.toISOString().split('T')[0];
+    }
+
+    // Load the catalog immediately
+    fetchBookCatalog();
 });
 
 // --- 1. Upload Books (Bulk) ---
@@ -29,7 +39,10 @@ async function uploadBooks() {
         });
         const data = await res.json();
         
-        if(res.ok) alert(data.message);
+        if(res.ok) {
+            alert(data.message);
+            fetchBookCatalog(); // Refresh catalog after upload
+        }
         else alert("Error: " + (data.detail || "Upload failed"));
     } catch (error) {
         console.error(error);
@@ -53,6 +66,7 @@ async function issueBooks() {
     const payload = {
         srno: srno,
         semester: parseInt(document.getElementById('issue-sem').value),
+        year: parseInt(document.getElementById('issue-year').value), // Added Year
         book_codes: codeList,
         issued_date: document.getElementById('issue-date').value,
         expected_return_date: document.getElementById('return-due-date').value
@@ -73,6 +87,7 @@ async function issueBooks() {
             alert(data.message);
             // Clear Codes input only
             document.getElementById('issue-codes').value = "";
+            fetchBookCatalog(); // Refresh availability
         } else {
             alert("Error: " + (data.detail || "Issue failed"));
         }
@@ -105,7 +120,7 @@ async function fetchPendingBooks() {
         list.innerHTML = "";
 
         if(data.length === 0) {
-            list.innerHTML = "<p style='color:grey; text-align:center;'>No pending books found.</p>";
+            list.innerHTML = "<p style='color:grey; text-align:center;'>No pending books found for this semester.</p>";
             container.style.display = 'block';
             return;
         }
@@ -144,7 +159,7 @@ async function returnBooks() {
     const payload = {
         srno: document.getElementById('return-roll').value,
         semester: parseInt(document.getElementById('return-sem').value),
-        year: 3, // Ideally this should be dynamic or fetched
+        year: 3, // Defaulting to 3 as it's often required but not crucial for return logic in some schemas
         book_codes: selectedCodes,
         return_date: document.getElementById('actual-return-date').value
     };
@@ -162,12 +177,58 @@ async function returnBooks() {
 
         if(res.ok) {
             alert(data.message);
-            fetchPendingBooks(); // Refresh list
+            fetchPendingBooks(); // Refresh list to show they are gone
+            fetchBookCatalog(); // Refresh availability
         } else {
             alert("Error: " + (data.detail || "Return failed"));
         }
     } catch (error) {
         console.error(error);
         alert("Network Error");
+    }
+}
+
+// --- 4. Fetch Book Catalog (New Integration) ---
+async function fetchBookCatalog() {
+    const search = document.getElementById('catalog-search').value || "";
+    const listBody = document.getElementById('catalog-list');
+    
+    // Fallback UI while loading
+    listBody.innerHTML = "<tr><td colspan='4'>Loading...</td></tr>";
+
+    try {
+        // Calls: GET /library/books?search=...
+        const url = search ? `http://127.0.0.1:8000/library/books?search=${search}` : 'http://127.0.0.1:8000/library/books';
+        
+        const res = await fetch(url, {
+            headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        });
+        
+        if (res.ok) {
+            const books = await res.json();
+            listBody.innerHTML = ""; // Clear loader
+
+            if (books.length === 0) {
+                listBody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>No books found.</td></tr>";
+                return;
+            }
+
+            books.forEach(b => {
+                const row = `
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px; font-weight:bold;">${b.code}</td>
+                        <td style="padding:10px;">${b.title}</td>
+                        <td style="padding:10px;">${b.author}</td>
+                        <td style="padding:10px; color:${b.available_copies > 0 ? 'green' : 'red'}">
+                            ${b.available_copies}
+                        </td>
+                    </tr>
+                `;
+                listBody.innerHTML += row;
+            });
+        }
+    } catch (e) {
+        console.error("Catalog Fetch Error", e);
+        listBody.innerHTML = "<tr><td colspan='4' style='color:red;'>Error fetching catalog.</td></tr>";
     }
 }

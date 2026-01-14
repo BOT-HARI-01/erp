@@ -1,30 +1,48 @@
-// A. Fetch List (Mocked due to missing API)
-function fetchStudentListForAttendance() {
-    const section = document.getElementById('att-sec').value;
+// --- Update in faculty/js/attendance.js ---
+
+async function fetchStudentListForAttendance() {
+    const year = document.getElementById('att-year').value;
+    const sem = document.getElementById('att-sem').value;
+    const sec = document.getElementById('att-sec').value;
+    // Assuming branch is fixed or fetched from profile, hardcoding CSE for demo
+    const branch = "CSE"; 
+
     const tableBody = document.getElementById("att-list");
-    tableBody.innerHTML = "";
+    tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
     document.getElementById("att-table-container").style.display = 'block';
 
-    // Mock Data for demo - You would replace this fetch if you add a get_students API
-    const mockStudents = [
-        { roll: "21B81A0501", name: "Amit Kumar" },
-        { roll: "21B81A0502", name: "Priya Singh" },
-        { roll: "21B81A0503", name: "Rahul Das" }
-    ];
+    try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`http://127.0.0.1:8000/faculty/class-students?year=${year}&semester=${sem}&section=${sec}&branch=${branch}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
 
-    mockStudents.forEach(stu => {
-        const row = `
-            <tr>
-                <td class="roll-cell">${stu.roll}</td>
-                <td>${stu.name}</td>
-                <td class="att-options">
-                    <label><input type="radio" name="att_${stu.roll}" value="PRESENT" checked> <span style="color:green">P</span></label>
-                    <label><input type="radio" name="att_${stu.roll}" value="ABSENT"> <span style="color:red">A</span></label>
-                </td>
-            </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
+        const students = await res.json();
+        tableBody.innerHTML = ""; // Clear loading
+
+        if (students.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="3">No students found for this selection.</td></tr>';
+            return;
+        }
+
+        students.forEach(stu => {
+            const row = `
+                <tr>
+                    <td class="roll-cell">${stu.roll_no}</td>
+                    <td>${stu.name}</td>
+                    <td class="att-options">
+                        <label><input type="radio" name="att_${stu.roll_no}" value="PRESENT" checked> <span class="radio-present">P</span></label>
+                        <label><input type="radio" name="att_${stu.roll_no}" value="ABSENT"> <span class="radio-absent">A</span></label>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+
+    } catch (error) {
+        console.error(error);
+        tableBody.innerHTML = '<tr><td colspan="3" style="color:red">Error fetching class list.</td></tr>';
+    }
 }
 
 // B. Submit Attendance (Real API)
@@ -54,7 +72,7 @@ async function submitAttendance() {
 
     try {
         // Backend: router.post("/attendance/mark")
-        const response = await fetch('/faculty/attendance/mark', {
+        const response = await fetch('http://127.0.0.1:8000/faculty/attendance/mark', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

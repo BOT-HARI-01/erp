@@ -8,7 +8,7 @@ async function loadProfile() {
     try {
         const token = localStorage.getItem('token');
         // Backend: router.get("/profile") in faculty.py
-        const response = await fetch('/faculty/profile', {
+        const response = await fetch('http://127.0.0.1::8000/faculty/profile', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -37,7 +37,7 @@ async function loadTimetable() {
     try {
         const token = localStorage.getItem('token');
         // Backend: router.get("/timetable") in faculty.py
-        const response = await fetch('/faculty/timetable', {
+        const response = await fetch('http://127.0.0.1::8000/faculty/timetable', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 

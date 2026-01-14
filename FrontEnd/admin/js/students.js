@@ -2,51 +2,57 @@ document.addEventListener("DOMContentLoaded", () => {
     filterStudents();
 });
 
-// Mock Data
-let students = [
-    { roll: "CS21101", name: "Rahul Sharma", dept: "CSE", year: "3", contact: "9876543210", status: "Active" },
-    { roll: "EC21105", name: "Priya Singh", dept: "ECE", year: "3", contact: "9876543211", status: "Active" },
-    { roll: "ME22102", name: "Amit Kumar", dept: "MECH", year: "2", contact: "9876543212", status: "Suspended" },
-    { roll: "CS23109", name: "Sneha Gupta", dept: "CSE", year: "1", contact: "9876543213", status: "Active" }
-];
 
 let currentEditRoll = null;
 
-function filterStudents() {
-    const search = document.getElementById("searchInput").value.toLowerCase();
+// --- Update in admin/js/students.js ---
+
+async function filterStudents() {
+    const search = document.getElementById("searchInput").value;
     const dept = document.getElementById("deptFilter").value;
     const year = document.getElementById("yearFilter").value;
     
     const tableBody = document.getElementById("student-list");
-    tableBody.innerHTML = "";
+    tableBody.innerHTML = '<tr><td colspan="7">Loading...</td></tr>';
 
-    students.forEach(std => {
-        const matchesSearch = std.name.toLowerCase().includes(search) || std.roll.toLowerCase().includes(search);
-        const matchesDept = dept === "All" || std.dept === dept;
-        const matchesYear = year === "All" || std.year === year;
+    try {
+        const token = localStorage.getItem('token');
+        let url = `http://127.0.0.1:8000/admin/students?branch=${dept}&year=${year}`;
+        if(search) url += `&search=${search}`;
 
-        if (matchesSearch && matchesDept && matchesYear) {
-            const statusClass = std.status === "Active" ? "status-active" : "status-suspended";
-            
+        const res = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        const students = await res.json();
+        tableBody.innerHTML = "";
+
+        if (students.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7">No records found.</td></tr>';
+            return;
+        }
+
+        students.forEach(std => {
             const row = `
                 <tr>
-                    <td><strong>${std.roll}</strong></td>
+                    <td><strong>${std.roll_no}</strong></td>
                     <td>${std.name}</td>
-                    <td>${std.dept}</td>
-                    <td>Year ${std.year}</td>
-                    <td>${std.contact}</td>
-                    <td><span class="${statusClass}">${std.status}</span></td>
+                    <td>${std.branch}</td>
+                    <td>${std.year} (${std.semester})</td>
+                    <td>${std.mobile}</td>
+                    <td><span class="status-active">${std.status}</span></td>
                     <td>
-                        <button class="action-btn" onclick="openEditModal('${std.roll}')"><i class="fas fa-edit"></i></button>
-                        <button class="action-btn btn-delete" onclick="deleteStudent('${std.roll}')"><i class="fas fa-trash"></i></button>
+                        <button class="action-btn" onclick="alert('Feature: Edit coming soon')"><i class="fas fa-edit"></i></button>
                     </td>
                 </tr>
             `;
             tableBody.innerHTML += row;
-        }
-    });
-}
+        });
 
+    } catch (e) {
+        tableBody.innerHTML = '<tr><td colspan="7" style="color:red">Error loading data.</td></tr>';
+    }
+}
 // Modal Functions
 const modal = document.getElementById("editModal");
 
