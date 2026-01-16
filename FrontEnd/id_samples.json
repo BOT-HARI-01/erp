@@ -1,47 +1,14 @@
-{
-  "count": 5,
-  "credentials": [
-    {
-      "email": "5001@vvit.net",
-      "password": "cMtJ9vnz"
-    },
-    {
-      "email": "5002@vvit.net",
-      "password": "cMtJ9vnz"
-    },
-    {
-      "email": "5003@vvit.net",
-      "password": "cMtJ9vnz"
-    },
-    {
-      "email": "5004@vvit.net",
-      "password": "cMtJ9vnz"
-    },
-    {
-      "email": "5005@vvit.net",
-      "password": "cMtJ9vnz"
-    }
-  ]
-}
+#	Email	Generated Password
+1	5001@vvit.net	gSMbhhcL
+2	5002@vvit.net	gSMbhhcL
+3	5003@vvit.net	gSMbhhcL
+4	5004@vvit.net	gSMbhhcL
+5	5005@vvit.net	gSMbhhcL
 
-{
-  "count": 4,
-  "credentials": [
-    {
-      "email": "rajesh.m@vvit.net",
-      "password": "kL9dQrY4"
-    },
-    {
-      "email": "anita.d@vvit.net",
-      "password": "kL9dQrY4"
-    },
-    {
-      "email": "suresh.n@vvit.net",
-      "password": "kL9dQrY4"
-    },
-    {
-      "email": "kavita.i@vvit.net",
-      "password": "kL9dQrY4"
-    }
-  ]
-}
+
+
+#	Email	Generated Password
+1	rajesh.m@vvit.net	xuuC6rnv
+2	anita.d@vvit.net	xuuC6rnv
+3	suresh.n@vvit.net	xuuC6rnv
+4	kavita.i@vvit.net	xuuC6rnv

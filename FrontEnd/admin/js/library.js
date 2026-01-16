@@ -1,4 +1,3 @@
-// Set Default Dates and Load Catalog on Page Load
 document.addEventListener("DOMContentLoaded", () => {
     const today = new Date().toISOString().split('T')[0];
     
@@ -9,18 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if(issueDateEl) issueDateEl.value = today;
     if(returnDateEl) returnDateEl.value = today;
     
-    // Set Return Due date to 15 days from now
     if(dueDateEl) {
         const due = new Date();
         due.setDate(due.getDate() + 15);
         dueDateEl.value = due.toISOString().split('T')[0];
     }
 
-    // Load the catalog immediately
     fetchBookCatalog();
 });
 
-// --- 1. Upload Books (Bulk) ---
 async function uploadBooks() {
     const fileInput = document.getElementById('bookFile');
     if (!fileInput.files[0]) {
@@ -50,7 +46,6 @@ async function uploadBooks() {
     }
 }
 
-// --- 2. Issue Books ---
 async function issueBooks() {
     const srno = document.getElementById('issue-roll').value.trim();
     const codes = document.getElementById('issue-codes').value.trim();
@@ -60,13 +55,11 @@ async function issueBooks() {
         return;
     }
 
-    // Convert "B1, B2" -> ["B1", "B2"]
     const codeList = codes.split(',').map(c => c.trim()).filter(c => c !== "");
 
     const payload = {
         srno: srno,
         semester: parseInt(document.getElementById('issue-sem').value),
-        year: parseInt(document.getElementById('issue-year').value), // Added Year
         book_codes: codeList,
         issued_date: document.getElementById('issue-date').value,
         expected_return_date: document.getElementById('return-due-date').value

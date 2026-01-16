@@ -1,4 +1,7 @@
-/* --- Page Header --- */
+
+.dashboard-wrapper{
+    margin-top: 100vh;
+}
 .page-header {
     margin-bottom: 25px;
 }
@@ -8,7 +11,6 @@
     font-weight: 600;
 }
 
-/* --- Cards --- */
 .card {
     background: white;
     padding: 25px;
@@ -30,7 +32,6 @@
     gap: 10px;
 }
 
-/* --- Catalog Upload Section --- */
 .helper-text {
     color: #666;
     font-size: 0.9rem;

@@ -14,6 +14,7 @@ from app.schemas.attendance import AttendanceCreate
 from app.services.attendance_service import get_student_attendance, mark_attendance
 from app.models.student import Student
 from app.models.academic import Academic
+
 router = APIRouter(prefix="/faculty", tags=["Faculty"])
 def get_db():
     db = SessionLocal()

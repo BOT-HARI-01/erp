@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLibraryView();
 });
 
-// --- MOCK DATA ---
 const libraryData = {
     "6": [ // Current Semester
         { id: "LIB-CS-601", name: "Deep Learning (Adaptive Comp)", subject: "AI/ML", issueDate: "10-Jan-2025", returnDate: "25-Jan-2025", status: "Issued" },

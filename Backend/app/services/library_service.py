@@ -55,11 +55,9 @@ def issue_books_to_student(db, req):
         Academic.srno == req.srno   
     ).order_by(Academic.year.desc()).first()
     for book_code in req.book_codes:
-
         book = db.query(LibraryBooks).filter(
             LibraryBooks.code == book_code
         ).first()
-
         if not book:
             raise Exception(f"Book {book_code} not found")
 
@@ -136,7 +134,7 @@ def return_books(db: Session, req, admin_email: str):
     issues = db.query(LibraryIssue).filter(
         LibraryIssue.srno == req.srno,
         LibraryIssue.semester == req.semester,
-        LibraryIssue.year == req.year,
+        # LibraryIssue.year == req.year,
         LibraryIssue.status == "ISSUED",
         LibraryIssue.book_code.in_(req.book_codes)
     ).all()

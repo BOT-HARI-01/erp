@@ -14,6 +14,10 @@ from app.services.excel_marks_service import upload_external_marks_excel
 from app.services.hostel_service import allocate_student_hostel, upload_hostel_rooms_excel
 from app.models.student import Student
 from app.models.academic import Academic
+from sqlalchemy import func
+from app.models.faculty import Faculty
+from app.models.payment import Payment
+
 router = APIRouter(prefix="/admin")
 
 @router.post("/upload-students")
@@ -91,7 +95,7 @@ def allocate(req: HostelAllocateRequest, db: Session = Depends(get_db), user=Dep
 def get_all_students(
     search: str = None,
     branch: str = None,
-    year: int = None,
+    year: str = None,
     db: Session = Depends(get_db),
     user=Depends(get_current_user)
 ):
@@ -124,3 +128,62 @@ def get_all_students(
         }
         for s, a in results
     ]
+@router.get("/dashboard/stats")
+def get_dashboard_stats(
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user)
+):
+    if user["role"] != "ADMIN":
+        raise HTTPException(status_code=403, detail="Only Admin allowed")
+
+    # 1. Total Students
+    total_students = db.query(Student).count()
+
+    # 2. Active Faculty
+    active_faculty = db.query(Faculty).count()
+
+    # 3. Fees Collected (Sum of all successful payments)
+    total_fees = db.query(func.sum(Payment.amount_paid)).filter(Payment.status == "PAID").scalar() or 0
+
+    # 4. Pending Admissions (Logic: Students without Academic records or explicit 'Pending' status)
+    # Assuming 'Academic' record creation marks a completed admission
+    admitted_ids = db.query(Academic.sid).distinct()
+    pending_admissions = db.query(Student).filter(Student.id.notin_(admitted_ids)).count()
+
+    return {
+        "total_students": total_students,
+        "active_faculty": active_faculty,
+        "fees_collected": total_fees,
+        "pending_admissions": pending_admissions
+    }
+
+# --- RECENT ACTIVITY API ---
+@router.get("/dashboard/activity")
+def get_recent_activity(
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user)
+):
+    if user["role"] != "ADMIN":
+        raise HTTPException(status_code=403, detail="Only Admin allowed")
+
+    activity_log = []
+
+    # Get last 3 new students
+    recent_students = db.query(Student).order_by(Student.id.desc()).limit(3).all()
+    for s in recent_students:
+        activity_log.append({
+            "action": "New Student Joined",
+            "user": f"{s.first_name} {s.last_name}",
+            "time": "Recently" # You can use created_at if added to model
+        })
+
+    # Get last 3 payments
+    recent_payments = db.query(Payment).order_by(Payment.id.desc()).limit(3).all()
+    for p in recent_payments:
+        activity_log.append({
+            "action": f"Fee Payment ({p.fee_type})",
+            "user": p.srno, # Roll No
+            "time": str(p.payment_date)
+        })
+
+    return activity_log

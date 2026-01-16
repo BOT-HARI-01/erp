@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   updateFeeView(); // Load default view
 });
-
+function getAuthHeaders() {
+    return {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+    };
+}
 async function updateFeeView() {
   const semester = document.getElementById("semesterSelect").value;
 
@@ -14,7 +19,9 @@ async function updateFeeView() {
 
   try {
     const res = await fetch(
-      `http://127.0.0.1:8000/student/payments?semester=${semester}`
+      `http://127.0.0.1:8000/student/payments?semester=${semester}`,{
+        headers:getAuthHeaders(),
+      }
     );
 
     if (!res.ok) throw new Error("Failed to fetch payment data");

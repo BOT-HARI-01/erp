@@ -2,67 +2,86 @@ document.addEventListener("DOMContentLoaded", () => {
     loadHostelData();
 });
 
-// --- MOCK DATA ---
-const hostelData = {
-    isAllocated: true, // Change to 'false' to test "Not Allocated" view
-    block: "Block A (Boys)",
-    roomNo: "304",
-    roomType: "4-Seater Non-AC",
-    myBed: "Bed A",
-    fees: {
-        total: 30000,
-        paid: 30000,
-        due: 0
-    },
-    roommates: [
-        { bed: "Bed B", name: "Vikram Singh", roll: "CS21046", branch: "CSE" },
-        { bed: "Bed C", name: "Amit Kumar", roll: "ME21012", branch: "MECH" },
-        { bed: "Bed D", name: "Rohan Das", roll: "EE21055", branch: "EEE" }
-    ]
-};
-
-function loadHostelData() {
+async function loadHostelData() {
+    // UI Elements - Details
     const statusBadge = document.getElementById("status-badge");
-    const detailsGrid = document.getElementById("allocation-details");
     const roommateSection = document.getElementById("roommate-section");
+    const roommateList = document.getElementById("roommate-list");
+    
+    // UI Elements - Fees
+    const feeTotalEl = document.getElementById("fee-total");
+    const feePaidEl = document.getElementById("fee-paid");
+    const feeDueEl = document.getElementById("fee-due");
 
-    // 1. Check Allocation Status
-    if (hostelData.isAllocated) {
-        // --- ALLOCATED VIEW ---
-        statusBadge.innerText = "Allocated";
-        statusBadge.classList.add("allocated");
+    const token = localStorage.getItem('token');
 
-        // Populate Details
-        document.getElementById("h-block").innerText = hostelData.block;
-        document.getElementById("h-room").innerText = hostelData.roomNo;
-        document.getElementById("h-type").innerText = hostelData.roomType;
-        document.getElementById("h-bed").innerText = hostelData.myBed;
-
-        // Populate Roommates
-        const roommateList = document.getElementById("roommate-list");
-        hostelData.roommates.forEach(mate => {
-            const row = `
-                <tr>
-                    <td><strong>${mate.bed}</strong></td>
-                    <td>${mate.name}</td>
-                    <td>${mate.roll}</td>
-                    <td>${mate.branch}</td>
-                </tr>
-            `;
-            roommateList.innerHTML += row;
+    try {
+        const response = await fetch('http://127.0.0.1:8000/student/hostel', {
+            method: 'GET',
+            headers: { 
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
         });
 
-    } else {
-        // --- NOT ALLOCATED VIEW ---
-        statusBadge.innerText = "Not Allocated";
-        statusBadge.classList.add("not-allocated");
+        if (!response.ok) {
+            throw new Error("Failed to fetch hostel data");
+        }
 
-        detailsGrid.innerHTML = `<p style="color: #666; grid-column: 1/-1;">You have not been allocated a room yet. Please contact the Hostel Warden.</p>`;
-        roommateSection.style.display = "none"; // Hide roommate section
+        const data = await response.json();
+
+        const isAllocated = data.room_number !== undefined;
+
+        if (isAllocated) {
+   
+            statusBadge.innerText = "Allocated";
+            statusBadge.className = "badge allocated"; 
+
+            document.getElementById("h-block").innerText = "Hostel Block"; 
+            document.getElementById("h-room").innerText = data.room_number;
+            document.getElementById("h-type").innerText = `${data.sharing}-Seater ${data.room_type}`;
+            document.getElementById("h-bed").innerText = "Assigned"; // Specific bed letter not in current API response
+
+            if (data.fee) {
+                feeTotalEl.innerText = `₹ ${data.fee.total.toLocaleString()}`;
+                feePaidEl.innerText = `₹ ${data.fee.paid.toLocaleString()}`;
+                
+                const dueAmount = data.fee.due;
+                feeDueEl.innerText = `₹ ${dueAmount.toLocaleString()}`;
+                
+                feeDueEl.style.color = dueAmount > 0 ? "#c0392b" : "#27ae60"; 
+            }
+
+            roommateSection.style.display = "block";
+            roommateList.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align:center; color:#999; padding:20px; font-style:italic;">
+                        Roommate details not available in this view.
+                    </td>
+                </tr>
+            `;
+
+        } else {
+            statusBadge.innerText = "Not Allocated";
+            statusBadge.className = "badge"; // Default grey style
+            statusBadge.style.backgroundColor = "#e0e0e0";
+            statusBadge.style.color = "#555";
+
+            document.getElementById("h-block").innerText = "--";
+            document.getElementById("h-room").innerText = "--";
+            document.getElementById("h-type").innerText = "--";
+            document.getElementById("h-bed").innerText = "--";
+
+            roommateSection.style.display = "none";
+
+            feeTotalEl.innerText = "₹ 0";
+            feePaidEl.innerText = "₹ 0";
+            feeDueEl.innerText = "₹ 0";
+        }
+
+    } catch (error) {
+        console.error("Error loading hostel data:", error);
+        statusBadge.innerText = "Error Loading";
+        statusBadge.style.color = "red";
     }
-
-    // 2. Populate Fees (Always visible)
-    document.getElementById("fee-total").innerText = `₹ ${hostelData.fees.total.toLocaleString()}`;
-    document.getElementById("fee-paid").innerText = `₹ ${hostelData.fees.paid.toLocaleString()}`;
-    document.getElementById("fee-due").innerText = `₹ ${hostelData.fees.due.toLocaleString()}`;
 }
