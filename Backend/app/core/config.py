@@ -1,8 +1,8 @@
 
 import os
 
-JWT_SECRET = "supersecretkey"   # move to .env 
+JWT_SECRET = os.getenv("JWT_SECRET", "supersecretkey12345678912345678912345678")
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_MINUTES = 60
 
-DATABASE_URL = "mysql+pymysql://root:toni@127.0.0.1:3306/erp_db"
+DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:0000@127.0.0.1:3306/erp_db")

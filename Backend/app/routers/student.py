@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from app.services.notification_service import get_student_notifications
 from app.core.database import SessionLocal
 from app.core.dependencies import get_current_user
 from app.models.external_marks import ExternalMarks
@@ -225,3 +226,19 @@ def view_student_timetable(
         return {"timetable": None}
 
     return {"image_url": timetable.image_path}
+
+@router.get("/notifications")
+def view_notifications(
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    if current_user["role"] != "STUDENT":
+        raise HTTPException(403, "Access denied")
+
+    
+    batch = db.query(Academic.batch).filter(Academic.user_email == current_user["sub"]).scalar()
+    print("Student Batch:", batch)
+    if not batch:
+        raise HTTPException(404, "Student academic record not found")
+
+    return get_student_notifications(db, current_user["sub"], batch)

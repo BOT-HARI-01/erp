@@ -18,5 +18,6 @@ from app.models.library_issue import LibraryIssue
 from app.models.timetable import TimeTable
 from app.models.hod import HODProfile
 from app.models.admin import AdminProfile
+from app.models.notification import Notification
 Base.metadata.create_all(bind=engine)
 print("Tables created successfully")

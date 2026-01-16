@@ -1,6 +1,9 @@
 from fastapi import APIRouter, UploadFile, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.schemas.notification import NotificationCreate
+from app.services.notification_service import create_notification
+from app.services.notification_service import create_notification
 from app.schemas.hostel import HostelAllocateRequest, HostelRoomCreate
 from app.services.excel_service import process_excel
 from app.core.database import get_db
@@ -214,3 +217,14 @@ def get_recent_activity(
         })
 
     return activity_log
+
+@router.post("/notifications")
+def send_notification(
+    data: NotificationCreate,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    if current_user["role"] != "ADMIN":
+        raise HTTPException(403, "Access denied")
+
+    return create_notification(db, data, current_user["sub"])
