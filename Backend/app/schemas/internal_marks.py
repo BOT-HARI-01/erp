@@ -6,10 +6,6 @@ class InternalMarksFetch(BaseModel):
     year: int
     semester: int
 
-class InternalMarksFetch(BaseModel):
-    roll_no: str
-    year: int
-    semester: int
 
 class InternalMarksUpdate(BaseModel):
     roll_no: str

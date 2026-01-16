@@ -15,7 +15,11 @@ function highlightCurrentPage() {
         if(link.getAttribute('href').includes(page)) link.classList.add('active');
     });
 }
+function confirmLogout() {
+    localStorage.clear();
+    return confirm("Are you sure you want to log out?");
 
+}
 document.addEventListener("DOMContentLoaded", () => {
     // Assumes components folder is at ../components relative to html files
     loadComponent('sidebar-container', '../components/sidebar.html');

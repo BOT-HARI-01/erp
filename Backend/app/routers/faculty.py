@@ -23,12 +23,14 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/profile", response_model=FacultyProfileResponse)
+@router.get("/get-profile", response_model=FacultyProfileResponse)
 def view_profile(user=Depends(get_current_user), db: Session = Depends(get_db)):
+    print('here in ')
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403)
 
     faculty = get_faculty_by_email(db, user["sub"])
+    print(faculty)
     if not faculty:
         raise HTTPException(status_code=404, detail="Profile not found")
     return faculty

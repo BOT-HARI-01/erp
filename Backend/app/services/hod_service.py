@@ -12,7 +12,7 @@ def update_hod_profile(db: Session, email: str, data):
 
     
     for key, value in data.dict(exclude_unset=True).items():
-        setattr(hod, key, value)
+        setattr(hod, key, value) 
 
     db.commit()
     db.refresh(hod)

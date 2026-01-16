@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     loadProfile();
     loadTimetable();
-});
+}); 
 
 // 1. Load Profile
 async function loadProfile() {
     try {
         const token = localStorage.getItem('token');
         // Backend: router.get("/profile") in faculty.py
-        const response = await fetch('http://127.0.0.1::8000/faculty/profile', {
+        const response = await fetch('http://127.0.0.1:8000/faculty/get-profile', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -18,6 +18,7 @@ async function loadProfile() {
 
         if (response.ok) {
             const data = await response.json();
+            console.log(data)
             // Update UI elements
             document.getElementById('fac-name').textContent = data.last_name || "Professor";
             document.getElementById('p-name').textContent = `${data.first_name} ${data.last_name}`;
@@ -37,7 +38,7 @@ async function loadTimetable() {
     try {
         const token = localStorage.getItem('token');
         // Backend: router.get("/timetable") in faculty.py
-        const response = await fetch('http://127.0.0.1::8000/faculty/timetable', {
+        const response = await fetch('http://127.0.0.1:8000/faculty/timetable', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 

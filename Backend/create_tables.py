@@ -15,5 +15,8 @@ from app.models.hostel_room import HostelRoom
 from app.models.hostel_allocation import HostelAllocation
 from app.models.library_books import LibraryBooks
 from app.models.library_issue import LibraryIssue
+from app.models.timetable import TimeTable
+from app.models.hod import HODProfile
+from app.models.admin import AdminProfile
 Base.metadata.create_all(bind=engine)
 print("Tables created successfully")

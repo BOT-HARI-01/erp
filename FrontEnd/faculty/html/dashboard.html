@@ -28,7 +28,13 @@
 
             <div class="grid-2-col">
                 <div class="card">
-                    <h3><i class="fas fa-id-card"></i> My Profile</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0;"><i class="fas fa-id-card"></i> My Profile</h3>
+                        <a href="profile.html" style="font-size: 0.9rem; color: #0d47a1; text-decoration: none; font-weight: 600;">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </div>
+                    
                     <div class="profile-details">
                         <div class="detail-row"><span>Name:</span> <strong id="p-name">Loading...</strong></div>
                         <div class="detail-row"><span>Qualification:</span> <strong id="p-qual">Loading...</strong></div>
@@ -51,9 +57,6 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/dashboard.js"></script>
-    <script>
-        // Init Dashboard specific logic
-        document.addEventListener("DOMContentLoaded", loadFacultyDashboard);
-    </script>
+
 </body>
 </html>

@@ -1,77 +1,130 @@
-// --- Update in faculty/js/attendance.js ---
-
+// --- A. Fetch Class List ---
 async function fetchStudentListForAttendance() {
+    // 1. Get Values
+    const dateVal = document.getElementById('att-date').value;
     const year = document.getElementById('att-year').value;
     const sem = document.getElementById('att-sem').value;
-    const sec = document.getElementById('att-sec').value;
-    // Assuming branch is fixed or fetched from profile, hardcoding CSE for demo
-    const branch = "CSE"; 
+    
+    // Get Manual Inputs and Force Uppercase
+    const sec = document.getElementById('att-sec').value.trim().toUpperCase();
+    const branch = document.getElementById('att-branch').value.trim().toUpperCase();
+
+    // Basic Validation
+    if (!year || !sem || !sec || !branch) {
+        alert("Please fill in Year, Semester, Branch, and Section.");
+        return;
+    }
 
     const tableBody = document.getElementById("att-list");
-    tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
-    document.getElementById("att-table-container").style.display = 'block';
+    const container = document.getElementById("att-table-container");
+
+    // Show Loading
+    container.style.display = 'block';
+    tableBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px;">Loading students...</td></tr>';
 
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`http://127.0.0.1:8000/faculty/class-students?year=${year}&semester=${sem}&section=${sec}&branch=${branch}`, {
+        // Construct Query
+        const queryParams = new URLSearchParams({
+            year: year,
+            semester: sem,
+            section: sec,
+            branch: branch
+        });
+
+        const res = await fetch(`http://127.0.0.1:8000/faculty/class-students?${queryParams}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
+
+        if (!res.ok) {
+            const errData = await res.json();
+            throw new Error(errData.detail || "Failed to fetch");
+        }
 
         const students = await res.json();
         tableBody.innerHTML = ""; // Clear loading
 
         if (students.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="3">No students found for this selection.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px;">No students found for this selection.</td></tr>';
+            updateSummary(0, 0, 0);
             return;
         }
 
+        // Render Rows with Better UI
         students.forEach(stu => {
             const row = `
                 <tr>
-                    <td class="roll-cell">${stu.roll_no}</td>
+                    <td class="roll-cell" style="font-family:monospace; font-weight:600;">${stu.roll_no}</td>
                     <td>${stu.name}</td>
-                    <td class="att-options">
-                        <label><input type="radio" name="att_${stu.roll_no}" value="PRESENT" checked> <span class="radio-present">P</span></label>
-                        <label><input type="radio" name="att_${stu.roll_no}" value="ABSENT"> <span class="radio-absent">A</span></label>
+                    <td class="text-center">
+                        <div class="att-radio-group">
+                            <label>
+                                <input type="radio" name="att_${stu.roll_no}" value="PRESENT" checked onchange="calculateSummary()"> 
+                                <span class="att-label"><i class="fas fa-check"></i> Present</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="att_${stu.roll_no}" value="ABSENT" onchange="calculateSummary()"> 
+                                <span class="att-label"><i class="fas fa-times"></i> Absent</span>
+                            </label>
+                        </div>
                     </td>
                 </tr>
             `;
             tableBody.innerHTML += row;
         });
 
+        // Initial Summary Calculation
+        calculateSummary();
+
     } catch (error) {
         console.error(error);
-        tableBody.innerHTML = '<tr><td colspan="3" style="color:red">Error fetching class list.</td></tr>';
+        tableBody.innerHTML = `<tr><td colspan="3" style="color:red; text-align:center; padding:20px;">Error: ${error.message}</td></tr>`;
     }
 }
 
-// B. Submit Attendance (Real API)
+// --- Helper: Update Summary Text ---
+function calculateSummary() {
+    const total = document.querySelectorAll('#att-list tr').length;
+    const present = document.querySelectorAll('#att-list input[value="PRESENT"]:checked').length;
+    const absent = total - present;
+    updateSummary(total, present, absent);
+}
+
+function updateSummary(total, present, absent) {
+    document.getElementById('att-summary').innerHTML = 
+        `Total: <strong>${total}</strong> | <span style="color:#28a745">Present: <strong>${present}</strong></span> | <span style="color:#dc3545">Absent: <strong>${absent}</strong></span>`;
+}
+
+// --- B. Submit Attendance ---
 async function submitAttendance() {
     const token = localStorage.getItem('token');
     
-    // Construct Payload matching 'AttendanceCreate' schema in app/schemas/attendance.py
+    // Validate Date
+    const dateVal = document.getElementById('att-date').value;
+    if (!dateVal) { alert("Please select a date first."); return; }
+
     const payload = {
         subject_code: document.getElementById('att-sub').value,
         subject_name: document.getElementById('att-sub').options[document.getElementById('att-sub').selectedIndex].text,
         year: parseInt(document.getElementById('att-year').value),
         semester: parseInt(document.getElementById('att-sem').value),
-        date: document.getElementById('att-date').value,
+        date: dateVal,
         period: parseInt(document.getElementById('att-period').value),
         attendance: [] 
     };
 
-    if (!payload.date) { alert("Please select a date"); return; }
-
-    // Gather data from table
+    // Gather data
     const rows = document.querySelectorAll('#att-list tr');
+    if (rows.length === 0) { alert("No students to submit."); return; }
+
     rows.forEach(row => {
         const roll = row.querySelector('.roll-cell').innerText;
+        // Find checked radio in this row
         const status = row.querySelector(`input[name="att_${roll}"]:checked`).value;
         payload.attendance.push({ roll_no: roll, status: status });
     });
 
     try {
-        // Backend: router.post("/attendance/mark")
         const response = await fetch('http://127.0.0.1:8000/faculty/attendance/mark', {
             method: 'POST',
             headers: {
@@ -84,12 +137,13 @@ async function submitAttendance() {
         const result = await response.json();
         
         if (response.ok) {
-            alert(result.message);
+            alert(  result.message);
+            // Optional: Reset or clear table
         } else {
             alert("Error: " + (result.detail || "Failed to mark attendance"));
         }
     } catch (error) {
         console.error("Network Error:", error);
-        alert("Network Error");
+        alert("Network Error. Check console.");
     }
 }

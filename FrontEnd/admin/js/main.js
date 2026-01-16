@@ -46,7 +46,11 @@ function toggleSidebar() {
         }
     }
 }
+function confirmLogout() {
+    localStorage.clear();
+    return confirm("Are you sure you want to log out?");
 
+}
 // Initialize components when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
     // Note the path: ../components/ because this script runs from admin/html/
