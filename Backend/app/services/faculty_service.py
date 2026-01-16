@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from app.models import payment
 from app.models.faculty import Faculty
 from app.models.student import Student
 from app.models.academic import Academic
@@ -37,7 +38,9 @@ def get_student_info_by_rollno(db: Session, roll_no: str):
     academic = db.query(Academic).filter(
         Academic.sid == student.id
     ).order_by(Academic.year.desc()).first()
-
+    payment_records = db.query(payment.Payment).filter(
+        payment.Payment.srno == student.roll_no
+    ).all()
     return {
         "roll_no": student.roll_no,
         "first_name": student.first_name,
@@ -46,7 +49,7 @@ def get_student_info_by_rollno(db: Session, roll_no: str):
         "mobile_no": student.mobile_no,
         "parent_mobile_no": student.parent_mobile_no,
         "address": student.address,
-
+        "parentname": student.parentname,
         "branch": academic.branch if academic else None,
         "batch": academic.batch if academic else None,
         "course": academic.course if academic else None,
@@ -54,5 +57,6 @@ def get_student_info_by_rollno(db: Session, roll_no: str):
         "semester": academic.semester if academic else None,
         "section": academic.section if academic else None,
         "type": academic.type if academic else None,
-        "status": academic.status if academic else None
+        "status": academic.status if academic else None,
+        "payment_records": payment_records
     }

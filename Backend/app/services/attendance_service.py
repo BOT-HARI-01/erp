@@ -1,3 +1,4 @@
+from decimal import Decimal
 from app.models.attendance_session import AttendanceSession
 from app.models.attendance_record import AttendanceRecord
 from app.models.student import Student
@@ -218,3 +219,28 @@ def get_subject_wise_attendance(db, srno: str, semester: int):
         })
 
     return response
+def get_low_subjects(db, srno: str, semester: int, threshold: float = 75.0):
+    
+    rows = get_subject_wise_attendance(db, srno, semester)
+
+    low_subjects = []
+    threshold = Decimal("75.0")
+    
+    for r in rows:
+        total = r["total_classes"]
+        attended = r["attended_classes"]
+
+        percentage = round((attended / total) * 100, 2) if total else 0
+        percentage = Decimal(percentage)
+        if percentage < threshold:
+            low_subjects.append({
+                "subject_code": r["subject_code"],
+                "subject_name": r["subject_name"],
+                "total_classes": total,
+                "attended_classes": attended,
+                "attendance_percentage": percentage,
+                "required_percentage": threshold,
+                "short_by": round(threshold - percentage, 2)
+            })
+
+    return low_subjects

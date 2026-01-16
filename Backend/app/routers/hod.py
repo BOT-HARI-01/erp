@@ -1,6 +1,7 @@
 from fastapi import Depends, HTTPException
 from app.core.database import get_db
 from app.core.dependencies import get_current_user
+from app.services.faculty_service import get_faculty_by_email, get_student_info_by_rollno
 from app.services.timetable_service import upload_timetable_image
 from fastapi import APIRouter, UploadFile, File
 from sqlalchemy.orm import Session
@@ -76,3 +77,30 @@ def get_student_analytics(
         }
         for s, m in results
     ]
+
+@router.get("/student/{roll_no}")
+def hod_view_student_by_rollno(
+    roll_no: str,
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if user["role"] != "HOD":
+        raise HTTPException(status_code=403, detail="Only HOD allowed")
+
+    data = get_student_info_by_rollno(db, roll_no)
+    if not data:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    return data
+@router.get("/view/faculty/{email}")
+def view_faculty(
+        email:str,
+        user=Depends(get_current_user),
+        db: Session =Depends(get_db)
+                 ):
+    if user["role"] != "HOD":
+        raise HTTPException(status_code=403,detail="Only HOD Allowed")
+    data= get_faculty_by_email(db,email)
+    if not data:
+        return HTTPException(status_code=404, detail="Faculty not found")
+    return data

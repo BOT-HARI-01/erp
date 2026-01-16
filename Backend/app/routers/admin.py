@@ -11,7 +11,7 @@ from app.schemas.fee_structure import FeeStructureBulkCreate
 from app.services.fee_structure_service import bulk_create_fee_structure
 from app.schemas.external_marks import ExternalMarksCreate
 from app.services.excel_marks_service import upload_external_marks_excel
-from app.services.hostel_service import allocate_student_hostel, upload_hostel_rooms_excel
+from app.services.hostel_service import allocate_student_hostel, upload_hostel_rooms_excel, vacate_hostel_room
 from app.models.student import Student
 from app.models.academic import Academic
 from sqlalchemy import func
@@ -90,7 +90,13 @@ def upload_hostel_rooms(
 def allocate(req: HostelAllocateRequest, db: Session = Depends(get_db), user=Depends(get_current_user)):
     allocate_student_hostel(db, req, user["sub"])
     return {"message": "Student allocated"}
+@router.post("/hostel/room/vacate")
+def vacate_room(req: HostelAllocateRequest, db: Session = Depends(get_db), user=Depends(get_current_user)):
+    if user["role"] != "ADMIN":
+        raise HTTPException(status_code=403, detail="Only admin allowed")
 
+    vacate_hostel_room(db, req, user["sub"])
+    return {"message": "Student vacated"}
 @router.get("/students")
 def get_all_students(
     search: str = None,

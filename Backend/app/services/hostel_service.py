@@ -53,7 +53,7 @@ def allocate_student_hostel(db, req, admin_email):
         raise Exception("Student is not a hosteler")
 
     room = db.query(HostelRoom).filter(
-        HostelRoom.id == req.room_id,
+        HostelRoom.room_number == req.room_number,
         HostelRoom.is_active == True
     ).first()
 
@@ -129,3 +129,23 @@ def get_student_hostel_details(db, student_email):
             "last_paid_date": payment.payment_date
         }
     }
+
+def vacate_hostel_room(db, req, admin_email):
+
+    student = db.query(Student).filter(
+        Student.roll_no == req.roll_no
+    ).first()
+    allocation = db.query(HostelAllocation).filter(
+        HostelAllocation.student_id == student.id,
+        HostelAllocation.status == "ALLOCATED"
+    ).first()
+    if not allocation:
+        raise Exception("No active allocation found for the student")
+    
+    room = db.query(HostelRoom).filter(
+        HostelRoom.room_number == req.room_number
+    ).first()
+    allocation.status = "VACATED"
+    allocation.vacated_date = date.today()
+    room.occupied -= 1
+    db.commit()

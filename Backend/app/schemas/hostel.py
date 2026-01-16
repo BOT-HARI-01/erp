@@ -11,4 +11,4 @@ class HostelRoomCreate(BaseModel):
 
 class HostelAllocateRequest(BaseModel):
     roll_no: str
-    room_id: int
+    room_number: str

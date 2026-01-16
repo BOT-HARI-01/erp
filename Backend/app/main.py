@@ -9,6 +9,7 @@ from app.routers.payment import router as payment_router
 from app.routers.admin import router as admin_router
 from app.routers.library import router as library_router
 from app.routers.hod import router as hod_router
+from app.routers.ai_route import router as ai_router
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="ERP Student Management System")
 
@@ -29,3 +30,4 @@ app.include_router(payment_router)
 app.include_router(admin_router)
 app.include_router(library_router)
 app.include_router(hod_router)
+app.include_router(ai_router)
