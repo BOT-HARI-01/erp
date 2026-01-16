@@ -1,86 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>User Management - Admin ERP</title>
-    
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/users.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
 
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/users.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div id="sidebar-container"></div>
 
     <div class="main-content">
-        <div id="header-container"></div>
+      <div id="header-container"></div>
 
-        <div class="dashboard-wrapper">
-            
-            <div class="page-header">
-                <h2>User Account Management</h2>
-            </div>
-
-            <div class="grid-layout">
-                
-                <div class="card upload-card">
-                    <h3><i class="fas fa-user-plus"></i> Bulk User Creation</h3>
-                    <p class="helper-text">
-                        Upload an Excel file with a column named <strong>'email'</strong>. 
-                        The system will generate random passwords for new users.
-                    </p>
-                    
-                    <div class="form-group">
-                        <label>Select Role</label>
-                        <select id="userRole">
-                            <option value="STUDENT">Student</option>
-                            <option value="FACULTY">Faculty</option>
-                        </select>
-                    </div>
-
-                    <div class="upload-area" id="drop-zone">
-                        <input type="file" id="userFile" hidden accept=".xlsx, .xls">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Click to Upload Excel File</p>
-                        <span id="file-name"></span>
-                    </div>
-
-                    <button class="primary-btn" onclick="bulkUserSignup()">
-                        <i class="fas fa-cogs"></i> Generate Accounts
-                    </button>
-                </div>
-
-                <div class="card results-card" id="results-container" style="display: none;">
-                    <div class="card-header">
-                        <h3><i class="fas fa-key"></i> Generated Credentials</h3>
-                        <button class="btn-download" onclick="downloadCredentials()">
-                            <i class="fas fa-download"></i> Download CSV
-                        </button>
-                    </div>
-                    
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Email</th>
-                                    <th>Generated Password</th>
-                                </tr>
-                            </thead>
-                            <tbody id="credentials-list">
-                                </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-
+      <div class="dashboard-wrapper">
+        <div class="page-header">
+          <h2>User Account Management</h2>
         </div>
+
+        <div class="grid-layout">
+          <div class="card upload-card">
+            <h3><i class="fas fa-user-plus"></i> Bulk User Creation</h3>
+            <p class="helper-text">
+              Upload an Excel file with a column named <strong>'email'</strong>.
+              The system will generate random passwords for new users.
+            </p>
+
+            <div class="form-group">
+              <label>Select Role</label>
+              <select id="userRole">
+                <option value="STUDENT">Student</option>
+                <option value="FACULTY">Faculty</option>
+              </select>
+            </div>
+
+            <div class="upload-area" id="drop-zone">
+              <input type="file" id="userFile" hidden accept=".xlsx, .xls" />
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Click to Upload Excel File</p>
+              <span id="file-name"></span>
+            </div>
+
+            <button class="primary-btn" onclick="bulkUserSignup()">
+              <i class="fas fa-cogs"></i> Generate Accounts
+            </button>
+          </div>
+
+          <div
+            class="card results-card"
+            id="results-container"
+            style="display: none"
+          >
+            <div class="card-header">
+              <h3><i class="fas fa-key"></i> Generated Credentials</h3>
+              <button class="btn-download" onclick="downloadCredentials()">
+                <i class="fas fa-download"></i> Download CSV
+              </button>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Email</th>
+                    <th>Generated Password</th>
+                  </tr>
+                </thead>
+                <tbody id="credentials-list"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="../js/main.js"></script>
     <script src="../js/users.js"></script>
-</body>
+  </body>
 </html>

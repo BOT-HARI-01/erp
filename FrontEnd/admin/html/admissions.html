@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Student Onboarding - ERP</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/admissions.css"> </head>
-<body>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/admissions.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div id="sidebar-container"></div>
     <div class="main-content">
-        <div id="header-container"></div>
-        <div class="dashboard-wrapper">
-            
-            <div class="page-header">
-                <h2>Student Onboarding</h2>
-            </div>
-
-            <div class="card">
-                <h3><i class="fas fa-file-excel"></i> Bulk Student Upload</h3>
-                <p>Upload the standard admission Excel file to create student records, academic profiles, and initialize fees.</p>
-                
-                <div class="upload-area" id="drop-zone">
-                    <input type="file" id="studentFile" hidden accept=".xlsx, .xls">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & Drop or <span class="clickable" onclick="document.getElementById('studentFile').click()">Choose File</span></p>
-                    <span id="file-name"></span>
-                </div>
-
-                <button class="primary-btn" onclick="uploadStudents()">
-                    <i class="fas fa-upload"></i> Process Upload
-                </button>
-            </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h3>Upload Status</h3>
-                <div id="upload-status" class="status-box">Ready to upload...</div>
-            </div>
-
+      <div id="header-container"></div>
+      <div class="dashboard-wrapper">
+        <div class="page-header">
+          <h2>Student Onboarding</h2>
         </div>
+
+        <div class="card">
+          <h3><i class="fas fa-file-excel"></i> Bulk Student Upload</h3>
+          <p>
+            Upload the standard admission Excel file to create student records,
+            academic profiles, and initialize fees.
+          </p>
+
+          <div class="upload-area" id="drop-zone">
+            <input type="file" id="studentFile" hidden accept=".xlsx, .xls" />
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>
+              Drag & Drop or
+              <span
+                class="clickable"
+                onclick="document.getElementById('studentFile').click()"
+                >Choose File</span
+              >
+            </p>
+            <span id="file-name"></span>
+          </div>
+
+          <button class="primary-btn" onclick="uploadStudents()">
+            <i class="fas fa-upload"></i> Process Upload
+          </button>
+        </div>
+
+        <div class="card" style="margin-top: 20px">
+          <h3>Upload Status</h3>
+          <div id="upload-status" class="status-box">Ready to upload...</div>
+        </div>
+      </div>
     </div>
     <script src="../js/main.js"></script>
     <script src="../js/admissions.js"></script>
-</body>
+  </body>
 </html>
