@@ -1,41 +1,101 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // --- MOCK DATA (This mimics what Python will send later) ---
-        const studentData = {
-            name: "Rahul Sharma",
-            year: "3rd Year",
-            semester: "6th Sem",
-            branch: "Computer Science",
-            classTeacher: "Prof. Anjali Gupta",
-            attendanceAvg: 72, // Risk!
-            cgpa: 8.4,
-            attendanceRisk: true, // Boolean to trigger alert
-            notifications: [
-                { type: "fee", title: "Fee Pending", msg: "Semester 6 tuition fee due." },
-                { type: "library", title: "Book Return", msg: "'Intro to Algorithms' due tomorrow." }
-            ]
-        };
+    initDashboard();
+});
 
-    // --- FUNCTION TO POPULATE UI ---
-    function loadDashboard() {
-        // 1. Fill Profile Data
-        document.getElementById("welcome-name").innerText = studentData.name.split(" ")[0]; // First name only
-        document.getElementById("profile-name").innerText = studentData.name;
-        document.getElementById("profile-year").innerText = `${studentData.year} / ${studentData.semester}`;
-        document.getElementById("profile-branch").innerText = studentData.branch;
-        document.getElementById("profile-teacher").innerText = studentData.classTeacher;
-
-        // 2. Handle Attendance Risk Alert
-        const alertBox = document.querySelector(".alert-box");
-        if (studentData.attendanceRisk) {
-            alertBox.style.display = "flex"; // Show it
-        } else {
-            alertBox.style.display = "none"; // Hide it
-        }
-
-        // 3. Update Charts (Optional simple text update for now)
-        document.querySelector(".gpa-score").innerText = studentData.cgpa;
+async function initDashboard() {
+    const dateElement = document.getElementById("current-date");
+    if (dateElement) {
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.innerText = new Date().toLocaleDateString("en-US", dateOptions);
     }
 
-    // Run the function
-    loadDashboard();
-});
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = "../../index.html";
+        return;
+    }
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/student/dashboard', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) throw new Error("Failed to load dashboard data");
+
+        const data = await response.json();
+
+        if(document.getElementById("welcome-name"))
+            document.getElementById("welcome-name").innerText = data.profile.name.split(" ")[0]; 
+        
+        if(document.getElementById("profile-name"))
+            document.getElementById("profile-name").innerText = data.profile.name;
+        
+        if(document.getElementById("profile-year"))
+            document.getElementById("profile-year").innerText = `Sem ${data.profile.semester}`; 
+        
+        if(document.getElementById("profile-branch"))
+            document.getElementById("profile-branch").innerText = data.profile.branch;
+        
+        if(document.getElementById("profile-teacher"))
+            document.getElementById("profile-teacher").innerText = "N/A"; 
+
+        const alertBox = document.getElementById("ai-alert-box");
+        const alertMsg = document.getElementById("ai-attendance-msg");
+        const alertIcon = document.getElementById("ai-icon");
+        const alertTitle = document.getElementById("ai-title");
+
+        if (alertBox && alertMsg) {
+            alertMsg.innerText = data.ai_insight;
+            alertBox.style.display = "flex"; 
+            
+            
+            if (data.stats.attendance < 75) {
+                alertBox.className = "alert-box danger"; 
+                if(alertTitle) alertTitle.innerText = "Attendance Warning";
+                if(alertIcon) alertIcon.className = "fas fa-exclamation-triangle";
+            } else {
+                alertBox.className = "alert-box success";
+                alertBox.style.backgroundColor = "#d5f5e3"; 
+                alertBox.style.borderLeft = "4px solid #27ae60";
+                
+                if(alertTitle) alertTitle.innerText = "Attendance Status";
+                if(alertIcon) alertIcon.className = "fas fa-check-circle";
+                if(alertIcon) alertIcon.style.color = "#27ae60";
+            }
+        }
+
+        const circle = document.getElementById("attendance-circle");
+        const percentage = data.stats.attendance;
+        const degrees = (percentage / 100) * 360;
+        
+        if(circle) {
+            circle.style.setProperty("--progress", `${degrees}deg`);
+            circle.style.setProperty("--color", percentage < 75 ? "#e74c3c" : "#2ecc71");
+        }
+        updateStat("stat-attendance", `${percentage}%`);
+
+        // CGPA
+        updateStat("stat-cgpa", data.stats.cgpa || "0.0");
+
+        // Fee Display
+        const feeText = data.stats.fee_dues > 0 
+            ? `₹ ${data.stats.fee_dues.toLocaleString()} Due` 
+            : "No Dues";
+        updateStat("stat-fees", feeText);
+        
+        // Library
+        updateStat("stat-library", data.stats.library_books);
+
+    } catch (error) {
+        console.error("Dashboard Load Error:", error);
+    }
+}
+
+// Helper to safely update text
+function updateStat(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerText = value;
+}

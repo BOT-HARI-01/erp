@@ -1,32 +1,98 @@
 document.addEventListener("DOMContentLoaded", () => {
-    loadAttendance(); // Load default view
+    // Set default month/year to current date
+    const today = new Date();
+    document.getElementById("att-month").value = today.getMonth() + 1; // 1-12
+    document.getElementById("att-year").value = today.getFullYear();
+
+    loadAttendance(); 
 });
 
-// --- MOCK DATA ---
-const mockAttendanceData = {
-    days: Array.from({length: 31}, (_, i) => i + 1), // [1, 2, ... 31]
-    subjects: [
-        {
-            name: "Machine Learning",
-            records: { 1: "P", 2: "P", 3: "A", 4: "P", 5: "P", 6: "H", 7: "H", 8: "P", 9: "P", 10: "P", 12: "L" }
-        },
-        {
-            name: "Compiler Design",
-            records: { 1: "P", 2: "A", 3: "P", 4: "P", 5: "P", 6: "H", 7: "H", 8: "P", 9: "A", 10: "P" }
-        },
-        {
-            name: "Web Technologies",
-            records: { 1: "P", 2: "P", 3: "P", 4: "P", 5: "P", 6: "H", 7: "H", 8: "P", 9: "P", 10: "P" }
-        }
-    ]
-};
+async function loadAttendance() {
+    const month = document.getElementById("att-month").value;
+    const year = document.getElementById("att-year").value;
+    const token = localStorage.getItem('token');
 
-function loadAttendance() {
-    // In a real app, this would get values from document.getElementById('month').value
-    // and fetch from server. For now, we use mockData.
-    renderTable(mockAttendanceData);
+    if (!token) {
+        window.location.href = "../../index.html";
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/student/attendance/monthly?month=${month}&year=${year}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch attendance data");
+        }
+
+        const apiData = await response.json();
+        
+        // Convert API format to Mock Data format
+        const formattedData = transformData(apiData, month, year);
+        
+        renderTable(formattedData);
+
+    } catch (error) {
+        console.error("Attendance Load Error:", error);
+        document.getElementById("tableBody").innerHTML = `<tr><td colspan="35" style="text-align:center; color:red;">Could not find data</td></tr>`;
+    }
 }
 
+// --- DATA TRANSFORMATION LOGIC ---
+function transformData(apiData, month, year) {
+    // 1. Calculate days in the selected month
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const daysArray = Array.from({length: daysInMonth}, (_, i) => i + 1);
+
+    // 2. Prepare Subject Map
+    // We need to pivot from { Date: [Classes] } -> { Subject: { Day: Status } }
+    const subjectMap = {};
+
+    // apiData.attendance keys are dates like "2023-10-05"
+    Object.keys(apiData.attendance).forEach(dateStr => {
+        const day = parseInt(dateStr.split('-')[2]); // Extract day part
+        const dayRecords = apiData.attendance[dateStr];
+
+        dayRecords.forEach(record => {
+            const subjectName = record.subject;
+            const status = record.status; // "PRESENT", "ABSENT"
+            
+            // Initialize subject if new
+            if (!subjectMap[subjectName]) {
+                subjectMap[subjectName] = {};
+            }
+
+            // Map Status to Single Char (P/A/L)
+            let char = "-";
+            if (status === "PRESENT") char = "P";
+            else if (status === "ABSENT") char = "A";
+            else if (status === "LEAVE") char = "L"; // If backend supports it
+            
+            // Assign to day map
+            subjectMap[subjectName][day] = char;
+        });
+    });
+
+    // 3. Convert Map to Array for renderTable
+    const subjectsArray = Object.keys(subjectMap).map(subName => {
+        return {
+            name: subName,
+            records: subjectMap[subName]
+        };
+    });
+
+    return {
+        days: daysArray,
+        subjects: subjectsArray
+    };
+}
+
+// --- RENDER TABLE (Your existing logic, mostly unchanged) ---
 function renderTable(data) {
     const tableHead = document.getElementById("tableHead");
     const tableBody = document.getElementById("tableBody");
@@ -34,21 +100,26 @@ function renderTable(data) {
     tableHead.innerHTML = "";
     tableBody.innerHTML = "";
 
+    if (data.subjects.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="35" style="text-align:center; padding:20px;">No attendance records found for this month.</td></tr>`;
+        return;
+    }
+
     // --- 1. BUILD HEADER ROW ---
     let headRow = `<tr><th style="min-width: 180px;">Subject</th>`;
     
-    // Add Day Columns (1-31)
+    // Add Day Columns
     data.days.forEach(d => {
-        headRow += `<th style="min-width: 30px;">${String(d).padStart(2, "0")}</th>`;
+        headRow += `<th style="min-width: 30px; padding: 5px;">${String(d).padStart(2, "0")}</th>`;
     });
     
     // Add Summary Columns
-    headRow += `<th>P</th><th>A</th><th>L</th><th>%</th></tr>`;
+    headRow += `<th>P</th><th>A</th><th>%</th></tr>`;
     tableHead.innerHTML = headRow;
 
     // --- 2. BUILD SUBJECT ROWS ---
     data.subjects.forEach(sub => {
-        let p = 0, a = 0, l = 0, h = 0;
+        let p = 0, a = 0; // l = 0, h = 0 removed for simplicity unless backend sends them
         let totalClasses = 0;
 
         let row = `<tr><td class="subject">${sub.name}</td>`;
@@ -59,8 +130,7 @@ function renderTable(data) {
             // Count stats
             if (val === "P") { p++; totalClasses++; }
             if (val === "A") { a++; totalClasses++; }
-            if (val === "L") { l++; totalClasses++; }
-            if (val === "H") h++; // Holidays don't count for attendance %
+            // If you add Leave logic later: if (val === "L") { l++; totalClasses++; }
 
             // Determine CSS class (lowercase)
             const cls = val !== "-" ? val.toLowerCase() : "";
@@ -68,10 +138,7 @@ function renderTable(data) {
         });
 
         // Calculate Percentage (Present / Total Classes held)
-        // Note: Leaves usually don't count against %, but Absents do.
-        // Formula: (Present / (Present + Absent + Leave)) * 100
-        const total = p + a + l; 
-        const percent = total ? ((p / total) * 100).toFixed(1) : "0";
+        const percent = totalClasses ? ((p / totalClasses) * 100).toFixed(1) : "0.0";
         
         // Color code the percentage
         let percentColor = "#28a745"; // Green
@@ -80,9 +147,9 @@ function renderTable(data) {
         row += `
             <td style="font-weight:bold; color:#007bff">${p}</td>
             <td style="font-weight:bold; color:#dc3545">${a}</td>
-            <td style="font-weight:bold; color:#28a745">${l}</td>
             <td style="font-weight:bold; color:${percentColor}">${percent}%</td>
-        </tr>`;
+        `;
+        row += `</tr>`;
 
         tableBody.innerHTML += row;
     });

@@ -21,18 +21,17 @@
       <div id="header-container"></div>
 
       <div class="dashboard-wrapper">
-        <div class="alert-box danger">
-          <i class="fas fa-exclamation-triangle"></i>
+        
+        <div id="ai-alert-box" class="alert-box" style="display: none;">
+          <i class="fas fa-info-circle" id="ai-icon"></i>
           <div>
-            <h4>Attendance Warning</h4>
-            <p>
-              Your attendance in <strong>Data Structures</strong> is below 75%.
-              Please contact your Class Teacher.
-            </p>
+            <h4 id="ai-title">Attendance Update</h4>
+            <p id="ai-attendance-msg">Loading insights...</p>
           </div>
         </div>
 
         <div class="welcome-section">
+          <p id="current-date" style="color: #666; font-size: 0.9rem; margin-bottom: 5px;"></p>
           <h2>Welcome back, <span id="welcome-name">Student</span></h2>
           <p>Here is your daily overview.</p>
         </div>
@@ -67,24 +66,25 @@
             <div class="chart-container">
               <div
                 class="circular-progress"
-                style="--progress: 270deg; --color: #e74c3c"
+                id="attendance-circle"
+                style="--progress: 0deg; --color: #e74c3c"
               >
                 <div class="inner-circle">
-                  <span>72%</span>
+                  <span id="stat-attendance">0%</span>
                   <small>Avg</small>
                 </div>
               </div>
-              <p class="chart-label">Attendance Risk</p>
+              <p class="chart-label">Overall Attendance</p>
             </div>
           </div>
 
           <div class="card stats-card">
             <h3>Academic Performance</h3>
             <div class="gpa-display">
-              <span class="gpa-score">8.4</span>
+              <span class="gpa-score" id="stat-cgpa">0.0</span>
               <span class="gpa-scale">/ 10.0 CGPA</span>
             </div>
-            <p class="chart-label">Last Semester: 8.2 SGPA</p>
+            <p class="chart-label">Current Performance</p>
           </div>
 
           <div class="card notification-card">
@@ -95,8 +95,8 @@
                   <i class="fas fa-credit-card"></i>
                 </span>
                 <div>
-                  <strong>Fee Pending</strong>
-                  <p>Semester 6 tuition fee due.</p>
+                  <strong>Fee Status</strong>
+                  <p id="stat-fees">Checking...</p>
                 </div>
               </li>
               <li>
@@ -104,8 +104,8 @@
                   <i class="fas fa-book"></i>
                 </span>
                 <div>
-                  <strong>Book Return</strong>
-                  <p>"Intro to Algorithms" due tomorrow.</p>
+                  <strong>Library Status</strong>
+                  <p>Active Books: <span id="stat-library">0</span></p>
                 </div>
               </li>
             </ul>

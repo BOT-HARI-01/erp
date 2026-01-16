@@ -66,7 +66,7 @@ async function issueBooks() {
     };
 
     try {
-        const res = await fetch('http://127.0.0.1:8000/library/library/issue', {
+        const res = await fetch('http://127.0.0.1:8000/library/issue', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ async function returnBooks() {
     };
 
     try {
-        const res = await fetch('http://127.0.0.1:8000/library/library/return', {
+        const res = await fetch('http://127.0.0.1:8000/library/return', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

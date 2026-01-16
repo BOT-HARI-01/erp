@@ -8,6 +8,7 @@ from app.models.student import Student
 from app.models.internal_marks import InternalMarks
 from app.models.timetable import TimeTable
 from app.schemas.student import StudentProfileRequest, StudentProfileResponse
+from app.services.library_service import get_student_library_books
 from app.services.external_marks_service import get_semester_result
 from app.services.hostel_service import get_student_hostel_details
 from app.services.student_service import get_student_by_email, upsert_student_profile
@@ -18,8 +19,14 @@ from app.services.attendance_service import (
     get_student_monthly_attendance,
     get_subject_wise_attendance,
 )
+from app.services.attendance_service import get_low_subjects
+from app.services.ai_service import get_attendance_advice
+from sqlalchemy import func
 from app.models.academic import Academic
-
+from app.models.payment import Payment
+from app.models.library_issue import LibraryIssue
+from app.models.attendance_record import AttendanceRecord
+from app.models.attendance_session import AttendanceSession
 router = APIRouter(prefix="/student", tags=["Student"])
 
 
@@ -30,6 +37,61 @@ def get_db():
     finally:
         db.close()
 
+@router.get("/dashboard")
+def get_student_dashboard_data(
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user)
+):
+    if user["role"] != "STUDENT":
+        raise HTTPException(status_code=403, detail="Access denied")
+
+    email = user["sub"]
+    
+    student = db.query(Student).filter(Student.user_email == email).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student record not found")
+    academic = db.query(Academic).filter(Academic.sid == student.id).order_by(Academic.year.desc()).first()
+    current_sem = academic.semester if academic else 1
+
+    att_data = get_semester_attendance_summary(db, student.roll_no, current_sem)
+    att_percentage = att_data["attendance_percentage"]
+
+    results = db.query(SemesterResult).filter(SemesterResult.srno == student.roll_no).all()
+    if results:
+        total_sgpa = sum([r.sgpa for r in results if r.sgpa is not None])
+        cgpa = round(total_sgpa / len(results), 2)
+    else:
+        cgpa = 0.0
+
+    payment_data = get_student_payment_details(db, email, academic.semester + academic.year)
+    print(payment_data)
+    total_dues = sum([item["balance"] for item in payment_data["structure"]])
+
+    lib_data = get_student_library_books(db, email, current_sem)
+    active_books_count = len(lib_data["books"])
+
+    low_subs = get_low_subjects(db, student.roll_no, current_sem)
+    
+    if not low_subs:
+        ai_msg = f"🎉 Great job, {student.first_name}! You have good attendance in all subjects."
+    else:
+        ai_msg = get_attendance_advice(low_subs)
+
+    return {
+        "profile": {
+            "name": f"{student.first_name} {student.last_name}",
+            "roll_no": student.roll_no,
+            "branch": academic.branch if academic else "N/A",
+            "semester": current_sem
+        },
+        "stats": {
+            "attendance": att_percentage,
+            "cgpa": cgpa,
+            "fee_dues": total_dues,
+            "library_books": active_books_count
+        },
+        "ai_insight": ai_msg
+    }
 
 @router.get("/profile", response_model=StudentProfileResponse)
 def view_profile(user=Depends(get_current_user), db: Session = Depends(get_db)):
@@ -67,7 +129,7 @@ def get_student_payments(
     data = get_student_payment_details(
         db=db, student_email=user["sub"], semester=semester
     )
-
+    print(data)
     if not data:
         raise HTTPException(status_code=404, detail="No payment data found")
 

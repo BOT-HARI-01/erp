@@ -10,6 +10,19 @@ def signup(db: Session, email: str, password: str, role: str):
     )
     db.add(user)
     db.commit()
+    db.refresh(user)
+    if role == "HOD":
+        from app.models.hod import HODProfile
+        hod_profile = HODProfile(email=email)
+        db.add(hod_profile)
+        db.commit()
+        db.refresh(hod_profile)
+    if role == "ADMIN":
+        from app.models.admin import AdminProfile
+        admin_profile = AdminProfile(email=email)
+        db.add(admin_profile)
+        db.commit()
+        db.refresh(admin_profile)
     return user
 
 def login(db: Session, email: str, password: str):

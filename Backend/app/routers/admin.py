@@ -17,8 +17,30 @@ from app.models.academic import Academic
 from sqlalchemy import func
 from app.models.faculty import Faculty
 from app.models.payment import Payment
-
+from app.schemas.admin import AdminProfileUpdate
+from app.services.admin_service import get_admin_profile, update_admin_profile
 router = APIRouter(prefix="/admin")
+@router.get("/get-profile")
+def view_admin_profile(
+    db: Session = Depends(get_db),
+    user = Depends(get_current_user)
+):
+    profile = get_admin_profile(db, user["sub"])
+    if not profile:
+        raise HTTPException(status_code=404, detail="Admin profile not found")
+    return profile
+
+
+@router.put("/update-profile")
+def update_admin(
+    data: AdminProfileUpdate,
+    db: Session = Depends(get_db),
+    user = Depends(get_current_user)
+):
+    updated = update_admin_profile(db, user["sub"], data)
+    if not updated:
+        raise HTTPException(status_code=404, detail="Admin profile not found")
+    return {"message": "Admin profile updated successfully"}
 
 @router.post("/upload-students")
 def upload_excel(
@@ -163,7 +185,6 @@ def get_dashboard_stats(
         "pending_admissions": pending_admissions
     }
 
-# --- RECENT ACTIVITY API ---
 @router.get("/dashboard/activity")
 def get_recent_activity(
     db: Session = Depends(get_db),

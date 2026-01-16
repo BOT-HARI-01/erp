@@ -1,5 +1,5 @@
 from http.client import HTTPException
-from fastapi import APIRouter, Depends, UploadFile
+from fastapi import APIRouter, Depends, UploadFile, HTTPException
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.dependencies import get_current_user
@@ -32,7 +32,7 @@ def upload_books(
     upload_books_excel(db, file)
     return {"message": "Books uploaded successfully"}
 
-@router.post("/library/issue")
+@router.post("/issue")
 def issue_books(
     req: IssueBooksRequest,
     db: Session = Depends(get_db),
@@ -44,7 +44,7 @@ def issue_books(
     issue_books_to_student(db, req)
     return {"message": "Books issued successfully"}
 
-@router.post("/library/return")
+@router.post("/return")
 def return_library_books(
     req: ReturnBooksRequest,
     db: Session = Depends(get_db),
