@@ -34,7 +34,7 @@ def mark_attendance(db, req, faculty_email):
     )
 
     db.add(session)
-    db.flush()  # get session.id
+    db.flush()  
 
     for item in req.attendance:
         student = db.query(Student).filter(

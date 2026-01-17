@@ -1,7 +1,7 @@
 
 import os
 
-JWT_SECRET = "supersecretkey"   # move to .env 
+JWT_SECRET = "supersecretkey"   
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_MINUTES = 60
 

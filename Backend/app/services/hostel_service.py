@@ -23,7 +23,7 @@ def upload_hostel_rooms_excel(db, file):
         if not room_number:
             continue
 
-        # Avoid duplicates
+        
         exists = db.query(HostelRoom).filter(
             HostelRoom.room_number == str(room_number)
         ).first()

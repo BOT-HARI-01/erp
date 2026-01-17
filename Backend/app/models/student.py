@@ -19,4 +19,4 @@ class Student(Base):
     parentname = Column(String(100))
 
     residence_type = Column(String(20))  
-    # DAY_SCHOLAR | HOSTELER
+    

@@ -1,67 +1,71 @@
 async function lookupStudent() {
-    const roll = document.getElementById('lookup-roll').value.trim().toUpperCase();
-    if (!roll) {
-        alert("Please enter a Roll Number");
-        return;
-    }
+  const roll = document
+    .getElementById("lookup-roll")
+    .value.trim()
+    .toUpperCase();
+  if (!roll) {
+    alert("Please enter a Roll Number");
+    return;
+  }
 
-    const token = localStorage.getItem('token');
-    const tableBody = document.getElementById("lookup-body");
-    const resultCard = document.getElementById("lookup-result");
-    
-    // Show Loading
-    tableBody.innerHTML = "<tr><td colspan='9' style='text-align:center; padding:15px;'>Searching...</td></tr>";
-    resultCard.style.display = 'block';
+  const token = localStorage.getItem("token");
+  const tableBody = document.getElementById("lookup-body");
+  const resultCard = document.getElementById("lookup-result");
 
-    try {
-        const response = await fetch(`http://127.0.0.1:8000/faculty/student/${roll}`, {
-            method: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+  tableBody.innerHTML =
+    "<tr><td colspan='9' style='text-align:center; padding:15px;'>Searching...</td></tr>";
+  resultCard.style.display = "block";
 
-        const data = await response.json();
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/faculty/student/${roll}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
 
-        if (response.ok) {
-            // 1. Basic Info Mapping
-            const name = `${data.first_name || ''} ${data.last_name || ''}`.trim() || '-';
-            const branch = data.branch || '-';
-            const yearSem = (data.year && data.semester) ? `${data.year} / ${data.semester}` : '-';
-            const section = data.section || '-';
-            const phone = data.mobile_no || '-';
-            const status = data.status || 'Active';
+    const data = await response.json();
 
-            // 2. Fee Status Logic
-            let feeStatusHTML = '<span style="color:#757575; font-size:0.9rem;">No Info</span>';
-            
-            if (data.payment_records && data.payment_records.length > 0) {
-                // Check if any record is PENDING
-                const pendingDues = data.payment_records.filter(p => p.status === 'PENDING');
-                const hasDues = pendingDues.length > 0;
-                
-                // Create Tooltip Text (e.g. "TUITION: PENDING (35000)")
-                const tooltipText = data.payment_records.map(p => 
-                    `${p.fee_type}: ${p.status} (₹${p.amount_paid})`
-                ).join('\n');
+    if (response.ok) {
+      const name =
+        `${data.first_name || ""} ${data.last_name || ""}`.trim() || "-";
+      const branch = data.branch || "-";
+      const yearSem =
+        data.year && data.semester ? `${data.year} / ${data.semester}` : "-";
+      const section = data.section || "-";
+      const phone = data.mobile_no || "-";
+      const status = data.status || "Active";
 
-                if (hasDues) {
-                    // Show Red "Due" with details on hover
-                    feeStatusHTML = `
+      let feeStatusHTML =
+        '<span style="color:#757575; font-size:0.9rem;">No Info</span>';
+
+      if (data.payment_records && data.payment_records.length > 0) {
+        const pendingDues = data.payment_records.filter(
+          (p) => p.status === "PENDING",
+        );
+        const hasDues = pendingDues.length > 0;
+
+        const tooltipText = data.payment_records
+          .map((p) => `${p.fee_type}: ${p.status} (₹${p.amount_paid})`)
+          .join("\n");
+
+        if (hasDues) {
+          feeStatusHTML = `
                         <span style="padding: 4px 8px; border-radius: 4px; background: #ffebee; color: #c62828; font-weight: 600; cursor: help;" title="${tooltipText}">
                             ${pendingDues.length} Due
                         </span>
                     `;
-                } else {
-                    // Show Green "Cleared"
-                    feeStatusHTML = `
+        } else {
+          feeStatusHTML = `
                         <span style="padding: 4px 8px; border-radius: 4px; background: #e8f5e9; color: #2e7d32; font-weight: 600; cursor: help;" title="${tooltipText}">
                             Cleared
                         </span>
                     `;
-                }
-            }
+        }
+      }
 
-            // 3. Render Row
-            const row = `
+      const row = `
                 <tr>
                     <td style="font-weight:bold;">${data.roll_no}</td>
                     <td>${name}</td>
@@ -82,18 +86,18 @@ async function lookupStudent() {
                     </td>
                 </tr>
             `;
-            tableBody.innerHTML = row;
-        } else {
-            tableBody.innerHTML = `<tr><td colspan='9' style="color:red; text-align:center; padding:15px;">${data.detail || "Student not found"}</td></tr>`;
-        }
-    } catch (error) {
-        console.error(error);
-        tableBody.innerHTML = `<tr><td colspan='9' style="color:red; text-align:center;">Network Error</td></tr>`;
+      tableBody.innerHTML = row;
+    } else {
+      tableBody.innerHTML = `<tr><td colspan='9' style="color:red; text-align:center; padding:15px;">${data.detail || "Student not found"}</td></tr>`;
     }
+  } catch (error) {
+    console.error(error);
+    tableBody.innerHTML = `<tr><td colspan='9' style="color:red; text-align:center;">Network Error</td></tr>`;
+  }
 }
 
 function sendAlert(roll) {
-    if(confirm(`Send attendance/performance alert to parent of ${roll}?`)) {
-        alert(`Alert triggered for ${roll}. Notification sent.`);
-    }
+  if (confirm(`Send attendance/performance alert to parent of ${roll}?`)) {
+    alert(`Alert triggered for ${roll}. Notification sent.`);
+  }
 }

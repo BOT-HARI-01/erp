@@ -13,4 +13,4 @@ class SemesterResult(Base):
 
     sgpa = Column(Float)
     total_credits = Column(Integer)
-    result_status = Column(String(10))  # PASS / FAIL
+    result_status = Column(String(10))  

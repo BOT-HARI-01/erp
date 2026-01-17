@@ -11,7 +11,7 @@ class Payment(Base):
     srno = Column(String(20), nullable=False)
     student_email = Column(String(100), nullable=False)
 
-    fee_type = Column(String(20))          # TUITION | BUS | HOSTEL
+    fee_type = Column(String(20))          
     amount_paid = Column(DECIMAL(10,2))    
 
     payment_mode = Column(String(30))

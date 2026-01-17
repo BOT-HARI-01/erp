@@ -1,187 +1,173 @@
-/* --- Page Layout Fixes --- */
 .main-content {
-    /* Ensures content starts strictly after the 250px sidebar */
-    margin-left: 250px; 
-    padding-top: 60px;
-    background-color: var(--bg-light);
-    width: calc(100% - 250px); /* Prevents width overflow */
-    margin-top: 10vh;
+  margin-left: 250px;
+  padding-top: 60px;
+  background-color: var(--bg-light);
+  width: calc(100% - 250px);
+  margin-top: 10vh;
 }
 
 .dashboard-wrapper {
-    padding: 30px;
-    /* Ensures the wrapper stays within the main-content width */
-    max-width: 100%; 
-    overflow: hidden; /* Stops page-level horizontal scrolling */
+  padding: 30px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-/* Page Header */
 .page-header {
-    margin-bottom: 25px;
-    
+  margin-bottom: 25px;
 }
 
 .page-header h2 {
-    color: var(--text-dark);
+  color: var(--text-dark);
 }
 
-/* Filters Section */
 .filters-section {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .filter-group {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-group label {
-    font-size: 0.9rem;
-    color: var(--text-grey);
-    margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: var(--text-grey);
+  margin-bottom: 5px;
 }
 
 select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    min-width: 200px;
-    outline: none;
-    background-color: white;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 200px;
+  outline: none;
+  background-color: white;
 }
 
-/* Info Note */
 .info-note {
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 10px 15px;
-    border-radius: 4px;
-    border: 1px solid #ffeeba;
-    font-size: 0.9rem;
-    max-width: 500px;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: 1px solid #ffeeba;
+  font-size: 0.9rem;
+  max-width: 500px;
 }
 
-/* Section Titles */
 .section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 15px;
-    border-left: 4px solid var(--primary-color);
-    padding-left: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 10px;
 }
 
-/* --- Table Styles with Horizontal Scroll --- */
 .table-container {
-    background: white;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    
-    /* Horizontal Scroll Logic */
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 5px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 5px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 800px; /* Forces scroll on smaller screens */
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
 }
 
-th, td {
-    padding: 15px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-    font-size: 0.95rem;
-    white-space: nowrap; /* Prevents text wrapping */
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 th {
-    background-color: #f8f9fa;
-    color: var(--text-dark);
-    font-weight: 600;
+  background-color: #f8f9fa;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
-/* Sticky First Column Logic */
 th.sticky-col,
 td:first-child {
-    position: sticky;
-    left: 0;
-    background-color: white; /* Opaque background so text doesn't overlap */
-    z-index: 10;
-    border-right: 2px solid #f0f0f0;
-    text-align: left;
-    padding-left: 20px;
+  position: sticky;
+  left: 0;
+  background-color: white;
+  z-index: 10;
+  border-right: 2px solid #f0f0f0;
+  text-align: left;
+  padding-left: 20px;
 }
 
-/* Header sticky needs slightly darker bg to match the header row */
 th.sticky-col {
-    background-color: #f8f9fa;
-    z-index: 11; /* Higher than body cells */
+  background-color: #f8f9fa;
+  z-index: 11;
 }
 
-/* Status Colors */
 .status-paid {
-    color: #28a745;
-    background-color: #e6ffe6;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.85rem;
+  color: #28a745;
+  background-color: #e6ffe6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .status-due {
-    color: #dc3545;
-    background-color: #ffe6e6;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.85rem;
+  color: #dc3545;
+  background-color: #ffe6e6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .status-partial {
-    color: #d39e00;
-    background-color: #fff3cd;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.85rem;
+  color: #d39e00;
+  background-color: #fff3cd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
-/* Download Button */
 .download-icon-btn {
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    border: 1px solid var(--primary-color);
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: all 0.2s;
-    font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-size: 0.85rem;
 }
 
 .download-icon-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
+  background-color: var(--primary-color);
+  color: white;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-    }
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
 }

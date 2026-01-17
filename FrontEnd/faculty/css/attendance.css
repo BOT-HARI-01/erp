@@ -1,168 +1,163 @@
-/* ---- FILTER ROW CONTAINER ---- */
-.main-content{
-    margin-top: 30vh;
+.main-content {
+  margin-top: 30vh;
 }
 .filters-row {
-    display: flex;
-    flex-direction: row;      /* Force horizontal direction */
-    flex-wrap: wrap;          /* Allow wrapping if screen is too small */
-    gap: 15px;               /* Space between items */
-    align-items: flex-end;    /* Align inputs with the button at the bottom */
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
 }
 
-/* ---- INDIVIDUAL FORM GROUPS ---- */
 .filters-row .form-group {
-    display: flex;
-    flex-direction: column;   /* Label on top of input */
-    min-width: 100px;         /* Minimum width to prevent squashing */
-    flex: 0 1 auto;           /* Do not grow excessively, allow shrinking */
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  flex: 0 1 auto;
 }
 
-/* Specific widths for better layout */
-#att-branch, #att-sub {
-    min-width: 120px;
+#att-branch,
+#att-sub {
+  min-width: 120px;
 }
 
 #att-sec {
-    width: 60px;              /* Section needs less space */
-    text-align: center;
+  width: 60px;
+  text-align: center;
 }
 
-/* Labels */
 .filters-row label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 5px;
 }
 
-/* Inputs & Selects */
-.filters-row input, 
+.filters-row input,
 .filters-row select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.95rem;
-    height: 40px;             /* Fixed height for alignment */
-    box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  height: 40px;
+  box-sizing: border-box;
 }
 
-/* Force Uppercase for Branch/Sec */
 .filters-row input[type="text"] {
-    text-transform: uppercase;
-    font-weight: 600;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-/* ---- BUTTON ---- */
 .filters-row .primary-btn {
-    height: 40px;             /* Match input height */
-    padding: 0 20px;
-    background-color: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    white-space: nowrap;      /* Prevent text wrapping */
+  height: 40px;
+  padding: 0 20px;
+  background-color: #0d47a1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .filters-row .primary-btn:hover {
-    background-color: #1565c0;
+  background-color: #1565c0;
 }
 
-/* ---- TABLE STYLES (Kept from previous) ---- */
 .table-card {
-    background: white;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    overflow: hidden;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
 }
 
 .table-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
 }
 
 .attendance-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .attendance-table th {
-    background: #f1f3f5;
-    color: #333;
-    font-weight: 600;
-    padding: 12px 15px;
-    text-align: left;
+  background: #f1f3f5;
+  color: #333;
+  font-weight: 600;
+  padding: 12px 15px;
+  text-align: left;
 }
 
 .attendance-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-    vertical-align: middle;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
 }
 
-/* Radio Group Styles */
 .att-radio-group {
-    display: inline-flex;
-    background: #f1f3f5;
-    padding: 4px;
-    border-radius: 20px;
-    gap: 5px;
+  display: inline-flex;
+  background: #f1f3f5;
+  padding: 4px;
+  border-radius: 20px;
+  gap: 5px;
 }
 
-.att-radio-group input { display: none; }
+.att-radio-group input {
+  display: none;
+}
 
 .att-label {
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    color: #666;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: 0.2s;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.2s;
 }
 
-/* Checked States */
 .att-radio-group input[value="PRESENT"]:checked + .att-label {
-    background: #28a745;
-    color: white;
+  background: #28a745;
+  color: white;
 }
 
 .att-radio-group input[value="ABSENT"]:checked + .att-label {
-    background: #dc3545;
-    color: white;
+  background: #dc3545;
+  color: white;
 }
 
 .action-footer {
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fafafa;
-    border-top: 1px solid #eee;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  border-top: 1px solid #eee;
 }
 
 .submit-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.submit-btn:hover { background: #218838; }
+.submit-btn:hover {
+  background: #218838;
+}

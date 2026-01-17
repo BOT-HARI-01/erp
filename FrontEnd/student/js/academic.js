@@ -1,62 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
-    updateTable();
+  updateTable();
 });
 
 function getAuthHeaders() {
-    return {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-    };
+  return {
+    Accept: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
 }
 
-/* ------------------ MID AGGREGATION ------------------ */
-
 function mid1Total(m) {
-    return m.openbook1 + m.descriptive1 + m.seminar1 + m.objective1;
+  return m.openbook1 + m.descriptive1 + m.seminar1 + m.objective1;
 }
 
 function mid2Total(m) {
-    return m.openbook2 + m.descriptive2 + m.seminar2 + m.objective2;
+  return m.openbook2 + m.descriptive2 + m.seminar2 + m.objective2;
 }
-
-/* ------------------ MAIN DRIVER ------------------ */
 
 async function updateTable() {
-    const semester = document.getElementById("semesterSelect").value;
-    const type = document.getElementById("examTypeSelect").value;
+  const semester = document.getElementById("semesterSelect").value;
+  const type = document.getElementById("examTypeSelect").value;
 
-    const thead = document.querySelector("#marksTable thead");
-    const tbody = document.querySelector("#marksTable tbody");
+  const thead = document.querySelector("#marksTable thead");
+  const tbody = document.querySelector("#marksTable tbody");
 
-    thead.innerHTML = "";
-    tbody.innerHTML = "";
+  thead.innerHTML = "";
+  tbody.innerHTML = "";
 
-    try {
-        if (type === "mid1" || type === "mid2") {
-            await loadInternalMarks(semester, type);
-        } else {
-            await loadSemesterMarks(semester);
-        }
-    } catch (err) {
-        console.error(err);
-        tbody.innerHTML = `<tr><td colspan="6">Error loading marks</td></tr>`;
+  try {
+    if (type === "mid1" || type === "mid2") {
+      await loadInternalMarks(semester, type);
+    } else {
+      await loadSemesterMarks(semester);
     }
+  } catch (err) {
+    console.error(err);
+    tbody.innerHTML = `<tr><td colspan="6">Error loading marks</td></tr>`;
+  }
 }
 
-/* ------------------ MID 1 / MID 2 ------------------ */
-
 async function loadInternalMarks(semester, type) {
-    const res = await fetch(
-        `http://127.0.0.1:8000/student/internal-marks/1/${semester}`,
-        { headers: getAuthHeaders() }
-    );
+  const res = await fetch(
+    `http://127.0.0.1:8000/student/internal-marks/1/${semester}`,
+    { headers: getAuthHeaders() },
+  );
 
-    const data = await res.json();
+  const data = await res.json();
 
-    const thead = document.querySelector("#marksTable thead");
-    const tbody = document.querySelector("#marksTable tbody");
+  const thead = document.querySelector("#marksTable thead");
+  const tbody = document.querySelector("#marksTable tbody");
 
-    thead.innerHTML = `
+  thead.innerHTML = `
         <tr>
             <th>Subject Code</th>
             <th>Subject Name</th>
@@ -65,11 +59,11 @@ async function loadInternalMarks(semester, type) {
         </tr>
     `;
 
-    data.forEach(s => {
-        const total = type === "mid1" ? mid1Total(s) : mid2Total(s);
-        const pass = total >= 12;
+  data.forEach((s) => {
+    const total = type === "mid1" ? mid1Total(s) : mid2Total(s);
+    const pass = total >= 12;
 
-        tbody.innerHTML += `
+    tbody.innerHTML += `
             <tr>
                 <td>${s.subject_code}</td>
                 <td>${s.subject_name}</td>
@@ -79,23 +73,21 @@ async function loadInternalMarks(semester, type) {
                 </td>
             </tr>
         `;
-    });
+  });
 }
 
-/* ------------------ SEMESTER (EXTERNAL ONLY) ------------------ */
-
 async function loadSemesterMarks(semester) {
-    const res = await fetch(
-        `http://127.0.0.1:8000/student/external-marks/2/${semester}`,
-        { headers: getAuthHeaders() }
-    );
+  const res = await fetch(
+    `http://127.0.0.1:8000/student/external-marks/2/${semester}`,
+    { headers: getAuthHeaders() },
+  );
 
-    const data = await res.json();
+  const data = await res.json();
 
-    const thead = document.querySelector("#marksTable thead");
-    const tbody = document.querySelector("#marksTable tbody");
+  const thead = document.querySelector("#marksTable thead");
+  const tbody = document.querySelector("#marksTable tbody");
 
-    thead.innerHTML = `
+  thead.innerHTML = `
         <tr>
             <th>Subject Code</th>
             <th>Subject Name</th>
@@ -105,17 +97,17 @@ async function loadSemesterMarks(semester) {
         </tr>
     `;
 
-    if (data.length === 0) {
-        tbody.innerHTML = `
+  if (data.length === 0) {
+    tbody.innerHTML = `
             <tr>
                 <td colspan="5" style="text-align:center">No semester records</td>
             </tr>
         `;
-        return;
-    }
+    return;
+  }
 
-    data.forEach(s => {
-        tbody.innerHTML += `
+  data.forEach((s) => {
+    tbody.innerHTML += `
             <tr>
                 <td>${s.subject_code}</td>
                 <td>${s.subject_name}</td>
@@ -124,5 +116,5 @@ async function loadSemesterMarks(semester) {
                 <td><strong>${s.gpa}</strong></td>
             </tr>
         `;
-    });
+  });
 }

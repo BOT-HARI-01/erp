@@ -82,7 +82,7 @@ def bulk_fee_structure(
     msg = bulk_create_fee_structure(db, [i.dict() for i in req.items])
     return {"message": msg}
 
-# 👉 External marks via Excel
+
 @router.post("/external-marks/upload/{batch}/{semester}")
 def upload_external_marks(
     batch: str,
@@ -139,10 +139,10 @@ def get_all_students(
         )
     if branch and branch != "All":
         query = query.filter(Academic.branch == branch)
-    if year and year != "All": # Assuming year comes as string "All" from FE sometimes
+    if year and year != "All": 
         query = query.filter(Academic.year == int(year))
 
-    results = query.limit(100).all() # Limit to prevent overload
+    results = query.limit(100).all() 
 
     return [
         {
@@ -164,17 +164,17 @@ def get_dashboard_stats(
     if user["role"] != "ADMIN":
         raise HTTPException(status_code=403, detail="Only Admin allowed")
 
-    # 1. Total Students
+    
     total_students = db.query(Student).count()
 
-    # 2. Active Faculty
+    
     active_faculty = db.query(Faculty).count()
 
-    # 3. Fees Collected (Sum of all successful payments)
+    
     total_fees = db.query(func.sum(Payment.amount_paid)).filter(Payment.status == "PAID").scalar() or 0
 
-    # 4. Pending Admissions (Logic: Students without Academic records or explicit 'Pending' status)
-    # Assuming 'Academic' record creation marks a completed admission
+    
+    
     admitted_ids = db.query(Academic.sid).distinct()
     pending_admissions = db.query(Student).filter(Student.id.notin_(admitted_ids)).count()
 
@@ -195,21 +195,21 @@ def get_recent_activity(
 
     activity_log = []
 
-    # Get last 3 new students
+    
     recent_students = db.query(Student).order_by(Student.id.desc()).limit(3).all()
     for s in recent_students:
         activity_log.append({
             "action": "New Student Joined",
             "user": f"{s.first_name} {s.last_name}",
-            "time": "Recently" # You can use created_at if added to model
+            "time": "Recently" 
         })
 
-    # Get last 3 payments
+    
     recent_payments = db.query(Payment).order_by(Payment.id.desc()).limit(3).all()
     for p in recent_payments:
         activity_log.append({
             "action": f"Fee Payment ({p.fee_type})",
-            "user": p.srno, # Roll No
+            "user": p.srno, 
             "time": str(p.payment_date)
         })
 

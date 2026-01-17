@@ -1,4 +1,4 @@
-# Auth APIs
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.schemas.auth import SignupRequest, LoginRequest, TokenResponse
@@ -36,7 +36,7 @@ def change_user_password(
     user=Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    email = user["sub"]  # from JWT
+    email = user["sub"]  
 
     success, message = change_password(
         db,

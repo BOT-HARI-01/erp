@@ -1,45 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Faculty Lookup</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/faculty.css">
-    <link rel="stylesheet" href="../css/hod.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Faculty Management</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/faculty.css" />
+    <link rel="stylesheet" href="../css/hod.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
     <div class="main-content">
-        <div class="dashboard-wrapper">
-            <div class="page-header"><h2>Faculty Lookup</h2></div>
+      <div class="dashboard-wrapper">
+        <div class="page-header"><h2>Faculty Lookup</h2></div>
 
-            <div class="card filters-row">
-                <input type="text" id="fac-search" placeholder="Search by Name or ID..." style="flex-grow:1;">
-                <button class="primary-btn" onclick="fetchFacultyList()">Search</button>
-            </div>
-
-            <div class="card table-card">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Subject</th>
-                            <th>Attendance %</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="faculty-list">
-                        </tbody>
-                </table>
-            </div>
+        <div class="card filters-row">
+          <div style="display: flex; gap: 10px; flex-grow: 1">
+            <input
+              type="email"
+              id="fac-email-search"
+              placeholder="Enter Faculty Email"
+              style="flex-grow: 1"
+            />
+            <button class="primary-btn" onclick="searchFacultyByEmail()">
+              <i class="fas fa-search"></i> Search
+            </button>
+          </div>
+          <div
+            style="
+              border-left: 2px solid #eee;
+              padding-left: 15px;
+              margin-left: 5px;
+            "
+          >
+            <button class="primary-btn" onclick="fetchAllFaculty()">
+              <i class="fas fa-list"></i> View All Faculty
+            </button>
+          </div>
         </div>
+
+        <div id="single-faculty-view" style="display: none">
+          <div class="card profile-card">
+            <div class="profile-header">
+              <div class="profile-icon"><i class="fas fa-user-tie"></i></div>
+              <div class="profile-info">
+                <h3 id="d-name">--</h3>
+                <p id="d-desig" style="color: #666">--</p>
+              </div>
+            </div>
+            <div class="profile-grid">
+              <div class="p-item">
+                <strong>ID:</strong> <span id="d-id">--</span>
+              </div>
+              <div class="p-item">
+                <strong>Email:</strong> <span id="d-email">--</span>
+              </div>
+              <div class="p-item">
+                <strong>Mobile:</strong> <span id="d-mobile">--</span>
+              </div>
+              <div class="p-item">
+                <strong>Gender:</strong> <span id="d-gender">--</span>
+              </div>
+              <div class="p-item">
+                <strong>Blood Group:</strong> <span id="d-blood">--</span>
+              </div>
+              <div class="p-item">
+                <strong>Experience:</strong> <span id="d-exp">--</span>
+              </div>
+            </div>
+            <div class="profile-full">
+              <strong>Address:</strong> <span id="d-address">--</span>
+            </div>
+            <button
+              class="alert-btn"
+              style="margin-top: 20px"
+              onclick="closeDetailView()"
+            >
+              Back to Search
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="all-faculty-view"
+          class="card table-card"
+          style="display: none"
+        >
+          <h3
+            style="
+              padding: 15px 20px 0;
+              margin: 0;
+              font-size: 1.1rem;
+              color: #444;
+            "
+          >
+            All Faculty Members
+          </h3>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Qualification/Subject</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="faculty-list"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <script src="../js/main.js"></script>
-    <script src="../js/hod.js"></script>
-</body>
+    <script src="../js/faculty.js"></script>
+    <style></style>
+  </body>
 </html>

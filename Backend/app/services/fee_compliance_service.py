@@ -20,7 +20,7 @@ def get_fee_compliance_summary(db: Session, batch: str, year: int):
     fully_paid = partially_paid = not_paid = 0
 
     for r in records:
-        # get total fee
+        
         fee = db.query(FeeStructure).filter(
             FeeStructure.year == year,
             FeeStructure.quota == r.quota,
@@ -33,7 +33,7 @@ def get_fee_compliance_summary(db: Session, batch: str, year: int):
             (fee.hostel_fee or 0)
         ) if fee else 0
 
-        # total paid
+        
         paid = db.query(func.coalesce(func.sum(Payment.amount_paid), 0))\
             .filter(
                 Payment.srno == r.srno,

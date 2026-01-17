@@ -26,7 +26,7 @@ def create_academics_bulk(db: Session, rows: list):
 
 def insert_academics_bulk(db: Session, rows: list):
     for row in rows:
-        # Find student using srno from Excel
+        
         student = db.query(Student).filter(
             Student.roll_no == row["srno"]
         ).first()

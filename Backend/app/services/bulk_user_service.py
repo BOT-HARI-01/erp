@@ -1,4 +1,4 @@
-# Handles bulk user creation
+
 import random
 import string
 from sqlalchemy.orm import Session

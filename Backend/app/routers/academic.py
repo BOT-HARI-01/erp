@@ -4,7 +4,7 @@ from app.core.database import SessionLocal
 from app.core.dependencies import get_current_user
 from app.services.academic_service import insert_academics_bulk
 from app.utils.excel_reader import extract_academic_rows
-from app.models.academic import Academic   # ✅ THIS FIXES ERROR
+from app.models.academic import Academic   
 from app.schemas.academic import AcademicResponse
 
 router = APIRouter(prefix="/academic", tags=["Academics"])
@@ -16,7 +16,7 @@ def get_db():
     finally:
         db.close()
 
-# Student views academics
+
 @router.get("/my", response_model=list[AcademicResponse])
 def view_my_academics(
     user=Depends(get_current_user),

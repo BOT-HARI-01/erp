@@ -5,7 +5,7 @@ Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host "   STARTING PROJECT SETUP" -ForegroundColor Cyan
 Write-Host "==========================================" -ForegroundColor Cyan
 
-# INSTALL REQUIREMENTS
+
 Write-Host "`n[STEP 1] Installing requirements from requirements.txt..." -ForegroundColor Yellow
 if (Test-Path "requirements.txt") {
     pip install -r requirements.txt

@@ -1,4 +1,4 @@
-# app/services/hod_service.py
+
 from sqlalchemy.orm import Session
 from app.models.hod import HODProfile
 

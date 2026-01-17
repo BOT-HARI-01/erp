@@ -4,7 +4,7 @@ from datetime import date
 
 class AttendanceItem(BaseModel):
     roll_no: str
-    status: str  # PRESENT | ABSENT
+    status: str  
 
 class AttendanceCreate(BaseModel):
     subject_code: str

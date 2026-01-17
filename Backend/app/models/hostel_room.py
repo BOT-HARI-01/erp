@@ -6,9 +6,9 @@ class HostelRoom(Base):
     id = Column(Integer, primary_key=True)
 
     room_number = Column(String(10), unique=True, nullable=False)
-    sharing = Column(Integer)          # 2 / 3 / 4
-    room_type = Column(String(10))     # AC / NON_AC
-    capacity = Column(Integer)         # no. of beds
+    sharing = Column(Integer)          
+    room_type = Column(String(10))     
+    capacity = Column(Integer)         
     occupied = Column(Integer, default=0)
 
     is_active = Column(Boolean, default=True)

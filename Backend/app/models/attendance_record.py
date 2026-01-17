@@ -10,4 +10,4 @@ class AttendanceRecord(Base):
     sid = Column(Integer, nullable=False)
     srno = Column(String(20), nullable=False)
 
-    status = Column(String(10), nullable=False)  # PRESENT | ABSENT
+    status = Column(String(10), nullable=False)  

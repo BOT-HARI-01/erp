@@ -27,5 +27,5 @@ class StudentProfileResponse(BaseModel):
     parentname: Optional[str] = None
 
     class Config:
-        from_attributes = True   # pydantic v2
+        from_attributes = True   
 

@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  updateFeeView(); // Load default view
+  updateFeeView();
 });
 function getAuthHeaders() {
-    return {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-    };
+  return {
+    Accept: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  };
 }
 async function updateFeeView() {
   const semester = document.getElementById("semesterSelect").value;
@@ -13,15 +13,15 @@ async function updateFeeView() {
   const structureBody = document.getElementById("structureBody");
   const txnBody = document.getElementById("transactionBody");
 
-  // Clear Tables
   structureBody.innerHTML = "";
   txnBody.innerHTML = "";
 
   try {
     const res = await fetch(
-      `http://127.0.0.1:8000/student/payments?semester=${semester}`,{
-        headers:getAuthHeaders(),
-      }
+      `http://127.0.0.1:8000/student/payments?semester=${semester}`,
+      {
+        headers: getAuthHeaders(),
+      },
     );
 
     if (!res.ok) throw new Error("Failed to fetch payment data");
@@ -34,12 +34,11 @@ async function updateFeeView() {
       return;
     }
 
-    // --- 1. POPULATE FEE STRUCTURE ---
     let totalFee = 0;
     let totalPaid = 0;
     let totalBal = 0;
 
-    currentData.structure.forEach(item => {
+    currentData.structure.forEach((item) => {
       totalFee += item.total;
       totalPaid += item.paid;
       totalBal += item.balance;
@@ -57,36 +56,35 @@ async function updateFeeView() {
         <tr>
           <td><strong>${item.type}</strong></td>
           <td>₹ ${item.total.toLocaleString()}</td>
-          <td style="color:#28a745">₹ ${item.paid.toLocaleString()}</td>
-          <td style="color:#dc3545">₹ ${item.balance.toLocaleString()}</td>
+          <td style="color:
+          <td style="color:
           <td>${statusBadge}</td>
         </tr>
       `;
     });
 
     structureBody.innerHTML += `
-      <tr style="background:#f9f9f9; font-weight:bold;">
+      <tr style="background:
         <td>Total</td>
         <td>₹ ${totalFee.toLocaleString()}</td>
-        <td style="color:#28a745">₹ ${totalPaid.toLocaleString()}</td>
-        <td style="color:#dc3545">₹ ${totalBal.toLocaleString()}</td>
+        <td style="color:
+        <td style="color:
         <td>-</td>
       </tr>
     `;
 
-    // --- 2. POPULATE TRANSACTIONS ---
-    currentData.transactions.forEach(txn => {
+    currentData.transactions.forEach((txn) => {
       txnBody.innerHTML += `
         <tr>
           <td>${txn.date}</td>
           <td style="text-align:left">${txn.type}</td>
           <td>${txn.ref}</td>
-          <td style="color:#28a745; font-weight:bold;">
+          <td style="color:
             ₹ ${txn.amount.toLocaleString()}
           </td>
           <td>₹ ${txn.remBalance.toLocaleString()}</td>
           <td>
-            <a href="#" class="download-icon-btn"
+            <a href="
                onclick="alert('Downloading Receipt ${txn.ref}...')">
               Download ⬇
             </a>
@@ -94,7 +92,6 @@ async function updateFeeView() {
         </tr>
       `;
     });
-
   } catch (err) {
     console.error(err);
     structureBody.innerHTML = `<tr><td colspan="5">Error loading fee data</td></tr>`;

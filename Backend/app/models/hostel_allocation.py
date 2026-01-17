@@ -11,6 +11,6 @@ class HostelAllocation(Base):
     allocated_date = Column(Date)
     vacated_date = Column(Date, nullable=True)
 
-    status = Column(String(20))  # ALLOCATED / VACATED use same format and case wile developing frontend
+    status = Column(String(20))  
 
     allocated_by = Column(String(100))

@@ -1,69 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Student Analytics</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/students.css">
-    <link rel="stylesheet" href="../css/hod.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/students.css" />
+    <link rel="stylesheet" href="../css/hod.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
     <div class="main-content">
-        <div class="dashboard-wrapper">
-            <div class="page-header"><h2>Student Analytics</h2></div>
+      <div class="dashboard-wrapper">
+        <div class="page-header"><h2>Student Management</h2></div>
 
-            <div class="card filters-row">
-                <select id="st-year">
-                    <option value="1">Year 1</option>
-                    <option value="2">Year 2</option>
-                    <option value="3">Year 3</option>
-                    <option value="4">Year 4</option>
-                </select>
-
-                <select id="st-sem">
-                    <option value="1">Sem 1</option>
-                    <option value="2">Sem 2</option>
-                    <option value="3">Sem 3</option>
-                    <option value="4">Sem 4</option>
-                    <option value="5">Sem 5</option>
-                    <option value="6">Sem 6</option>
-                    <option value="7">Sem 7</option>
-                    <option value="8">Sem 8</option>
-                </select>
-
-                <select id="st-sec">
-                    <option value="A">Sec A</option>
-                    <option value="B">Sec B</option>
-                    <option value="C">Sec C</option>
-                    <option value="D">Sec D</option>
-                </select>
-
-                <button class="primary-btn" onclick="fetchStudentAnalytics()">Fetch Data</button>
-            </div>
-
-            <div class="card table-card" style="display:none;" id="st-results">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Roll No</th>
-                            <th>Name</th>
-                            <th>Mid 1</th>
-                            <th>Mid 2</th>
-                            <th>Att %</th>
-                            <th>Parent Ph</th>
-                        </tr>
-                    </thead>
-                    <tbody id="student-list">
-                        </tbody>
-                </table>
-            </div>
+        <div class="card search-card" style="margin-bottom: 20px">
+          <h3><i class="fas fa-search"></i> Student Lookup</h3>
+          <div class="filters-row">
+            <input
+              type="text"
+              id="lookup-roll"
+              placeholder="Enter Roll Number (e.g., 21B81A0501)"
+              style="flex-grow: 1; text-transform: uppercase"
+            />
+            <button class="primary-btn" onclick="lookupStudent()">
+              Search
+            </button>
+          </div>
+          <div
+            id="student-details-card"
+            style="
+              display: none;
+              margin-top: 15px;
+              padding: 15px;
+              background: #f8f9fa;
+              border-radius: 6px;
+            "
+          >
+            <h4 style="margin-top: 0">Student Details</h4>
+            <div id="lookup-result-content"></div>
+          </div>
         </div>
+
+        <div class="page-header"><h2>Batch Analytics</h2></div>
+        <div class="card filters-row">
+          <select id="st-year">
+            <option value="1">Year 1</option>
+            <option value="2">Year 2</option>
+            <option value="3">Year 3</option>
+            <option value="4">Year 4</option>
+          </select>
+
+          <select id="st-sem">
+            <option value="1">Sem 1</option>
+            <option value="2">Sem 2</option>
+          </select>
+
+          <select id="st-sec">
+            <option value="A">Sec A</option>
+            <option value="B">Sec B</option>
+            <option value="C">Sec C</option>
+            <option value="D">Sec D</option>
+          </select>
+
+          <button class="primary-btn" onclick="fetchStudentAnalytics()">
+            Fetch Batch Data
+          </button>
+        </div>
+
+        <div class="card table-card" style="display: none" id="st-results">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Mid 1</th>
+                <th>Mid 2</th>
+                <th>Att %</th>
+                <th>Parent Ph</th>
+              </tr>
+            </thead>
+            <tbody id="student-list"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <script src="../js/main.js"></script>
-    <script src="../js/hod.js"></script>
-</body>
+    <script src="../js/students.js"></script>
+  </body>
 </html>

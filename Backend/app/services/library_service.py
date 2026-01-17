@@ -134,7 +134,7 @@ def return_books(db: Session, req, admin_email: str):
     issues = db.query(LibraryIssue).filter(
         LibraryIssue.srno == req.srno,
         LibraryIssue.semester == req.semester,
-        # LibraryIssue.year == req.year,
+        
         LibraryIssue.status == "ISSUED",
         LibraryIssue.book_code.in_(req.book_codes)
     ).all()

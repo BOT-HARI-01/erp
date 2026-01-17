@@ -1,87 +1,82 @@
-/* ---- WELCOME CARD ---- */
 .welcome-card {
-    background: linear-gradient(135deg, #0d47a1, #1976d2);
-    color: white;
-    padding: 30px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
+  background: linear-gradient(135deg, #0d47a1, #1976d2);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(13, 71, 161, 0.2);
 }
 
 .welcome-text h2 {
-    font-size: 1.8rem;
-    margin-bottom: 5px;
-    font-weight: 600;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .welcome-text p {
-    font-size: 1rem;
-    opacity: 0.9;
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
 .date-display {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  backdrop-filter: blur(5px);
 }
 
-/* ---- GRID ---- */
 .grid-2-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
 }
 
-/* ---- PROFILE ---- */
 .profile-details {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .detail-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
 }
 
 .detail-row span {
-    color: #666;
+  color: #666;
 }
 
 .detail-row strong {
-    color: #222;
-    font-weight: 600;
+  color: #222;
+  font-weight: 600;
 }
 
 .highlight {
-    color: #0d47a1;
-    background: #e3f2fd;
-    padding: 2px 8px;
-    border-radius: 4px;
+  color: #0d47a1;
+  background: #e3f2fd;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
-/* ---- TIMETABLE ---- */
 .timetable-placeholder {
-    min-height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f9f9f9;
-    border-radius: 8px;
-    border: 2px dashed #e0e0e0;
-    color: #888;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 2px dashed #e0e0e0;
+  color: #888;
 }
 
-/* ---- RESPONSIVE ---- */
 @media (max-width: 900px) {
-    .grid-2-col {
-        grid-template-columns: 1fr;
-    }
+  .grid-2-col {
+    grid-template-columns: 1fr;
+  }
 }

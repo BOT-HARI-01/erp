@@ -1,52 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Work Distribution</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/hod.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/hod.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
     <div class="main-content">
-        <div class="dashboard-wrapper">
-            <div class="page-header"><h2>Faculty Work Distribution</h2></div>
+      <div class="dashboard-wrapper">
+        <div class="page-header"><h2>Faculty Work Distribution</h2></div>
 
-            <div class="card">
-                <h3>Upload Timetable</h3>
-                
-                <div class="form-group">
-                    <label>Upload Type</label>
-                    <select id="tt-type" onchange="toggleTimetableInputs()">
-                        <option value="CLASS">Class Timetable</option>
-                        <option value="FACULTY">Faculty Workload</option>
-                    </select>
-                </div>
+        <div class="card">
+          <h3>Upload Timetable</h3>
 
-                <div class="filters-row" style="margin-top:10px;">
-                    <input type="number" id="tt-year" placeholder="Year">
-                    <input type="number" id="tt-sem" placeholder="Semester">
-                    <select id="tt-branch"><option value="CSE">CSE</option><option value="ECE">ECE</option></select>
-                    
-                    <select id="tt-sec" class="class-only"><option value="A">Sec A</option><option value="B">Sec B</option></select>
-                    
-                    <input type="text" id="tt-fac-email" class="fac-only" placeholder="Faculty Email" style="display:none;">
-                </div>
+          <div class="form-group">
+            <label>Upload Type</label>
+            <select id="tt-type" onchange="toggleTimetableInputs()">
+              <option value="CLASS">Class Timetable</option>
+              <option value="FACULTY">Faculty Workload</option>
+            </select>
+          </div>
 
-                <div class="form-group" style="margin-top:20px;">
-                    <label>Timetable Image</label>
-                    <input type="file" id="tt-file" accept="image/*">
-                </div>
+          <div class="filters-row" style="margin-top: 10px">
+            <input type="number" id="tt-year" placeholder="Year" />
+            <input type="number" id="tt-sem" placeholder="Semester" />
+            <select id="tt-branch">
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+            </select>
 
-                <button class="primary-btn" onclick="uploadTimetable()">Upload & Assign</button>
-            </div>
+            <select id="tt-sec" class="class-only">
+              <option value="A">Sec A</option>
+              <option value="B">Sec B</option>
+            </select>
 
+            <input
+              type="text"
+              id="tt-fac-email"
+              class="fac-only"
+              placeholder="Faculty Email"
+              style="display: none"
+            />
+          </div>
+
+          <div class="form-group" style="margin-top: 20px">
+            <label>Timetable Image</label>
+            <input type="file" id="tt-file" accept="image/*" />
+          </div>
+
+          <button class="primary-btn" onclick="uploadTimetable()">
+            Upload & Assign
+          </button>
         </div>
+      </div>
     </div>
     <script src="../js/main.js"></script>
-    <script src="../js/hod.js"></script>
-</body>
+    <script src="../js/timetable.js"></script>
+  </body>
 </html>

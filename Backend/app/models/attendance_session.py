@@ -13,6 +13,6 @@ class AttendanceSession(Base):
     semester = Column(Integer, nullable=False)
 
     date = Column(Date, nullable=False)
-    period = Column(Integer, nullable=False)  # 1,2,3...
+    period = Column(Integer, nullable=False)  
 
     faculty_email = Column(String(100), nullable=False)

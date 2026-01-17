@@ -9,7 +9,38 @@ from app.models.faculty import Faculty
 from app.models.student import Student
 from app.models.academic import Academic
 from app.models.internal_marks import InternalMarks
+from app.schemas.hod import HODProfileResponse, HODProfileUpdate
+from app.services.hod_service import get_hod_profile, update_hod_profile
 router = APIRouter(prefix="/hod", tags=["HOD"])
+
+@router.get("/profile", response_model=HODProfileResponse)
+def view_hod_profile(
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if user["role"] != "HOD":
+        raise HTTPException(status_code=403, detail="Only HOD allowed")
+
+    profile = get_hod_profile(db, user["sub"])
+    if not profile:
+        raise HTTPException(status_code=404, detail="HOD Profile not found")
+    
+    return profile
+
+@router.put("/profile", response_model=HODProfileResponse)
+def update_hod_profile_route(
+    req: HODProfileUpdate,
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if user["role"] != "HOD":
+        raise HTTPException(status_code=403, detail="Only HOD allowed")
+
+    updated_profile = update_hod_profile(db, user["sub"], req)
+    if not updated_profile:
+        raise HTTPException(status_code=400, detail="Failed to update profile")
+
+    return updated_profile
 
 @router.post("/timetable/upload")
 def upload_timetable(
@@ -37,11 +68,11 @@ def get_department_faculty(db: Session = Depends(get_db), user=Depends(get_curre
     faculty = db.query(Faculty).all()
     return [
         {
-            "id": f.faculty_id,
+            "id": f.id,
             "name": f"{f.first_name} {f.last_name}",
-            "email": f.email,
-            "sub": f.designation, 
-            "att": 90 # Mock attendance until Faculty Attendance module is linked
+            "email": f.user_email,
+            "phno": f.mobile_no,
+            "sub": f.qualification, 
         }
         for f in faculty
     ]
@@ -59,7 +90,7 @@ def get_student_analytics(
 
     results = db.query(Student, InternalMarks)\
         .join(Academic, Academic.sid == Student.id)\
-        .outerjoin(InternalMarks, InternalMarks.roll_no == Student.roll_no)\
+        .outerjoin(InternalMarks, InternalMarks.srno == Student.roll_no)\
         .filter(
             Academic.year == year,
             Academic.semester == semester,

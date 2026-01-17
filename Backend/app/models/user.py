@@ -1,4 +1,4 @@
-# Users table mapping
+
 from sqlalchemy import Column, Integer, String, Boolean, Enum
 from app.core.database import Base
 

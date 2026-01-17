@@ -5,8 +5,8 @@ class FeeStructure(Base):
     __tablename__ = "fee_structure"
 
     id = Column(Integer, primary_key=True)
-    quota = Column(String(20))                 # MANAGEMENT | CONVENER
-    residence_type = Column(String(20))        # DAY_SCHOLAR | HOSTELER
+    quota = Column(String(20))                 
+    residence_type = Column(String(20))        
 
     tuition_fee = Column(DECIMAL(10,2))
     bus_fee = Column(DECIMAL(10,2))

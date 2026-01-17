@@ -1,54 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Student Lookup</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/faculty.css">
-    <link rel="stylesheet" href="../css/students.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/faculty.css" />
+    <link rel="stylesheet" href="../css/students.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <div id="sidebar-container"></div>
     <div class="main-content">
-        <div id="header-container"></div>
-        <div class="dashboard-wrapper">
-            
-            <div class="page-header"><h2>Student Lookup</h2></div>
+      <div id="header-container"></div>
+      <div class="dashboard-wrapper">
+        <div class="page-header"><h2>Student Lookup</h2></div>
 
-            <div class="card search-card">
-                <div class="form-group">
-                    <label>Enter Roll Number</label>
-                    <div class="input-with-btn">
-                        <input type="text" id="lookup-roll" placeholder="e.g. 21B81A0501">
-                        <button class="primary-btn" onclick="lookupStudent()"><i class="fas fa-search"></i> Search</button>
-                    </div>
-                </div>
+        <div class="card search-card">
+          <div class="form-group">
+            <label>Enter Roll Number</label>
+            <div class="input-with-btn">
+              <input
+                type="text"
+                id="lookup-roll"
+                placeholder="e.g. 21B81A0501"
+              />
+              <button class="primary-btn" onclick="lookupStudent()">
+                <i class="fas fa-search"></i> Search
+              </button>
             </div>
-
-            <div class="card table-card" id="lookup-result" style="display:none;">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Roll No</th>
-                            <th>Name</th>
-                            <th>Branch</th>
-                            <th>Year / Sem</th>
-                            <th>Section</th>
-                            <th>Phone</th>
-                            <th>Status</th>
-                            <th>Fee Status</th> <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lookup-body">
-                        </tbody>
-                </table>
-            </div>
-
+          </div>
         </div>
+
+        <div class="card table-card" id="lookup-result" style="display: none">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Year / Sem</th>
+                <th>Section</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Fee Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="lookup-body"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <script src="../js/main.js"></script>
     <script src="../js/students.js"></script>
-</body>
+  </body>
 </html>

@@ -1,65 +1,64 @@
-/* Search Card Styling */
 .search-card {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
 }
 
 .input-with-btn {
-    display: flex;
-    gap: 10px;
-    max-width: 500px;
+  display: flex;
+  gap: 10px;
+  max-width: 500px;
 }
 
 .input-with-btn input {
-    flex-grow: 1;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    text-transform: uppercase; /* Force Roll No uppercase */
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .input-with-btn .primary-btn {
-    padding: 0 25px;
-    background-color: #0d47a1;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.2s;
+  padding: 0 25px;
+  background-color: #0d47a1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
 }
 
 .input-with-btn .primary-btn:hover {
-    background-color: #1565c0;
+  background-color: #1565c0;
 }
 
-/* Alert Button in Table */
 .alert-btn {
-    background-color: #ff9800; /* Orange for alert */
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: background 0.2s;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.2s;
 }
 
 .alert-btn:hover {
-    background-color: #f57c00;
+  background-color: #f57c00;
 }
 
-.data-table th, .data-table td {
-    padding: 15px;
-    vertical-align: middle;
+.data-table th,
+.data-table td {
+  padding: 15px;
+  vertical-align: middle;
 }

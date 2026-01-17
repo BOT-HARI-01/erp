@@ -85,7 +85,7 @@ def upload_internal_marks(
 
     return {"message": "Internal marks uploaded successfully"}
 
-# 👉 Step 1: Get existing marks
+
 @router.post("/internal-marks/get")
 def fetch_internal_marks(
     req: InternalMarksFetch,
@@ -94,7 +94,7 @@ def fetch_internal_marks(
 ):
     return get_internal_marks(db, req)
 
-# 👉 Step 2: Update marks
+
 @router.put("/internal-marks/update")
 def update_marks(
     req: InternalMarksUpdate,
@@ -142,21 +142,21 @@ def view_faculty_timetable(
     return {
         "image_url": timetable.image_path
     }
-# --- Add this to app/routers/faculty.py ---
+
 
 @router.get("/class-students")
 def get_students_by_class(
     year: int,
     semester: int,
     section: str,
-    branch: str = "CSE", # Default or pass from FE
+    branch: str = "CSE", 
     db: Session = Depends(get_db),
     user=Depends(get_current_user)
 ):
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403, detail="Authorized for Faculty only")
 
-    # Join Academic and Student tables
+    
     results = db.query(Student.roll_no, Student.first_name, Student.last_name)\
         .join(Academic, Academic.sid == Student.id)\
         .filter(
