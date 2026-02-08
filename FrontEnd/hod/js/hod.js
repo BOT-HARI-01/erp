@@ -227,8 +227,8 @@ async function uploadTimetable() {
     });
     const data = await res.json();
 
-    if (res.ok) alert("✅ " + data.message);
-    else alert("❌ Error: " + (data.detail || "Upload failed"));
+    if (res.ok) alert(" " + data.message);
+    else alert(" Error: " + (data.detail || "Upload failed"));
   } catch (e) {
     console.error(e);
     alert("Network Error");

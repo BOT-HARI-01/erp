@@ -1,123 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
-  renderNotifications("all");
+  fetchNotifications();
 });
 
-let notifications = [
-  {
-    id: 1,
-    type: "fee",
-    priority: "critical",
-    title: "Tuition Fee Overdue",
-    message:
-      "Your Semester 6 tuition fee payment of ₹25,000 is pending. Please pay immediately to avoid late charges.",
-    time: "2 hours ago",
-    read: false,
-    icon: "fa-money-bill-wave",
-  },
-  {
-    id: 2,
-    type: "academic",
-    priority: "critical",
-    title: "Low Attendance Warning",
-    message:
-      'Your attendance in "Compiler Design" has dropped to 68%. You need 75% to appear for exams.',
-    time: "5 hours ago",
-    read: false,
-    icon: "fa-exclamation-triangle",
-  },
-  {
-    id: 3,
-    type: "library",
-    priority: "info",
-    title: "Book Returned Successfully",
-    message:
-      'You have successfully returned "Intro to Algorithms". No fines applicable.',
-    time: "1 day ago",
-    read: true,
-    icon: "fa-book",
-  },
-  {
-    id: 4,
-    type: "academic",
-    priority: "info",
-    title: "Mid-Sem Dates Announced",
-    message:
-      "The schedule for Mid-Semester Exams has been published. Check the dashboard for details.",
-    time: "2 days ago",
-    read: true,
-    icon: "fa-calendar-alt",
-  },
-  {
-    id: 5,
-    type: "fee",
-    priority: "success",
-    title: "Hostel Fee Payment Received",
-    message:
-      "Payment of ₹30,000 for Hostel Block A received via Transaction ID #998877.",
-    time: "3 days ago",
-    read: true,
-    icon: "fa-check-circle",
-  },
-];
+let notifications = [];
 
-function renderNotifications(filterType) {
+async function fetchNotifications() {
+  const token = localStorage.getItem("token");
   const listContainer = document.getElementById("notification-list");
-  listContainer.innerHTML = "";
 
-  const filteredData =
-    filterType === "all"
-      ? notifications
-      : notifications.filter((n) => n.type === filterType);
+  try {
+    const response = await fetch("http://127.0.0.1:8000/student/notifications", {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
 
-  if (filteredData.length === 0) {
-    listContainer.innerHTML = `<div style="text-align:center; padding: 40px; color:#999;">No notifications found.</div>`;
+    if (response.ok) {
+      const data = await response.json();
+      
+      // Process Data
+      notifications = data.map(item => ({
+        id: item.id,
+        title: item.title,
+        message: item.message,
+        category: item.category, // e.g., 'FEES', 'ACADEMIC'
+        priority: item.priority, // e.g., 'CRITICAL', 'NORMAL'
+        time: formatTimeAgo(item.created_at),
+        icon: getIconForCategory(item.category)
+      }));
+
+      renderNotifications("ALL");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    listContainer.innerHTML = `<div class="error-msg">Failed to load notifications</div>`;
+  }
+}
+
+// Map Category to FontAwesome Icon
+function getIconForCategory(category) {
+    const map = {
+        'ACADEMIC': 'fa-graduation-cap',
+        'FEES': 'fa-money-bill-wave',
+        'HOSTEL': 'fa-bed',
+        'LIBRARY': 'fa-book',
+        'EVENT': 'fa-calendar-alt',
+        'GENERAL': 'fa-bullhorn'
+    };
+    return map[category] || 'fa-bell';
+}
+
+function formatTimeAgo(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const seconds = Math.floor((now - date) / 1000);
+  
+  if (seconds < 60) return "Just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} mins ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hours ago`;
+  return `${Math.floor(hours / 24)} days ago`;
+}
+
+function renderNotifications(filter) {
+  const container = document.getElementById("notification-list");
+  container.innerHTML = "";
+
+  const filtered = filter === "ALL" 
+    ? notifications 
+    : notifications.filter(n => n.category === filter);
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state">No notifications found.</div>`;
     return;
   }
 
-  filteredData.forEach((item) => {
-    const unreadBadge = item.read ? "" : '<span class="unread-dot"></span>';
-
-    const priorityClass = `priority-${item.priority}`;
-    const typeClass = `type-${item.type}`;
+  filtered.forEach(item => {
+    // CSS classes based on Priority and Category
+    const priorityClass = `priority-${item.priority.toLowerCase()}`; 
+    const typeClass = `type-${item.category.toLowerCase()}`;
 
     const card = `
-            <div class="notif-card ${priorityClass}">
-                <div class="notif-icon ${typeClass}">
-                    <i class="fas ${item.icon}"></i>
+        <div class="notif-card ${priorityClass}">
+            <div class="notif-icon ${typeClass}">
+                <i class="fas ${item.icon}"></i>
+            </div>
+            <div class="notif-content">
+                <div class="notif-header">
+                    <span class="notif-title">${item.title}</span>
+                    <span class="notif-tag">${item.category}</span>
                 </div>
-                <div class="notif-content">
-                    <div class="notif-title">
-                        ${item.title}
-                        ${unreadBadge}
-                    </div>
-                    <div class="notif-msg">${item.message}</div>
+                <div class="notif-msg">${item.message}</div>
+                <div class="notif-footer">
                     <span class="notif-time">${item.time}</span>
                 </div>
             </div>
-        `;
-    listContainer.innerHTML += card;
+        </div>
+    `;
+    container.innerHTML += card;
   });
 }
 
-function filterNotifications(type, btnElement) {
-  document
-    .querySelectorAll(".tab-btn")
-    .forEach((btn) => btn.classList.remove("active"));
-  btnElement.classList.add("active");
-
-  renderNotifications(type);
-}
-
-function markAllAsRead() {
-  notifications.forEach((n) => (n.read = true));
-
-  const activeTab = document.querySelector(".tab-btn.active");
-
-  let type = "all";
-  if (activeTab.innerText === "Fees") type = "fee";
-  if (activeTab.innerText === "Academic") type = "academic";
-  if (activeTab.innerText === "Library") type = "library";
-
-  renderNotifications(type);
-  alert("All notifications marked as read.");
+// Tab Filter Logic
+function filterNotifications(category, btn) {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderNotifications(category);
 }
