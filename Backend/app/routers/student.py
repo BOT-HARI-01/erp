@@ -158,7 +158,7 @@ def get_external_marks(
     user=Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-
+    print(year, " sdf", semester)
     if user["role"] != "STUDENT":
         raise HTTPException(status_code=403)
     externalmarks = get_semester_result(year, semester, db, user["sub"])

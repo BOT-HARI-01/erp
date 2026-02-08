@@ -100,3 +100,30 @@
   font-size: 0.9rem;
   min-height: 50px;
 }
+
+.card {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: box-shadow, transform;
+}
+.card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+.upload-area {
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: border-color, background-color, box-shadow;
+}
+.upload-area:hover {
+  box-shadow: 0 0 12px rgba(13, 71, 161, 0.15);
+}
+
+.primary-btn {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  will-change: background-color, box-shadow, transform;
+}
+.primary-btn:hover {
+  box-shadow: 0 6px 14px rgba(13, 71, 161, 0.3);
+  transform: scale(1.05);
+  background-color: var(--primary-color);
+}

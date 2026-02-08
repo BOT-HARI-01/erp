@@ -4,7 +4,7 @@
   min-height: 100vh;
   background-color: var(--bg-light);
   width: calc(100% - 250px);
-  margin-top: 50vh;
+  margin-top: 30vh;
 }
 
 .dashboard-wrapper {

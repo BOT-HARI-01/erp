@@ -22,12 +22,12 @@
       <div class="dashboard-wrapper">
         <div class="page-header">
           <h2>Student Records</h2>
-          <button
+          <!-- <button
             class="add-btn"
             onclick="alert('Feature: Add Single Student Manually')"
           >
             <i class="fas fa-plus"></i> Add Student
-          </button>
+          </button> -->
         </div>
 
         <div class="filters-section">
@@ -45,8 +45,13 @@
             <select id="deptFilter" onchange="filterStudents()">
               <option value="All">All Departments</option>
               <option value="CSE">CSE</option>
+              <option value="CSM">CSM</option>
               <option value="ECE">ECE</option>
-              <option value="MECH">Mechanical</option>
+              <option value="EEE">EEE</option>
+              <option value="AIML">AIML</option>
+              <option value="AIDS">AIDS</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="MECH">MECH</option>
             </select>
           </div>
 
@@ -71,7 +76,7 @@
                 <th>Year/Sem</th>
                 <th>Contact</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
               </tr>
             </thead>
             <tbody id="student-list"></tbody>
@@ -80,7 +85,7 @@
       </div>
     </div>
 
-    <div id="editModal" class="modal">
+    <!-- <div id="editModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
           <h3>Edit Student Details</h3>
@@ -109,7 +114,7 @@
           <button class="save-btn" onclick="saveStudent()">Save Changes</button>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <script src="../js/main.js"></script>
     <script src="../js/students.js"></script>

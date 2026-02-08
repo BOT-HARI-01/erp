@@ -135,3 +135,20 @@ body {
   font-size: 0.9rem;
   min-height: 20px;
 }
+
+/* Find and replace .login-container */
+.login-container {
+  /* ... keep existing properties ... */
+  
+  /* Enhanced shadow */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
+  border: 1px solid rgba(0,0,0,0.05); /* Softer border */
+}
+
+/* Optional: Add shadow to input focus state */
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary-color);
+  background: var(--white);
+  box-shadow: 0 4px 10px rgba(13, 71, 161, 0.15); /* Soft blue glow shadow */
+}

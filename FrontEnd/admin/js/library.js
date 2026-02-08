@@ -209,7 +209,7 @@ async function fetchBookCatalog() {
 
       books.forEach((b) => {
         const row = `
-                    <tr style="border-bottom:1px solid 
+                    <tr style="border-bottom:1px solid #eee;">
                         <td style="padding:10px; font-weight:bold;">${b.code}</td>
                         <td style="padding:10px;">${b.title}</td>
                         <td style="padding:10px;">${b.author}</td>

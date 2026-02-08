@@ -21,7 +21,7 @@ async function loadDashboardStats() {
 
     if (res.ok) {
       const data = await res.json();
-
+      console.log(data)
       document.getElementById("stat-students").innerText =
         data.total_students.toLocaleString();
       document.getElementById("stat-pending").innerText =

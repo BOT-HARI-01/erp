@@ -37,94 +37,52 @@
         <div class="page-header"><h2>My Profile</h2></div>
 
         <div class="card">
-          <form
-            id="profile-form"
-            onsubmit="
-              event.preventDefault();
-              updateProfile();
-            "
-          >
+          <form id="profile-form" onsubmit="event.preventDefault();">
             <div class="profile-form-grid">
               <div class="form-group">
                 <label>First Name</label>
-                <input type="text" id="pf-fname" required />
+                <input type="text" id="pf-fname" readonly />
               </div>
 
               <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" id="pf-lname" required />
+                <input type="text" id="pf-lname" readonly />
               </div>
 
               <div class="form-group">
                 <label>Mobile Number</label>
-                <input
-                  type="tel"
-                  id="pf-mobile"
-                  pattern="[0-9]{10}"
-                  title="10 digit mobile number"
-                  required
-                />
+                <input type="tel" id="pf-mobile" readonly />
               </div>
 
               <div class="form-group">
                 <label>Date of Birth</label>
-                <input type="date" id="pf-dob" required />
+                <input type="date" id="pf-dob" readonly />
               </div>
 
               <div class="form-group">
                 <label>Gender</label>
-                <select id="pf-gender">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
+                <input type="text" id="pf-gender" readonly />
               </div>
 
               <div class="form-group">
                 <label>Blood Group</label>
-                <select id="pf-blood">
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
-                </select>
+                <input type="text" id="pf-blood" readonly />
               </div>
 
               <div class="form-group">
                 <label>Qualification</label>
-                <input
-                  type="text"
-                  id="pf-qual"
-                  placeholder="e.g. M.Tech, Ph.D"
-                />
+                <input type="text" id="pf-qual" readonly />
               </div>
 
               <div class="form-group">
                 <label>Experience (Years)</label>
-                <input type="number" id="pf-exp" min="0" step="1" />
+                <input type="number" id="pf-exp" readonly />
               </div>
 
               <div class="form-group full-width">
                 <label>Address</label>
-                <textarea
-                  id="pf-addr"
-                  rows="3"
-                  placeholder="Enter full address"
-                ></textarea>
+                <input id="pf-addr" rows="3" readonly></input>
               </div>
-            </div>
-
-            <div
-              class="action-footer"
-              style="margin-top: 20px; justify-content: flex-end; display: flex"
-            >
-              <button type="submit" class="submit-btn">
-                <i class="fas fa-save"></i> Save Changes
-              </button>
             </div>
           </form>
         </div>

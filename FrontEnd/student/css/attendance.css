@@ -188,3 +188,52 @@ td.h {
     width: 100%;
   }
 }
+
+
+.filters-section,
+.table-wrapper {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* Gentle emphasis on hover */
+.filters-section:hover,
+.table-wrapper:hover {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+}
+
+/* Search button micro-interaction */
+.search-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s;
+}
+
+.search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Select focus polish */
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.15);
+}
+
+/* Table row hover clarity */
+tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:hover td:not(.subject) {
+  background-color: rgba(13, 71, 161, 0.04);
+}
+
+/* Sticky subject column depth */
+td.subject {
+  box-shadow: 4px 0 6px -4px rgba(0, 0, 0, 0.12);
+}
+
+/* Badge depth */
+.badge {
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25),
+              0 2px 6px rgba(0, 0, 0, 0.15);
+}

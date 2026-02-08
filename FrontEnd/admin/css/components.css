@@ -124,3 +124,36 @@
 .dashboard-wrapper {
   padding: 30px;
 }
+
+
+/* Find and replace .sidebar */
+.sidebar {
+  /* ... keep existing properties ... */
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Find and replace .nav-links li a */
+.nav-links li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #121212;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  /* NEW STYLES */
+  margin: 5px 12px;
+  border-radius: 10px;
+  border-left: none; 
+}
+
+/* Find and replace .nav-links li a:hover, .nav-links li a.active */
+.nav-links li a:hover,
+.nav-links li a.active {
+  background: var(--primary-color);
+  color: white;
+  /* border-left-color: #002171; <-- REMOVE THIS LINE */
+  
+  box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);
+  transform: translateX(2px);
+}

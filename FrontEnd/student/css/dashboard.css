@@ -8,8 +8,9 @@
 }
 
 .dashboard-wrapper {
-  margin-top: 20vh;
+  margin-top: 40vh;
   padding: 30px;
+  transition: margin-top 0.3s ease;
 }
 
 .alert-box {
@@ -22,7 +23,7 @@
   align-items: center;
   gap: 15px;
   margin-bottom: 30px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); 
 }
 
 .alert-box i {
@@ -173,4 +174,23 @@
   .main-content {
     margin-left: 0;
   }
+}
+
+/* Find and replace .card */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  
+  /* NEW SHADOW STYLE */
+  /* Was: box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); 
+  border: 1px solid rgba(0,0,0,0.02); /* Subtle border for definition */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  /* Stronger shadow on hover */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); 
 }

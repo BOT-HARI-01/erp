@@ -1,168 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>Marks Entry</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/faculty.css" />
-    <link rel="stylesheet" href="../css/marks.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/faculty.css">
+    <link rel="stylesheet" href="../css/marks.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
     <div id="sidebar-container"></div>
-    <div id="header-container"></div>
     <div class="main-content">
-      <div class="dashboard-wrapper">
-        <div class="page-header"><h2>Internal Marks Management</h2></div>
+        <div id="header-container"></div>
+        <div class="dashboard-wrapper">
+            
+            <div class="page-header"><h2>Internal Marks Management</h2></div>
 
-        <div class="card filters-row">
-          <div class="form-group">
-            <label>Year</label>
-            <select id="mk-year" class="sm-select">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Semester</label>
-            <select id="mk-sem" class="sm-select">
-              <option value="1">1</option>
-              <option value="2">2</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Branch</label>
-            <input
-              type="text"
-              id="mk-branch"
-              class="sm-input"
-              placeholder="Enter branch"
-              style="width: 80px; text-transform: uppercase"
-            />
-          </div>
-          <div class="form-group">
-            <label>Section</label>
-            <input
-              type="text"
-              id="mk-sec"
-              class="sm-input"
-              placeholder="enter section"
-              style="width: 50px; text-transform: uppercase"
-            />
-          </div>
-          <div class="form-group">
-            <label>Subject</label>
-            <input
-              type="text"
-              id="mk-sub"
-              class="sm-select"
-              placeholder="Enter Subject"
-              style="width: auto"
-            />
-          </div>
-          <div class="form-group">
-            <label>Exam</label>
-            <select id="mk-exam" class="sm-select">
-              <option value="1">Mid 1</option>
-              <option value="2">Mid 2</option>
-            </select>
-          </div>
+            <div class="card filters-row horizontal-form">
+                
+                <div class="inline-group">
+                    <label>Year</label>
+                    <select id="mk-year">
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                    </select>
+                </div>
 
-          <div class="form-group" style="align-self: flex-end">
-            <button class="primary-btn" onclick="fetchStudentListForMarks()">
-              <i class="fas fa-list"></i> Load Sheet
-            </button>
-          </div>
+                <div class="inline-group">
+                    <label>Sem</label>
+                    <select id="mk-sem">
+                        <option value="1">1</option><option value="2">2</option>
+                    </select>
+                </div>
+
+                <div class="inline-group">
+                    <label>Branch</label>
+                    <input type="text" id="mk-branch" placeholder="CSE" style="width: 70px;">
+                </div>
+
+                <div class="inline-group">
+                    <label>Sec</label>
+                    <input type="text" id="mk-sec" placeholder="A" style="width: 40px;">
+                </div>
+
+                <div class="inline-group">
+                    <label>Subject</label>
+                    <select id="mk-sub" style="min-width: 160px;">
+                        <option value="CS301">Compiler Design</option>
+                        <option value="CS302">Web Technologies</option>
+                        <option value="CS303">Machine Learning</option>
+                    </select>
+                </div>
+
+                <button class="primary-btn compact-btn" onclick="fetchStudentListForMarks()">
+                    <i class="fas fa-list"></i> Load
+                </button>
+            </div>
+
+            <div class="card upload-row">
+                <div class="upload-info">
+                    <h4><i class="fas fa-file-excel"></i> Bulk Upload</h4>
+                    <p>Upload .xlsx (Roll No, Open Book, Descriptive, Seminar, Objective)</p>
+                </div>
+                <div class="upload-actions">
+                    <input type="file" id="mk-upload-file" accept=".xlsx, .xls">
+                    <button class="secondary-btn" onclick="uploadMarksExcel()">
+                        <i class="fas fa-upload"></i> Upload
+                    </button>
+                </div>
+            </div>
+
+            <div class="card table-card" style="display:none;" id="mk-table-container">
+                <div class="table-header-row">
+                    <h3 id="table-title">Marks Sheet</h3>
+                    <div class="actions">
+                        <button class="icon-btn" onclick="downloadMarksExcelTemplate()" title="Download Excel Template">
+                            <i class="fas fa-file-download"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table marks-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" width="10%">Roll No</th>
+                                <th rowspan="2" width="15%">Name</th>
+                                <th colspan="2">Open Book (5)</th>
+                                <th colspan="2">Descriptive (10)</th>
+                                <th colspan="2">Seminar (5)</th>
+                                <th colspan="2">Objective (5)</th>
+                                <th rowspan="2" width="5%">Mid-1</th>
+                                <th rowspan="2" width="5%">Mid-2</th>
+                            </tr>
+                            <tr class="sub-header">
+                                <th>M1</th> <th>M2</th>
+                                <th>M1</th> <th>M2</th>
+                                <th>M1</th> <th>M2</th>
+                                <th>M1</th> <th>M2</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mk-list">
+                            </tbody>
+                    </table>
+                </div>
+                
+                <div class="action-footer">
+                    <div class="summary-text" id="mk-summary">Total: 0</div>
+                    <button class="submit-btn secondary-btn" onclick="submitMarks()">
+                        <i class="fas fa-save "></i> Save Changes
+                    </button>
+                </div>
+            </div>
+
         </div>
-
-        <div
-          class="card filters-row"
-          style="margin-top: 15px; background: #f8f9fa; border: 1px dashed #ccc"
-        >
-          <div
-            style="display: flex; align-items: center; gap: 15px; width: 100%"
-          >
-            <div style="flex-grow: 1">
-              <h4 style="margin: 0 0 5px 0; color: #555">
-                Bulk Upload via Excel
-              </h4>
-              <p style="margin: 0; font-size: 0.85rem; color: #777">
-                Upload .xlsx file. Columns: Roll No, Open Book, Descriptive,
-                Seminar, Objective
-              </p>
-            </div>
-            <div>
-              <input type="file" id="mk-upload-file" accept=".xlsx, .xls" />
-            </div>
-            <div>
-              <button class="secondary-btn" onclick="uploadMarksExcel()">
-                <i class="fas fa-upload"></i> Upload
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="card table-card"
-          style="display: none"
-          id="mk-table-container"
-        >
-          <div class="table-header-row">
-            <h3 id="table-title">Marks Sheet</h3>
-            <div class="actions">
-              <button
-                class="icon-btn"
-                onclick="downloadMarksExcelTemplate()"
-                title="Download Template"
-              >
-                <i class="fas fa-file-download"></i> Template
-              </button>
-            </div>
-          </div>
-
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th rowspan="2">Roll No</th>
-                <th rowspan="2">Name</th>
-                <th colspan="2">Open Book (5)</th>
-                <th colspan="2">Descriptive (10)</th>
-                <th colspan="2">Seminar (5)</th>
-                <th colspan="2">Objective (5)</th>
-                <th rowspan="2">Mid-1 Total</th>
-                <th rowspan="2">Mid-2 Total</th>
-              </tr>
-              <tr>
-                <th>M1</th>
-                <th>M2</th>
-                <th>M1</th>
-                <th>M2</th>
-                <th>M1</th>
-                <th>M2</th>
-                <th>M1</th>
-                <th>M2</th>
-              </tr>
-            </thead>
-
-            <tbody id="mk-list"></tbody>
-          </table>
-
-          <div class="action-footer">
-            <div class="summary-text" id="mk-summary">Total Students: 0</div>
-            <button class="submit-btn" onclick="submitMarks()">
-              <i class="fas fa-save"></i> Save All Marks
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
     <script src="../js/main.js"></script>
     <script src="../js/marks.js"></script>
-  </body>
+</body>
 </html>

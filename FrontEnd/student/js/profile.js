@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById("p-dept").innerText = academics.branch ?? "-";
     document.getElementById("p-year").innerText =
-      `${academics.year ?? "-"} Year / ${academics.semester ?? "-"} Sem`;
+      `  ${academics.year ?? "-"} / ${academics.semester ?? "-"} `;
 
     document.getElementById("p-section").innerText = academics.section ?? "-";
-    document.getElementById("p-teacher").innerText = "-";
+    // document.getElementById("p-teacher").innerText = "-";
 
     document.getElementById("p-dob").innerText = profile.date_of_birth ?? "-";
     document.getElementById("p-gender").innerText = "-";

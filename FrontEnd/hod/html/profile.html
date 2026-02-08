@@ -21,10 +21,6 @@
         <div class="card">
           <form
             id="hod-profile-form"
-            onsubmit="
-              event.preventDefault();
-              updateHodProfile();
-            "
           >
             <div
               class="filters-row"
@@ -32,27 +28,27 @@
             >
               <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" id="hp-name" required />
+                <input type="text" id="hp-name" required  readonly  />
               </div>
 
               <div class="form-group">
                 <label>Department</label>
-                <input type="text" id="hp-dept" required />
+                <input type="text" id="hp-dept" required  readonly/>
               </div>
 
               <div class="form-group">
                 <label>Mobile Number</label>
-                <input type="text" id="hp-mobile" required />
+                <input type="text" id="hp-mobile" required readonly />
               </div>
 
               <div class="form-group">
                 <label>Qualification</label>
-                <input type="text" id="hp-qual" required />
+                <input type="text" id="hp-qual" required  readonly/>
               </div>
 
               <div class="form-group">
                 <label>Experience (Years)</label>
-                <input type="number" id="hp-exp" required min="0" />
+                <input type="number" id="hp-exp" required min="0" readonly />
               </div>
 
               <div class="form-group">
@@ -62,14 +58,9 @@
                   id="hp-email"
                   disabled
                   style="background: #f0f0f0"
+                  readonly
                 />
               </div>
-            </div>
-
-            <div style="margin-top: 20px; text-align: right">
-              <button type="submit" class="primary-btn">
-                <i class="fas fa-save"></i> Save Changes
-              </button>
             </div>
           </form>
         </div>

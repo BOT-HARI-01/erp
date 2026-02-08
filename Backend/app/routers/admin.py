@@ -174,8 +174,8 @@ def get_dashboard_stats(
     active_faculty = db.query(Faculty).count()
 
     
-    total_fees = db.query(func.sum(Payment.amount_paid)).filter(Payment.status == "PAID").scalar() or 0
-
+    total_fees = db.query(func.sum(Payment.amount_paid))or 0
+    print(total_fees)
     
     
     admitted_ids = db.query(Academic.sid).distinct()

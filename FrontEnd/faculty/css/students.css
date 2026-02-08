@@ -62,3 +62,43 @@
   padding: 15px;
   vertical-align: middle;
 }
+
+.search-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: box-shadow, transform;
+}
+.search-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+}
+
+/* Smooth focus effect on input inside input-with-btn */
+.input-with-btn input:focus {
+  border-color: #0d47a1;
+  outline: none;
+  box-shadow: 0 0 6px rgba(13, 71, 161, 0.3);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Primary button subtle shadow and scale on hover */
+.input-with-btn .primary-btn {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  will-change: background-color, box-shadow, transform;
+}
+.input-with-btn .primary-btn:hover {
+  box-shadow: 0 6px 14px rgba(13, 71, 161, 0.3);
+  transform: scale(1.05);
+  background-color: #1565c0;
+}
+
+/* Alert button subtle shadow and scale on hover */
+.alert-btn {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  will-change: background-color, box-shadow, transform;
+}
+.alert-btn:hover {
+  box-shadow: 0 6px 14px rgba(255, 152, 0, 0.3);
+  transform: scale(1.05);
+  background-color: #f57c00;
+}

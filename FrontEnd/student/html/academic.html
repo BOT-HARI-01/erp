@@ -12,6 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
   </head>
   <body>
     <div id="sidebar-container"></div>
@@ -25,10 +27,7 @@
             <h2>Academic Records</h2>
             <p class="page-subtitle">View semester-wise academic performance</p>
           </div>
-          <button
-            class="download-btn"
-            onclick="alert('Download feature coming soon!')"
-          >
+          <button class="download-btn" onclick="downloadPdf()">
             Download Report
           </button>
         </div>

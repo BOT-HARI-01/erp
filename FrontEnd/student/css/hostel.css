@@ -3,7 +3,6 @@
   padding-top: 60px;
   background-color: var(--bg-light);
   width: calc(100% - 250px);
-  margin-top: 40vh;
 }
 
 .dashboard-wrapper {
@@ -170,4 +169,73 @@
     margin-left: 0;
     width: 100%;
   }
+}
+
+.hostel-card {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.hostel-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+}
+
+/* Card header separation polish */
+.card-header {
+  position: relative;
+}
+
+.card-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 60px;
+  height: 2px;
+  background-color: var(--primary-color);
+  opacity: 0.25;
+}
+
+/* Badge depth */
+.badge {
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.35),
+              0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Detail emphasis on hover */
+.detail-item span {
+  transition: color 0.2s ease;
+}
+
+.detail-item:hover span {
+  color: var(--primary-color);
+}
+
+/* Table row clarity */
+.simple-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.simple-table tbody tr:hover {
+  background-color: rgba(13, 71, 161, 0.04);
+}
+
+/* Fee rows micro polish */
+.fee-row {
+  transition: background-color 0.2s ease;
+}
+
+.fee-row:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Amenity list hover cue */
+.amenity-list li {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.amenity-list li:hover {
+  color: var(--text-dark);
+  transform: translateX(2px);
 }

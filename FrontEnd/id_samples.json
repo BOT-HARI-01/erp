@@ -1,14 +1,31 @@
-
-1	5001@vvit.net	gSMbhhcL
-2	5002@vvit.net	gSMbhhcL
-3	5003@vvit.net	gSMbhhcL
-4	5004@vvit.net	gSMbhhcL
-5	5005@vvit.net	gSMbhhcL
-
-
+	Email	Generated Password
+1	5001@vvit.net	F8j2phQp
+2	5002@vvit.net	F8j2phQp
+3	5003@vvit.net	F8j2phQp
+4	5004@vvit.net	F8j2phQp
+5	5005@vvit.net	F8j2phQp
 
 
-1	rajesh.m@vvit.net	xuuC6rnv
-2	anita.d@vvit.net	xuuC6rnv
-3	suresh.n@vvit.net	xuuC6rnv
-4	kavita.i@vvit.net	xuuC6rnv
+	
+Response body
+Download
+{
+  "count": 4,
+  "credentials": [
+    {
+      "email": "rajesh.m@vvit.net",
+      "password": "FaVVqmyI"
+    },
+    {
+      "email": "anita.d@vvit.net",
+      "password": "FaVVqmyI"
+    },
+    {
+      "email": "suresh.n@vvit.net",
+      "password": "FaVVqmyI"
+    },
+    {
+      "email": "kavita.i@vvit.net",
+      "password": "FaVVqmyI"
+    }
+  ]

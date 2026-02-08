@@ -183,3 +183,50 @@ select {
 .primary-btn:hover {
   background: #002171;
 }
+
+.card {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  will-change: box-shadow, transform;
+}
+
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+.upload-row input[type="file"] {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  will-change: border-color, box-shadow;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+.upload-row input[type="file"]:focus {
+  box-shadow: 0 0 8px var(--primary-color);
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+button,
+.primary-btn,
+.btn-upload,
+.btn-search,
+.btn-return {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  will-change: background-color, box-shadow, transform;
+}
+
+button:hover,
+.primary-btn:hover,
+.btn-upload:hover,
+.btn-search:hover,
+.btn-return:hover {
+  box-shadow: 0 6px 18px rgba(13, 71, 161, 0.3);
+  transform: scale(1.05);
+}

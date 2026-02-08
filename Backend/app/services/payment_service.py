@@ -132,9 +132,9 @@ def update_student_payment(db, req, admin_email):
 def get_student_payment_details(db, student_email: str, semester: int):
 
     student = db.query(Student).filter(Student.user_email == student_email).first()
-    year = (semester + 1) 
+    year = (semester + 1) // 2 
     sem = 1 if semester % 2 != 0 else 2
-    
+    print(year, sem)
 
     academic = (
         db.query(Academic)
