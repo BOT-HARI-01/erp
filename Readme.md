@@ -1,0 +1,82 @@
+# 🎓 Smart College ERP System (SIH25103)
+
+A comprehensive Enterprise Resource Planning (ERP) solution designed for educational institutions. This project integrates academic management, fee processing, hostel management, and an **AI-driven Academic Early Warning System** to predict student performance risks.
+
+Built for **Smart India Hackathon (SIH) 2025 - Problem Statement SIH25103**.
+
+---
+
+## 🚀 Features
+
+### 🏛️ For Administrators
+* **User Management:** Add and manage Faculty, Students, and HODs via bulk Excel upload.
+* **Fee Management:** Define fee structures, track payments, and view collection stats.
+* **Hostel Allocation:** Manage room allocation and vacancies.
+* **Announcements:** Send targeted notifications (General, Academic, Fees, etc.) to specific batches or roles.
+* **Dashboard:** Real-time statistics on admissions, fees collected, and active users.
+
+### 👨‍🏫 For Faculty & HODs
+* **Profile Management:** View and edit professional details.
+* **Student Analytics:** Visual graphs for batch-wise attendance and marks performance.
+* **Marks Entry:** Enter internal marks manually or via Excel upload.
+* **Attendance:** Mark and view student attendance.
+* **Timetable:** Upload and manage class schedules.
+
+### 🎓 For Students
+* **Academic Dashboard:** View CGPA, attendance %, and active backlogs.
+* **AI Smart Insights:**
+    * **Performance Risk:** ML-based prediction of failure risk using `XGBoost` & `SHAP`.
+    * **Attendance Advice:** Generative AI (Gemini) tips for improving attendance.
+* **Fee Status:** View paid/pending fees and history.
+* **Library & Hostel:** Check book dues and room details.
+* **Notifications:** Receive real-time alerts categorized by priority (Critical, Important, Normal).
+
+---
+
+## 🛠️ Tech Stack
+
+### **Backend**
+* **Framework:** Python FastAPI
+* **Database:** MySQL (via SQLAlchemy ORM)
+* **Authentication:** JWT (JSON Web Tokens) with `python-jose`
+* **ML & AI:**
+    * `scikit-learn` / `xgboost` for Academic Risk Prediction.
+    * `SHAP` for explainable AI (XAI).
+
+
+### **Frontend**
+* **Core:** HTML5, CSS3, Vanilla JavaScript (ES6+)
+* **Charts:** Chart.js for data visualization
+* **Design:** Custom CSS with responsive layouts (Sidebar/Dashboard architecture)
+
+---
+
+## 📂 Project Structure
+
+```bash
+📦 ERP
+├── 📂 Backend
+│   ├── 📂 app
+│   │   ├── 📂 core          # Config, Database, Security
+│   │   ├── 📂 models        # SQLAlchemy Database Models
+│   │   ├── 📂 routers       # API Endpoints (admin, student, faculty, hod)
+│   │   ├── 📂 schemas       # Pydantic Models for Validation
+│   │   ├── 📂 services      # Business Logic (ML, Excel, Auth)
+│   │   ├── 📂 ml_models     # .pkl files for Risk Prediction
+│   │   └── main.py          # Application Entry Point
+│   ├── requirements.txt     # Python Dependencies
+│   └── create_tables.py     # Database Initialization Script
+│
+├── 📂 FrontEnd
+│   ├── 📂 admin             # Admin Dashboard (HTML/CSS/JS)
+│   ├── 📂 faculty           # Faculty Dashboard
+│   ├── 📂 hod               # HOD Dashboard
+│   ├── 📂 student           # Student Dashboard
+│   ├── index.html           # Login Page
+│   └── style.css            # Global Styles
+│
+└── 📂 Academic_Early_Warning_System
+    ├── 📂 notebooks         # Jupyter Notebooks for Model Training
+    ├── 📂 data              # Raw Data / Processed Data
+    ├── 📂 model             # Models generated after training
+    └── 📂 backend           # Inference Scripts
