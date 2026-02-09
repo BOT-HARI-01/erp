@@ -17,7 +17,6 @@ async function loadProfile() {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
 
       document.getElementById('fac-name').textContent =
         data.last_name || 'Professor';
@@ -27,7 +26,7 @@ async function loadProfile() {
 
 
       document.getElementById('p-exp').textContent = `${data.experience} Years`;
-      document.getElementById('p-phone').textContent = data.mobile_no;
+      // document.getElementById('p-phone').textContent = data.mobile_no;
     } else {
       console.error('Failed to load profile');
     }
@@ -49,7 +48,8 @@ async function loadTimetable() {
     const msgElement = document.getElementById('tt-msg');
 
     if (data.image_url) {
-      imgElement.src = '/' + data.image_url;
+      // console.log( data.image_url);
+      imgElement.src =  data.image_url;
       imgElement.style.display = 'block';
       msgElement.style.display = 'none';
     } else {

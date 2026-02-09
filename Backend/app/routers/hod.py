@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException
+from fastapi import Depends, Form, HTTPException
 from app.core.database import get_db
 from app.core.dependencies import get_current_user
 from app.services.faculty_service import get_faculty_by_email, get_student_info_by_rollno
@@ -44,11 +44,11 @@ def update_hod_profile_route(
 
 @router.post("/timetable/upload")
 def upload_timetable(
-    year: int,
-    semester: int,
-    branch: str,
-    section: str = None,
-    faculty_email: str = None,
+    year: int = Form(...),
+    semester: int = Form(...),
+    branch: str = Form(...),
+    section: str = Form(None),
+    faculty_email: str = Form(None),
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
     user=Depends(get_current_user)

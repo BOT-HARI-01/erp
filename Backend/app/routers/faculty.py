@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, Request
 from sqlalchemy.orm import Session
 from app.core.database import SessionLocal
 from app.core.dependencies import get_current_user
@@ -8,7 +8,10 @@ from app.schemas.faculty import FacultyProfileRequest, FacultyProfileResponse
 from app.services.faculty_service import get_faculty_by_email, upsert_faculty_profile
 from app.services.faculty_service import get_student_info_by_rollno
 from app.schemas.internal_marks import InternalMarksFetch, InternalMarksUpdate
-from app.services.internal_marks_service import update_internal_marks , get_internal_marks
+from app.services.internal_marks_service import (
+    update_internal_marks,
+    get_internal_marks,
+)
 from app.services.excel_marks_service import upload_internal_marks_excel
 from app.schemas.attendance import AttendanceCreate
 from app.services.attendance_service import get_student_attendance, mark_attendance
@@ -16,6 +19,8 @@ from app.models.student import Student
 from app.models.academic import Academic
 
 router = APIRouter(prefix="/faculty", tags=["Faculty"])
+
+
 def get_db():
     db = SessionLocal()
     try:
@@ -23,9 +28,10 @@ def get_db():
     finally:
         db.close()
 
+
 @router.get("/get-profile", response_model=FacultyProfileResponse)
 def view_profile(user=Depends(get_current_user), db: Session = Depends(get_db)):
-    print('here in ')
+    print("here in ")
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403)
 
@@ -35,11 +41,12 @@ def view_profile(user=Depends(get_current_user), db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Profile not found")
     return faculty
 
+
 @router.put("/profile", response_model=FacultyProfileResponse)
 def update_profile(
     req: FacultyProfileRequest,
     user=Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403)
@@ -47,12 +54,9 @@ def update_profile(
     return upsert_faculty_profile(db, user["sub"], req)
 
 
-
 @router.get("/student/{roll_no}")
 def faculty_view_student_by_rollno(
-    roll_no: str,
-    user=Depends(get_current_user),
-    db: Session = Depends(get_db)
+    roll_no: str, user=Depends(get_current_user), db: Session = Depends(get_db)
 ):
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403, detail="Only faculty allowed")
@@ -62,6 +66,8 @@ def faculty_view_student_by_rollno(
         raise HTTPException(status_code=404, detail="Student not found")
 
     return data
+
+
 @router.post("/internal-marks/upload")
 def upload_internal_marks(
     subject_code: str,
@@ -69,7 +75,7 @@ def upload_internal_marks(
     semester: int,
     file: UploadFile,
     db: Session = Depends(get_db),
-    user=Depends(get_current_user)
+    user=Depends(get_current_user),
 ):
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403, detail="Only faculty allowed")
@@ -80,7 +86,7 @@ def upload_internal_marks(
         subject_code=subject_code,
         year=year,
         semester=semester,
-        faculty_email=user["sub"]
+        faculty_email=user["sub"],
     )
 
     return {"message": "Internal marks uploaded successfully"}
@@ -90,7 +96,7 @@ def upload_internal_marks(
 def fetch_internal_marks(
     req: InternalMarksFetch,
     db: Session = Depends(get_db),
-    user=Depends(get_current_user)
+    user=Depends(get_current_user),
 ):
     return get_internal_marks(db, req)
 
@@ -99,36 +105,38 @@ def fetch_internal_marks(
 def update_marks(
     req: InternalMarksUpdate,
     db: Session = Depends(get_db),
-    user=Depends(get_current_user)
+    user=Depends(get_current_user),
 ):
     update_internal_marks(db, req)
     return {"message": "Internal marks updated successfully"}
 
+
 @router.post("/attendance/mark")
 def mark_attendance_api(
-    req: AttendanceCreate,
-    db: Session = Depends(get_db),
-    user=Depends(get_current_user)
+    req: AttendanceCreate, db: Session = Depends(get_db), user=Depends(get_current_user)
 ):
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403, detail="Only faculty allowed")
 
     mark_attendance(db, req, user["sub"])
     return {"message": "Attendance marked successfully"}
+
+
 @router.get("/attendance")
 def view_attendance(
     Subject_code: str,
     srno: str,
     db: Session = Depends(get_db),
-    user=Depends(get_current_user)
+    user=Depends(get_current_user),
 ):
-    student = db.query(Student).filter(
-        Student.roll_no == srno
-    ).first()
+    student = db.query(Student).filter(Student.roll_no == srno).first()
 
     return get_student_attendance(db, student.id, Subject_code)
+
+
 @router.get("/timetable")
 def view_faculty_timetable(
+    request: Request,          
     db: Session = Depends(get_db),
     user=Depends(get_current_user)
 ):
@@ -137,10 +145,15 @@ def view_faculty_timetable(
     ).first()
 
     if not timetable:
-        return {"timetable": None}
+        return {"image_url": None}
+
+    image_url = (
+        str(request.base_url).rstrip("/") + "/" +
+        timetable.image_path.replace("\\", "/")
+    )
 
     return {
-        "image_url": timetable.image_path
+        "image_url": str(image_url)
     }
 
 
@@ -149,24 +162,25 @@ def get_students_by_class(
     year: int,
     semester: int,
     section: str,
-    branch: str = "CSE", 
+    branch: str = "CSE",
     db: Session = Depends(get_db),
-    user=Depends(get_current_user)
+    user=Depends(get_current_user),
 ):
     if user["role"] != "FACULTY":
         raise HTTPException(status_code=403, detail="Authorized for Faculty only")
 
-    
-    results = db.query(Student.roll_no, Student.first_name, Student.last_name)\
-        .join(Academic, Academic.sid == Student.id)\
+    results = (
+        db.query(Student.roll_no, Student.first_name, Student.last_name)
+        .join(Academic, Academic.sid == Student.id)
         .filter(
             Academic.year == year,
             Academic.semester == semester,
             Academic.section == section,
-            Academic.branch == branch
-        ).all()
+            Academic.branch == branch,
+        )
+        .all()
+    )
 
     return [
-        {"roll_no": r.roll_no, "name": f"{r.first_name} {r.last_name}"}
-        for r in results
+        {"roll_no": r.roll_no, "name": f"{r.first_name} {r.last_name}"} for r in results
     ]
