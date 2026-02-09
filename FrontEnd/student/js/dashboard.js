@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   initDashboard();
+  loadTimetable();
 });
 
 async function initDashboard() {
@@ -110,4 +111,29 @@ async function initDashboard() {
 function updateStat(id, value) {
   const el = document.getElementById(id);
   if (el) el.innerText = value;
+}
+
+async function loadTimetable() {
+  try {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch('http://127.0.0.1:8000/student/timetable', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const data = await response.json();
+    const imgElement = document.getElementById('tt-image');
+    const msgElement = document.getElementById('tt-msg');
+
+    if (data.image_url) {
+      // console.log( data.image_url);
+      imgElement.src =  data.image_url;
+      imgElement.style.display = 'block';
+      msgElement.style.display = 'none';
+    } else {
+      msgElement.textContent = 'No timetable uploaded yet.';
+    }
+  } catch (error) {
+    console.error('Error loading timetable:', error);
+  }
 }

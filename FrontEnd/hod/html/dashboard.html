@@ -15,59 +15,41 @@
   <body>
     <div id="sidebar-container"></div>
     <div id="header-container"></div>
+    
     <div class="main-content">
       <div class="dashboard-wrapper">
+        
         <div class="welcome-card">
           <div class="welcome-text">
-            <h2>Welcome back! 👋</h2>
+            <h2>Welcome back, <span id="fac-name">Professor</span>! 👋</h2>
             <p>Glad to see you—let’s make today productive.</p>
           </div>
           <div class="date-display" id="current-date">...</div>
         </div>
 
-        <div class="grid-2-col">
+        <div class="grid">
           <div class="card">
             <h3><i class="fas fa-user-tie"></i> Profile Details</h3>
             <div class="profile-details">
               <div class="detail-row">
-                <span>Name:</span> <strong>Dr. K. Srinivas</strong>
+                <span>Name:</span> <strong id="p-name">Loading...</strong>
               </div>
               <div class="detail-row">
-                <span>Qualification:</span> <strong>Ph.D. (CSE)</strong>
+                <span>Qualification:</span> <strong id="p-qual">Loading...</strong>
               </div>
               <div class="detail-row">
-                <span>Department:</span> <strong>Computer Science</strong>
+                <span>Department:</span> <strong id="p-dept">Loading...</strong>
               </div>
               <div class="detail-row">
-                <span>Experience:</span> <strong>15 Years</strong>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3><i class="fas fa-chart-line"></i> Department at a Glance</h3>
-            <div class="stats-row">
-              <div class="stat-item">
-                <span class="stat-num">45</span>
-                <span class="stat-label">Faculty</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-num">1,240</span>
-                <span class="stat-label">Students</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-num">92%</span>
-                <span class="stat-label">Placements</span>
+                <span>Experience:</span> <strong id="p-exp">Loading...</strong>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
     <script src="../js/main.js"></script>
-    <script src="../js/hod.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", initDashboard);
-    </script>
+    <script src="../js/dashboard.js"></script>
   </body>
 </html>

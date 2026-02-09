@@ -19,12 +19,26 @@
   color: #b91c1c;
   padding: 15px 20px;
   border-radius: 8px;
-  margin-top: 50vh;
+  margin-top: 120vh;
   display: flex;
   align-items: center;
   gap: 15px;
   margin-bottom: 30px;
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); 
+}
+.card{
+  margin-top: 20px;
+}
+
+.timetable-placeholder {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 2px dashed #e0e0e0;
+  color: #888;
 }
 
 .alert-box i {

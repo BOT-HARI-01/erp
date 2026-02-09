@@ -19,36 +19,34 @@
         <div class="page-header"><h2>My Profile</h2></div>
 
         <div class="card">
-          <form
-            id="hod-profile-form"
-          >
+          <form id="hod-profile-form" onsubmit="event.preventDefault(); updateHodProfile();">
             <div
               class="filters-row"
               style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px"
             >
               <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" id="hp-name" required  readonly  />
+                <input type="text" id="hp-name" required />
               </div>
 
               <div class="form-group">
                 <label>Department</label>
-                <input type="text" id="hp-dept" required  readonly/>
+                <input type="text" id="hp-dept" required />
               </div>
 
               <div class="form-group">
                 <label>Mobile Number</label>
-                <input type="text" id="hp-mobile" required readonly />
+                <input type="text" id="hp-mobile" required />
               </div>
 
               <div class="form-group">
                 <label>Qualification</label>
-                <input type="text" id="hp-qual" required  readonly/>
+                <input type="text" id="hp-qual" required />
               </div>
 
               <div class="form-group">
                 <label>Experience (Years)</label>
-                <input type="number" id="hp-exp" required min="0" readonly />
+                <input type="number" id="hp-exp" required min="0" />
               </div>
 
               <div class="form-group">
@@ -61,6 +59,12 @@
                   readonly
                 />
               </div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: right;">
+                <button type="submit" class="primary-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
             </div>
           </form>
         </div>
