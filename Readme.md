@@ -1,4 +1,4 @@
-```markdown
+
 # 🎓 Smart College ERP System (SIH25103)
 
 A comprehensive Enterprise Resource Planning (ERP) solution designed for educational institutions. This project integrates academic management, fee processing, hostel management, and an **AI-driven Academic Early Warning System** to predict student performance risks.
@@ -97,7 +97,7 @@ Built for **Smart India Hackathon (SIH) 2025 - Problem Statement SIH25103**.
 
 1. **Clone the repository:**
 ```bash
-git clone [https://github.com/BOT-HARI-01/erp.git](https://github.com/BOT-HARI-01/erp.git)
+git clone https://github.com/BOT-HARI-01/erp.git
 cd college-erp-sih/Backend
 
 ```
@@ -122,7 +122,7 @@ pip install -r requirements.txt
 
 
 4. **Configure Environment Variables:**
-Create a `.env` file in the `Backend/` directory:
+Create a `.env` file in the `Backend/app/core/config.py` directory:
 ```env
 DATABASE_URL=mysql+pymysql://user:password@localhost/college_erp_db
 SECRET_KEY=your_secret_key_here
@@ -168,6 +168,3 @@ python -m http.server 5500
 ```
 * Open your browser and go to `http://127.0.0.1:5500/Frontend/index.html`.
 
-```
-
-```
