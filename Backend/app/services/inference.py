@@ -9,12 +9,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, "../ml_models")
 
 # Load Artifacts
-print(MODEL_DIR)
+
 try:
     MODEL = joblib.load(os.path.join(MODEL_DIR, "academic_risk_model.pkl"))
     SCALER = joblib.load(os.path.join(MODEL_DIR, "scaler.pkl"))
     FEATURES = joblib.load(os.path.join(MODEL_DIR, "model_features.pkl"))
-    print(MODEL)
     # SHAP background
     BACKGROUND = np.zeros((1, len(FEATURES)))
     EXPLAINER = shap.Explainer(MODEL.predict_proba, BACKGROUND)

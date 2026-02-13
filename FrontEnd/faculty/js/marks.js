@@ -198,3 +198,64 @@ function downloadMarksExcelTemplate() {
   link.click();
   document.body.removeChild(link);
 }
+
+async function uploadMarksExcel() {
+  // 1. Get Elements
+  const fileInput = document.getElementById("mk-upload-file");
+  const file = fileInput.files[0];
+
+  // 2. Get Context (Subject, Year, Sem)
+  const subject = document.getElementById("mk-sub").value;
+  const year = document.getElementById("mk-year").value;
+  const sem = document.getElementById("mk-sem").value;
+  const token = localStorage.getItem("token");
+
+  // 3. Validation
+  if (!file) {
+    alert("Please select an Excel file first.");
+    return;
+  }
+  if (!subject) {
+    alert("Please select a Subject.");
+    return;
+  }
+
+  // 4. Prepare Form Data
+  const formData = new FormData();
+  formData.append("file", file);
+
+  // 5. Send Request
+  // Note: In your Python code, subject_code, year, and semester are distinct arguments,
+  // so FastAPI expects them as Query Parameters by default.
+  const url = new URL("http://127.0.0.1:8000/faculty/internal-marks/upload");
+  url.searchParams.append("subject_code", subject);
+  url.searchParams.append("year", year);
+  url.searchParams.append("semester", sem);
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // Do NOT set Content-Type header manually when sending FormData;
+        // the browser sets it with the boundary automatically.
+      },
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("✅ " + data.message);
+      // Refresh the list to show new marks
+      fetchStudentListForMarks();
+      // Clear input
+      fileInput.value = "";
+    } else {
+      alert("❌ Upload Failed: " + (data.detail || "Unknown error"));
+    }
+  } catch (error) {
+    console.error("Upload Error:", error);
+    alert("❌ Network Error during upload.");
+  }
+}

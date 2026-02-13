@@ -1,31 +1,27 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fees & Payments - SIH25103</title>
-
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-
-    <link rel="stylesheet" href="../css/fees.css" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Fees &amp; Payments - SIH25103</title>
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/student/css/components.css" rel="stylesheet" />
+    <link href="/static/student/css/fees.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   </head>
   <body>
     <div id="sidebar-container"></div>
-
     <div id="header-container"></div>
     <div class="main-content">
       <div class="dashboard-wrapper">
         <div class="page-header">
-          <h2>Fees & Payments</h2>
+          <h2>Fees &amp; Payments</h2>
         </div>
-
         <div class="filters-section">
           <div class="filter-group">
             <label for="semesterSelect">Select Semester</label>
@@ -40,15 +36,12 @@
               <option value="8">8th Semester</option>
             </select>
           </div>
-
           <div class="info-note">
             ⚠️ <strong>Note:</strong> Online payments are disabled. Please visit
             the Administrative Office to make fee payments.
           </div>
         </div>
-
         <div class="section-title">Fee Breakdown</div>
-
         <div class="table-container">
           <table id="feeStructureTable">
             <thead>
@@ -63,11 +56,9 @@
             <tbody id="structureBody"></tbody>
           </table>
         </div>
-
         <div class="section-title" style="margin-top: 30px">
-          Payment History & Receipts
+          Payment History &amp; Receipts
         </div>
-
         <div class="table-container">
           <table id="transactionTable">
             <thead>
@@ -85,8 +76,7 @@
         </div>
       </div>
     </div>
-
-    <script src="../js/main.js"></script>
-    <script src="../js/fees.js"></script>
+    <script src="/static/student/js/main.js"></script>
+    <script src="/static/student/js/fees.js"></script>
   </body>
 </html>

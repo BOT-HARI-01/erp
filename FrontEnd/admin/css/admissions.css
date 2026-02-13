@@ -102,7 +102,9 @@
 }
 
 .card {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   will-change: box-shadow, transform;
 }
 .card:hover {
@@ -111,7 +113,10 @@
 }
 
 .upload-area {
-  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
   will-change: border-color, background-color, box-shadow;
 }
 .upload-area:hover {
@@ -119,7 +124,10 @@
 }
 
 .primary-btn {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: background-color, box-shadow, transform;
 }
 .primary-btn:hover {

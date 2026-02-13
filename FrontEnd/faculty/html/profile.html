@@ -1,14 +1,15 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>My Profile - Faculty</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/faculty.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/faculty/css/components.css" rel="stylesheet" />
+    <link href="/static/faculty/css/faculty.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
     <style>
       .profile-form-grid {
@@ -35,60 +36,51 @@
       <div id="header-container"></div>
       <div class="dashboard-wrapper">
         <div class="page-header"><h2>My Profile</h2></div>
-
         <div class="card">
-          <form id="profile-form" onsubmit="event.preventDefault();">
+          <form id="profile-form" onsubmit="event.preventDefault()">
             <div class="profile-form-grid">
               <div class="form-group">
                 <label>First Name</label>
-                <input type="text" id="pf-fname" readonly />
+                <input id="pf-fname" readonly="" type="text" />
               </div>
-
               <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" id="pf-lname" readonly />
+                <input id="pf-lname" readonly="" type="text" />
               </div>
-
               <div class="form-group">
                 <label>Mobile Number</label>
-                <input type="tel" id="pf-mobile" readonly />
+                <input id="pf-mobile" readonly="" type="tel" />
               </div>
-
               <div class="form-group">
                 <label>Date of Birth</label>
-                <input type="date" id="pf-dob" readonly />
+                <input id="pf-dob" readonly="" type="date" />
               </div>
-
               <div class="form-group">
                 <label>Gender</label>
-                <input type="text" id="pf-gender" readonly />
+                <input id="pf-gender" readonly="" type="text" />
               </div>
-
               <div class="form-group">
                 <label>Blood Group</label>
-                <input type="text" id="pf-blood" readonly />
+                <input id="pf-blood" readonly="" type="text" />
               </div>
-
               <div class="form-group">
                 <label>Qualification</label>
-                <input type="text" id="pf-qual" readonly />
+                <input id="pf-qual" readonly="" type="text" />
               </div>
-
               <div class="form-group">
                 <label>Experience (Years)</label>
-                <input type="number" id="pf-exp" readonly />
+                <input id="pf-exp" readonly="" type="number" />
               </div>
-
               <div class="form-group full-width">
                 <label>Address</label>
-                <input id="pf-addr" rows="3" readonly></input>
+                <input id="pf-addr" readonly="" rows="3" />
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/profile.js"></script>
+    <script src="/static/faculty/js/main.js"></script>
+    <script src="/static/faculty/js/profile.js"></script>
   </body>
 </html>

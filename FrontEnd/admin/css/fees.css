@@ -396,9 +396,11 @@ th {
   background: var(--primary-color);
 }
 
-
 .btn-action {
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.3s ease;
   will-change: transform, border-color, box-shadow;
 }
 .btn-action:hover {
@@ -412,13 +414,15 @@ th {
   transition: box-shadow 0.3s ease;
   will-change: box-shadow;
 }
-.search-section:hover, 
+.search-section:hover,
 .search-section:focus-within {
   box-shadow: 0 6px 18px rgba(13, 71, 161, 0.1);
 }
 
 .modal-content {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   will-change: transform, box-shadow;
 }
 .modal-content.show {
@@ -427,7 +431,10 @@ th {
 }
 
 .primary-btn {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: background-color, box-shadow, transform;
 }
 .primary-btn:hover {

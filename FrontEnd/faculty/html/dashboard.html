@@ -1,23 +1,22 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Faculty Dashboard - ERP</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/faculty.css" />
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/faculty/css/components.css" rel="stylesheet" />
+    <link href="/static/faculty/css/faculty.css" rel="stylesheet" />
+    <link href="/static/faculty/css/dashboard.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
     <div id="sidebar-container"></div>
-
     <div class="main-content">
       <div id="header-container"></div>
-
       <div class="dashboard-wrapper">
         <div class="welcome-card">
           <div class="welcome-text">
@@ -26,7 +25,6 @@
           </div>
           <div class="date-display" id="current-date">...</div>
         </div>
-
         <div class="grid-2-col">
           <div class="card">
             <div
@@ -40,9 +38,7 @@
               <h3 style="margin: 0">
                 <i class="fas fa-id-card"></i> My Profile
               </h3>
-              </a>
             </div>
-
             <div class="profile-details">
               <div class="detail-row">
                 <span>Name:</span> <strong id="p-name">Loading...</strong>
@@ -60,25 +56,22 @@
               </div>
             </div>
           </div>
-
           <div class="card">
             <h3><i class="fas fa-calendar-alt"></i> Today's Timetable</h3>
-            <div id="timetable-display" class="timetable-placeholder">
+            <div class="timetable-placeholder" id="timetable-display">
               <img
-                id="tt-image"
-                src=""
                 alt="Timetable not uploaded"
+                id="tt-image"
+                src="/static/faculty/html"
                 style="max-width: 100%; display: none"
               />
-
               <p id="tt-msg">Loading schedule...</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <script src="../js/main.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="/static/faculty/js/main.js"></script>
+    <script src="/static/faculty/js/dashboard.js"></script>
   </body>
 </html>

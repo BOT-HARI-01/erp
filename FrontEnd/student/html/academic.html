@@ -1,23 +1,22 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Academic Records - SIH25103</title>
-
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/academic.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/student/css/components.css" rel="stylesheet" />
+    <link href="/static/student/css/academic.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
   </head>
   <body>
     <div id="sidebar-container"></div>
-
     <div id="header-container"></div>
     <div class="main-content">
       <div class="dashboard-wrapper">
@@ -31,7 +30,6 @@
             Download Report
           </button>
         </div>
-
         <!-- FILTERS -->
         <div class="filters-section">
           <div class="form-group">
@@ -42,12 +40,11 @@
               <option value="3">Semester 3</option>
               <option value="4">Semester 4</option>
               <option value="5">Semester 5</option>
-              <option value="6" selected>Semester 6</option>
+              <option selected="" value="6">Semester 6</option>
               <option value="7">Semester 7</option>
               <option value="8">Semester 8</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="examTypeSelect">Examination Type</label>
             <select id="examTypeSelect" onchange="updateTable()">
@@ -57,9 +54,8 @@
             </select>
           </div>
         </div>
-
         <!-- GPA SUMMARY -->
-        <div id="gpaSummary" class="summary-grid">
+        <div class="summary-grid" id="gpaSummary">
           <div class="summary-card">
             <h4>SGPA (Current Semester)</h4>
             <div class="score" id="sgpa-val">--</div>
@@ -73,7 +69,6 @@
             <div class="score" id="status-val">--</div>
           </div>
         </div>
-
         <!-- MARKS TABLE -->
         <div class="table-container">
           <table id="marksTable">
@@ -83,8 +78,7 @@
         </div>
       </div>
     </div>
-
-    <script src="../js/main.js"></script>
-    <script src="../js/academic.js"></script>
+    <script src="/static/student/js/main.js"></script>
+    <script src="/static/student/js/academic.js"></script>
   </body>
 </html>

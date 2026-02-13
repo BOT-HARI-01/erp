@@ -1,15 +1,16 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Fee Compliance</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/fees.css" />
-    <link rel="stylesheet" href="../css/hod.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/hod/css/components.css" rel="stylesheet" />
+    <link href="/static/hod/css/fees.css" rel="stylesheet" />
+    <link href="/static/hod/css/hod.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -18,7 +19,6 @@
     <div class="main-content">
       <div class="dashboard-wrapper">
         <div class="page-header"><h2>Fee Compliance</h2></div>
-
         <div class="card filters-row">
           <label>Select Batch:</label>
           <select id="fee-batch">
@@ -29,7 +29,6 @@
             Visualize Data
           </button>
         </div>
-
         <div class="grid-2-col" id="fee-visuals" style="display: none">
           <div class="card center-content">
             <h3>Payment Status</h3>
@@ -45,7 +44,6 @@
               (Click chart to view pending list)
             </p>
           </div>
-
           <div class="card" id="defaulter-list" style="display: none">
             <h3>Pending Fee List</h3>
             <table class="data-table">
@@ -78,7 +76,7 @@
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/hod.js"></script>
+    <script src="/static/hod/js/main.js"></script>
+    <script src="/static/hod/js/hod.js"></script>
   </body>
 </html>

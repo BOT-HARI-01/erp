@@ -185,7 +185,9 @@ select {
 }
 
 .card {
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: box-shadow, transform;
 }
 
@@ -199,7 +201,9 @@ input[type="number"],
 input[type="date"],
 select,
 .upload-row input[type="file"] {
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   will-change: border-color, box-shadow;
 }
 
@@ -218,7 +222,10 @@ button,
 .btn-upload,
 .btn-search,
 .btn-return {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: background-color, box-shadow, transform;
 }
 

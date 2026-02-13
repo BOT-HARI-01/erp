@@ -1,15 +1,16 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Faculty Management</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/faculty.css" />
-    <link rel="stylesheet" href="../css/hod.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/hod/css/components.css" rel="stylesheet" />
+    <link href="/static/hod/css/faculty.css" rel="stylesheet" />
+    <link href="/static/hod/css/hod.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -18,14 +19,13 @@
     <div class="main-content">
       <div class="dashboard-wrapper">
         <div class="page-header"><h2>Faculty Lookup</h2></div>
-
         <div class="card filters-row">
           <div style="display: flex; gap: 10px; flex-grow: 1">
             <input
-              type="email"
               id="fac-email-search"
               placeholder="Enter Faculty Email"
               style="flex-grow: 1"
+              type="email"
             />
             <button class="primary-btn" onclick="searchFacultyByEmail()">
               <i class="fas fa-search"></i> Search
@@ -43,7 +43,6 @@
             </button>
           </div>
         </div>
-
         <div id="single-faculty-view" style="display: none">
           <div class="card profile-card">
             <div class="profile-header">
@@ -78,17 +77,16 @@
             </div>
             <button
               class="alert-btn"
-              style="margin-top: 20px"
               onclick="closeDetailView()"
+              style="margin-top: 20px"
             >
               Back to Search
             </button>
           </div>
         </div>
-
         <div
-          id="all-faculty-view"
           class="card table-card"
+          id="all-faculty-view"
           style="display: none"
         >
           <h3
@@ -116,8 +114,8 @@
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/faculty.js"></script>
+    <script src="/static/hod/js/main.js"></script>
+    <script src="/static/hod/js/faculty.js"></script>
     <style></style>
   </body>
 </html>

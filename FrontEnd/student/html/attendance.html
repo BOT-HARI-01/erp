@@ -1,30 +1,26 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Attendance - SIH25103</title>
-
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-
-    <link rel="stylesheet" href="../css/attendance.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/student/css/components.css" rel="stylesheet" />
+    <link href="/static/student/css/attendance.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
     <div id="sidebar-container"></div>
-
     <div class="main-content">
       <div id="header-container"></div>
-
       <div class="dashboard-wrapper">
         <div class="page-header">
           <h2>Monthly Attendance</h2>
         </div>
-
         <div class="filters-section">
           <form id="filterForm">
             <!-- <div class="filter-group">
@@ -40,10 +36,9 @@
                             <option value="8">8th Semester</option>
                         </select>
                     </div> -->
-
             <div class="filter-group">
               <label>Month</label>
-              <select name="month" id="att-month">
+              <select id="att-month" name="month">
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -58,10 +53,9 @@
                 <option value="12">December</option>
               </select>
             </div>
-
             <div class="filter-group">
               <label>Year</label>
-              <select name="year" id="att-year">
+              <select id="att-year" name="year">
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
@@ -71,20 +65,17 @@
                 <option value="2026">2026</option>
               </select>
             </div>
-
-            <button type="button" class="search-btn" onclick="loadAttendance()">
+            <button class="search-btn" onclick="loadAttendance()" type="button">
               Search
             </button>
           </form>
         </div>
-
         <div class="legend-container">
           <div class="legend-item"><span class="badge p">P</span> Present</div>
           <div class="legend-item"><span class="badge a">A</span> Absent</div>
           <div class="legend-item"><span class="badge l">L</span> Leave</div>
           <div class="legend-item"><span class="badge h">H</span> Holiday</div>
         </div>
-
         <div class="table-wrapper">
           <table id="attendanceTable">
             <thead id="tableHead"></thead>
@@ -93,8 +84,7 @@
         </div>
       </div>
     </div>
-
-    <script src="../js/main.js"></script>
-    <script src="../js/attendance.js"></script>
+    <script src="/static/student/js/main.js"></script>
+    <script src="/static/student/js/attendance.js"></script>
   </body>
 </html>

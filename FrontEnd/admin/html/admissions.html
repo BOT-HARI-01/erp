@@ -1,14 +1,15 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Student Onboarding - ERP</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/admissions.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/admin/css/components.css" rel="stylesheet" />
+    <link href="/static/admin/css/admissions.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -19,19 +20,22 @@
         <div class="page-header">
           <h2>Student Onboarding</h2>
         </div>
-
         <div class="card">
           <h3><i class="fas fa-file-excel"></i> Bulk Student Upload</h3>
           <p>
             Upload the standard admission Excel file to create student records,
             academic profiles, and initialize fees.
           </p>
-
           <div class="upload-area" id="drop-zone">
-            <input type="file" id="studentFile" hidden accept=".xlsx, .xls" />
+            <input
+              accept=".xlsx, .xls"
+              hidden=""
+              id="studentFile"
+              type="file"
+            />
             <i class="fas fa-cloud-upload-alt"></i>
             <p>
-              Drag & Drop or
+              Drag &amp; Drop or
               <span
                 class="clickable"
                 onclick="document.getElementById('studentFile').click()"
@@ -40,19 +44,17 @@
             </p>
             <span id="file-name"></span>
           </div>
-
           <button class="primary-btn" onclick="uploadStudents()">
             <i class="fas fa-upload"></i> Process Upload
           </button>
         </div>
-
         <div class="card" style="margin-top: 20px">
           <h3>Upload Status</h3>
-          <div id="upload-status" class="status-box">Ready to upload...</div>
+          <div class="status-box" id="upload-status">Ready to upload...</div>
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/admissions.js"></script>
+    <script src="/static/admin/js/main.js"></script>
+    <script src="/static/admin/js/admissions.js"></script>
   </body>
 </html>

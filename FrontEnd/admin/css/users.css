@@ -192,7 +192,9 @@ select {
 }
 
 .card {
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: box-shadow, transform;
 }
 
@@ -228,5 +230,7 @@ select {
 .primary-btn:hover,
 .btn-download:hover {
   transform: scale(1.05);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
 }

@@ -81,11 +81,11 @@ async function lookupStudent() {
                     <td>${feeStatusHTML}</td>
                     </tr>
                     `;
-                    // <td>
-                    //     <button class="alert-btn" onclick="sendAlert('${data.roll_no}')" title="Notify Parent">
-                    //         <i class="fas fa-bell"></i> Alert
-                    //     </button>
-                    // </td>
+      // <td>
+      //     <button class="alert-btn" onclick="sendAlert('${data.roll_no}')" title="Notify Parent">
+      //         <i class="fas fa-bell"></i> Alert
+      //     </button>
+      // </td>
       tableBody.innerHTML = row;
     } else {
       tableBody.innerHTML = `<tr><td colspan='9' style="color:red; text-align:center; padding:15px;">${data.detail || "Student not found"}</td></tr>`;

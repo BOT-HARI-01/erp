@@ -1,22 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   updateFeeView();
 });
 function getAuthHeaders() {
   return {
-    Accept: 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Accept: "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 }
 let currentPaymentData = null;
 
 async function updateFeeView() {
-  const semester = document.getElementById('semesterSelect').value;
+  const semester = document.getElementById("semesterSelect").value;
 
-  const structureBody = document.getElementById('structureBody');
-  const txnBody = document.getElementById('transactionBody');
+  const structureBody = document.getElementById("structureBody");
+  const txnBody = document.getElementById("transactionBody");
 
-  structureBody.innerHTML = '';
-  txnBody.innerHTML = '';
+  structureBody.innerHTML = "";
+  txnBody.innerHTML = "";
 
   try {
     const res = await fetch(
@@ -26,7 +26,7 @@ async function updateFeeView() {
       },
     );
 
-    if (!res.ok) throw new Error('Failed to fetch payment data');
+    if (!res.ok) throw new Error("Failed to fetch payment data");
 
     const currentData = await res.json();
     currentPaymentData = currentData;
@@ -47,7 +47,7 @@ async function updateFeeView() {
       totalPaid += item.paid;
       totalBal += item.balance;
 
-      let statusBadge = '';
+      let statusBadge = "";
       if (item.balance === 0) {
         statusBadge = '<span class="status-paid">Paid</span>';
       } else if (item.paid === 0) {
@@ -100,9 +100,12 @@ async function updateFeeView() {
   }
 }
 
-
 async function downloadReceipt(index) {
-  if (!currentPaymentData || !currentPaymentData.transactions || !currentPaymentData.transactions[index]) {
+  if (
+    !currentPaymentData ||
+    !currentPaymentData.transactions ||
+    !currentPaymentData.transactions[index]
+  ) {
     alert("Receipt data not available.");
     return;
   }
@@ -114,9 +117,9 @@ async function downloadReceipt(index) {
 
   doc.setFontSize(18);
   doc.text("Payment Receipt", 14, 20);
-  
+
   doc.setLineWidth(0.5);
-  doc.line(14, 22, 196, 22); 
+  doc.line(14, 22, 196, 22);
 
   doc.setFontSize(12);
   doc.text(`Date: ${txn.date}`, 14, 35);
@@ -130,4 +133,3 @@ async function downloadReceipt(index) {
 
   doc.save(`Receipt_${txn.ref}.pdf`);
 }
-

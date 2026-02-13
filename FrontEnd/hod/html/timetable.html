@@ -1,14 +1,15 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Work Distribution</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/hod.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/hod/css/components.css" rel="stylesheet" />
+    <link href="/static/hod/css/hod.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -17,10 +18,8 @@
     <div class="main-content">
       <div class="dashboard-wrapper">
         <div class="page-header"><h2>Faculty Work Distribution</h2></div>
-
         <div class="card">
           <h3>Upload Timetable</h3>
-
           <div class="form-group">
             <label>Upload Type</label>
             <select id="tt-type" onchange="toggleTimetableInputs()">
@@ -28,41 +27,36 @@
               <option value="FACULTY">Faculty Workload</option>
             </select>
           </div>
-
           <div class="filters-row" style="margin-top: 10px">
-            <input type="number" id="tt-year" placeholder="Year" />
-            <input type="number" id="tt-sem" placeholder="Semester" />
+            <input id="tt-year" placeholder="Year" type="number" />
+            <input id="tt-sem" placeholder="Semester" type="number" />
             <select id="tt-branch">
               <option value="CSE">CSE</option>
               <option value="ECE">ECE</option>
             </select>
-
-            <select id="tt-sec" class="class-only">
+            <select class="class-only" id="tt-sec">
               <option value="A">Sec A</option>
               <option value="B">Sec B</option>
             </select>
-
             <input
-              type="text"
-              id="tt-fac-email"
               class="fac-only"
+              id="tt-fac-email"
               placeholder="Faculty Email"
               style="display: none"
+              type="text"
             />
           </div>
-
           <div class="form-group" style="margin-top: 20px">
             <label>Timetable Image</label>
-            <input type="file" id="tt-file" accept="image/*" />
+            <input accept="image/*" id="tt-file" type="file" />
           </div>
-
           <button class="primary-btn" onclick="uploadTimetable()">
-            Upload & Assign
+            Upload &amp; Assign
           </button>
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/timetable.js"></script>
+    <script src="/static/hod/js/main.js"></script>
+    <script src="/static/hod/js/timetable.js"></script>
   </body>
 </html>

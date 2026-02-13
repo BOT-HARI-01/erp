@@ -1,26 +1,22 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Notifications - SIH25103</title>
-
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-
-    <link rel="stylesheet" href="../css/notifications.css" />
-
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/student/css/components.css" rel="stylesheet" />
+    <link href="/static/student/css/notifications.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
     <div id="sidebar-container"></div>
-
     <div class="main-content">
       <div id="header-container"></div>
-
       <div class="dashboard-wrapper">
         <div class="page-header">
           <h2>Notifications</h2>
@@ -28,7 +24,6 @@
             Mark all as read
           </button>
         </div>
-
         <div class="filter-tabs">
           <button
             class="tab-btn active"
@@ -52,12 +47,10 @@
             Events
           </button>
         </div>
-
-        <div id="notification-list" class="notif-container"></div>
+        <div class="notif-container" id="notification-list"></div>
       </div>
     </div>
-
-    <script src="../js/main.js"></script>
-    <script src="../js/notifications.js"></script>
+    <script src="/static/student/js/main.js"></script>
+    <script src="/static/student/js/notifications.js"></script>
   </body>
 </html>

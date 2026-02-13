@@ -1,14 +1,15 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>External Results - Admin</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/admissions.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/admin/css/components.css" rel="stylesheet" />
+    <link href="/static/admin/css/admissions.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -17,20 +18,18 @@
       <div id="header-container"></div>
       <div class="dashboard-wrapper">
         <div class="page-header"><h2>Semester Results Upload</h2></div>
-
         <div class="card">
           <h3><i class="fas fa-file-csv"></i> Upload External Marks</h3>
           <p>
             Upload Excel file containing:
             <strong>Roll No, Subject Code, Grade, GPA, Credits</strong>
           </p>
-
           <div style="display: flex; gap: 15px; margin-bottom: 20px">
             <input
-              type="text"
               id="res-batch"
               placeholder="Batch 20XX - XX"
               style="padding: 10px; border: 1px solid #ccc; border-radius: 4px"
+              type="text"
             />
             <select
               id="res-sem"
@@ -46,13 +45,12 @@
               <option value="8">Sem 8</option>
             </select>
           </div>
-
           <div
             class="upload-area"
             id="drop-zone"
             onclick="document.getElementById('resFile').click()"
           >
-            <input type="file" id="resFile" hidden accept=".xlsx, .xls" />
+            <input accept=".xlsx, .xls" hidden="" id="resFile" type="file" />
             <i
               class="fas fa-cloud-upload-alt"
               style="font-size: 30px; color: #ccc"
@@ -60,14 +58,13 @@
             <p>Click to Upload Results Excel</p>
             <span id="file-name"></span>
           </div>
-
           <button class="primary-btn" onclick="uploadResults()">
             Upload Results
           </button>
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/results.js"></script>
+    <script src="/static/admin/js/main.js"></script>
+    <script src="/static/admin/js/results.js"></script>
   </body>
 </html>

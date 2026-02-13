@@ -65,7 +65,9 @@
 
 .search-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   will-change: box-shadow, transform;
 }
 .search-card:hover {
@@ -78,12 +80,17 @@
   border-color: #0d47a1;
   outline: none;
   box-shadow: 0 0 6px rgba(13, 71, 161, 0.3);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 /* Primary button subtle shadow and scale on hover */
 .input-with-btn .primary-btn {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: background-color, box-shadow, transform;
 }
 .input-with-btn .primary-btn:hover {
@@ -94,7 +101,10 @@
 
 /* Alert button subtle shadow and scale on hover */
 .alert-btn {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   will-change: background-color, box-shadow, transform;
 }
 .alert-btn:hover {

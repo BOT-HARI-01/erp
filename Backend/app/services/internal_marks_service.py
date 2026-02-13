@@ -9,17 +9,17 @@ def get_internal_marks(db, req):
 
     if not student:
         raise Exception("Student not found")
-
+    print(req.roll_no, req.subject_name, req.year, req.semester)
     marks = db.query(InternalMarks).filter(
         InternalMarks.srno == req.roll_no,
-        InternalMarks.subject_name == req.subject_name,
+        InternalMarks.subject_code == req.subject_name,
         InternalMarks.year == req.year,
         InternalMarks.semester == req.semester
     ).first()
 
     if not marks:
         return None
-
+    print(marks.subject_name)
     return {
         "roll_no": req.roll_no,
         "subject_name": req.subject_name,

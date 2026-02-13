@@ -1,24 +1,22 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Student Records - Admin ERP</title>
-
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/students.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/admin/css/components.css" rel="stylesheet" />
+    <link href="/static/admin/css/students.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
     <div id="sidebar-container"></div>
-
     <div class="main-content">
       <div id="header-container"></div>
-
       <div class="dashboard-wrapper">
         <div class="page-header">
           <h2>Student Records</h2>
@@ -29,18 +27,16 @@
             <i class="fas fa-plus"></i> Add Student
           </button> -->
         </div>
-
         <div class="filters-section">
           <div class="search-box">
             <i class="fas fa-search"></i>
             <input
-              type="text"
               id="searchInput"
-              placeholder="Search by Roll No or Name..."
               onkeyup="filterStudents()"
+              placeholder="Search by Roll No or Name..."
+              type="text"
             />
           </div>
-
           <div class="filter-group">
             <select id="deptFilter" onchange="filterStudents()">
               <option value="All">All Departments</option>
@@ -54,7 +50,6 @@
               <option value="MECH">MECH</option>
             </select>
           </div>
-
           <div class="filter-group">
             <select id="yearFilter" onchange="filterStudents()">
               <option value="All">All Years</option>
@@ -65,7 +60,6 @@
             </select>
           </div>
         </div>
-
         <div class="table-container">
           <table class="data-table">
             <thead>
@@ -84,7 +78,6 @@
         </div>
       </div>
     </div>
-
     <!-- <div id="editModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -115,8 +108,7 @@
         </div>
       </div>
     </div> -->
-
-    <script src="../js/main.js"></script>
-    <script src="../js/students.js"></script>
+    <script src="/static/admin/js/main.js"></script>
+    <script src="/static/admin/js/students.js"></script>
   </body>
 </html>

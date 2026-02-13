@@ -82,7 +82,10 @@ input[type="text"] {
 
 .primary-btn,
 .secondary-btn {
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
   will-change: transform, box-shadow;
 }
 
@@ -94,7 +97,9 @@ input[type="text"] {
 
 /* Submit button subtle feedback */
 .submit-btn {
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .submit-btn:hover {

@@ -175,13 +175,15 @@ th.sticky-col {
 .filters-section,
 .table-container {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 /* Gentle hover emphasis */
 .filters-section:hover,
 .table-container:hover {
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
 }
 
 /* Select focus polish */
@@ -209,13 +211,18 @@ td:first-child {
 .status-paid,
 .status-due,
 .status-partial {
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.35),
-              0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 255, 255, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 /* Download button micro-interaction */
 .download-icon-btn {
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s, color 0.2s;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.2s,
+    color 0.2s;
 }
 
 .download-icon-btn:hover {

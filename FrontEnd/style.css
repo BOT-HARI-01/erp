@@ -139,10 +139,10 @@ body {
 /* Find and replace .login-container */
 .login-container {
   /* ... keep existing properties ... */
-  
+
   /* Enhanced shadow */
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); 
-  border: 1px solid rgba(0,0,0,0.05); /* Softer border */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Softer border */
 }
 
 /* Optional: Add shadow to input focus state */

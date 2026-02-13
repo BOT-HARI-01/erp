@@ -157,16 +157,17 @@
   background: #218838;
 }
 
-
 .filters-row,
 .table-card {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 .filters-row:hover,
 .table-card:hover {
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
 }
 
 /* Filter inputs focus polish */
@@ -180,7 +181,10 @@
 /* Primary button micro-interaction */
 .filters-row .primary-btn,
 .submit-btn {
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.2s;
 }
 
 .filters-row .primary-btn:hover,
@@ -204,7 +208,10 @@
 }
 
 .att-label {
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
 }
 
 .att-radio-group input:checked + .att-label {

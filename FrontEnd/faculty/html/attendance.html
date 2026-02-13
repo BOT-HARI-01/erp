@@ -1,15 +1,16 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Attendance Entry</title>
-    <link rel="stylesheet" href="../../style.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/attendance.css" />
-    <link rel="stylesheet" href="../css/faculty.css" />
+    <link href="/static/style.css" rel="stylesheet" />
+    <link href="/static/faculty/css/components.css" rel="stylesheet" />
+    <link href="/static/faculty/css/attendance.css" rel="stylesheet" />
+    <link href="/static/faculty/css/faculty.css" rel="stylesheet" />
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
     />
   </head>
   <body>
@@ -18,53 +19,37 @@
     <div class="main-content">
       <div class="dashboard-wrapper">
         <div class="page-header"><h2>Attendance Entry</h2></div>
-
         <div class="card filters-row">
           <div class="form-group">
             <label>Date</label>
-            <input type="date" id="att-date" />
+            <input id="att-date" type="date" />
           </div>
-
           <div class="form-group">
             <label>Branch</label>
-            <input
-              type="text"
-              id="att-branch"
-              placeholder=""
-              maxlength="10"
-            />
+            <input id="att-branch" maxlength="10" placeholder="" type="text" />
           </div>
-
           <div class="form-group">
             <label>Year</label>
             <select id="att-year">
-              <option value="" disabled selected>Select</option>
+              <option disabled="" selected="" value="">Select</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Semester</label>
             <select id="att-sem">
-              <option value="" disabled selected>Select</option>
+              <option disabled="" selected="" value="">Select</option>
               <option value="1">1</option>
               <option value="2">2</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Section</label>
-            <input
-              type="text"
-              id="att-sec"
-              placeholder=""
-              maxlength="2"
-            />
+            <input id="att-sec" maxlength="2" placeholder="" type="text" />
           </div>
-
           <div class="form-group">
             <label>Subject</label>
             <select id="att-sub">
@@ -74,7 +59,6 @@
               <option value="M101">Mathematics</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Period</label>
             <select id="att-period">
@@ -86,7 +70,6 @@
               <option value="6">6</option>
             </select>
           </div>
-
           <div class="form-group" style="align-self: flex-end">
             <button
               class="primary-btn"
@@ -96,11 +79,10 @@
             </button>
           </div>
         </div>
-
         <div
           class="card table-card"
-          style="display: none"
           id="att-table-container"
+          style="display: none"
         >
           <div class="table-header-row">
             <h3>Student List</h3>
@@ -109,18 +91,16 @@
               <span class="badge-legend a">A = Absent</span>
             </div>
           </div>
-
           <table class="data-table attendance-table">
             <thead>
               <tr>
                 <th width="20%">Roll No</th>
                 <th width="40%">Student Name</th>
-                <th width="40%" class="text-center">Mark Attendance</th>
+                <th class="text-center" width="40%">Mark Attendance</th>
               </tr>
             </thead>
             <tbody id="att-list"></tbody>
           </table>
-
           <div class="action-footer">
             <div class="summary-text" id="att-summary">
               Total: 0 | Present: 0 | Absent: 0
@@ -132,7 +112,7 @@
         </div>
       </div>
     </div>
-    <script src="../js/main.js"></script>
-    <script src="../js/attendance.js"></script>
+    <script src="/static/faculty/js/main.js"></script>
+    <script src="/static/faculty/js/attendance.js"></script>
   </body>
 </html>
