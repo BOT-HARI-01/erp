@@ -47,8 +47,8 @@ async function loadTimetable() {
     const imgElement = document.getElementById("tt-image");
     const msgElement = document.getElementById("tt-msg");
 
+    console.log( data.image_url);
     if (data.image_url) {
-      // console.log( data.image_url);
       imgElement.src = data.image_url;
       imgElement.style.display = "block";
       msgElement.style.display = "none";

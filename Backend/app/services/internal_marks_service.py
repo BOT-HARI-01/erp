@@ -1,6 +1,7 @@
 from app.models.internal_marks import InternalMarks
 from app.models.student import Student
 from app.models.academic import Academic
+from sqlalchemy import or_, func
 
 def get_internal_marks(db, req):
     student = db.query(Student).filter(
@@ -10,16 +11,24 @@ def get_internal_marks(db, req):
     if not student:
         raise Exception("Student not found")
     print(req.roll_no, req.subject_name, req.year, req.semester)
-    marks = db.query(InternalMarks).filter(
+    query = db.query(InternalMarks).filter(
         InternalMarks.srno == req.roll_no,
-        InternalMarks.subject_code == req.subject_name,
+        # InternalMarks.subject_code == req.subject_name,
         InternalMarks.year == req.year,
         InternalMarks.semester == req.semester
-    ).first()
-
+    )
+    if getattr(req, "subject_name", None):
+        key = req.subject_name.strip()
+        query = query.filter(
+            or_(
+                InternalMarks.subject_code == key,
+                func.lower(InternalMarks.subject_name) == key.lower()
+            )
+        )
+    marks = query.first()
+    print(marks, 'subject name')
     if not marks:
         return None
-    print(marks.subject_name)
     return {
         "roll_no": req.roll_no,
         "subject_name": req.subject_name,

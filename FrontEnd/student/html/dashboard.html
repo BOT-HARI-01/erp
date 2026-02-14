@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Student Dashboard - SIH25103</title>
-    <link href="/static/style.css" rel="stylesheet" />
-    <link href="/static/student/css/components.css" rel="stylesheet" />
-    <link href="/static/student/css/dashboard.css" rel="stylesheet" />
+    <link href="../../style.css" rel="stylesheet" />
+    <link href="../css/components.css" rel="stylesheet" />
+    <link href="../css/dashboard.css" rel="stylesheet" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -17,7 +17,7 @@
     <div id="sidebar-container"></div>
     <div class="main-content">
       <div id="header-container"></div>
-      <div class="dashboard-wrapper"> 
+      <div class="dashboard-wrapper">
         <div class="alert-box" id="ai-alert-box" style="display: none">
           <i class="fas fa-info-circle" id="ai-icon"></i>
           <div>
@@ -105,21 +105,23 @@
             </ul>
           </div>
         </div>
-        <div class="card">
-          <h3><i class="fas fa-calendar-alt"></i> Today's Timetable</h3>
+        <div class="card timetable-card">
+          <h4><i class="fas fa-calendar-alt"></i> Today's Timetable</h4>
           <div class="timetable-placeholder" id="timetable-display">
             <img
               alt="Timetable not uploaded"
               id="tt-image"
-              src="/static/student/html"
-              style="max-width: 100%; display: none"
+              src="."
+              style="max-width: 600px; display: none; border-radius: 4px"
             />
-            <p id="tt-msg">Loading schedule...</p>
+            <p id="tt-msg" style="font-size: 0.9rem; margin-top: 5px">
+              Loading schedule...
+            </p>
           </div>
         </div>
       </div>
     </div>
-    <script src="/static/student/js/main.js"></script>
-    <script src="/static/student/js/dashboard.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/dashboard.js"></script>
   </body>
 </html>

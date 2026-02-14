@@ -269,17 +269,23 @@ def view_hostel(db: Session = Depends(get_db), user=Depends(get_current_user)):
     return get_student_hostel_details(db, user["sub"])
 
 
+from fastapi import Request
+
 @router.get("/timetable")
 def view_student_timetable(
-    db: Session = Depends(get_db), user=Depends(get_current_user)
+    request: Request,
+    db: Session = Depends(get_db),
+    user=Depends(get_current_user)
 ):
     academic = (
         db.query(Academic)
-        .filter(
-            Academic.user_email == user["sub"],
-        )
+        .filter(Academic.user_email == user["sub"])
         .first()
     )
+
+    if not academic:
+        return {"image_url": None}
+
     timetable = (
         db.query(TimeTable)
         .filter(
@@ -292,9 +298,13 @@ def view_student_timetable(
     )
 
     if not timetable:
-        return {"timetable": None}
+        return {"image_url": None}
 
-    return {"image_url": timetable.image_path}
+    # Build URL using FastAPI server
+    image_url = str(request.base_url).rstrip("/") + "/" + timetable.image_path.replace("\\", "/")
+
+    return {"image_url": image_url}
+
 
 @router.get("/notifications")
 def view_notifications(

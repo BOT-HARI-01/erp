@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8" />
     <title>My Profile - Faculty</title>
-    <link href="/static/style.css" rel="stylesheet" />
-    <link href="/static/faculty/css/components.css" rel="stylesheet" />
-    <link href="/static/faculty/css/faculty.css" rel="stylesheet" />
+    <link href="../../style.css" rel="stylesheet" />
+    <link href="../css/components.css" rel="stylesheet" />
+    <link href="../css/faculty.css" rel="stylesheet" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -76,11 +76,15 @@
                 <input id="pf-addr" readonly="" rows="3" />
               </div>
             </div>
+            <div style="margin-top: 20px; text-align: right">
+              <button class="primary-btn" onclick="enableEdit()">Edit</button>
+              <button class="primary-btn" onclick="updateProfile()">Save</button>
+            </div>
           </form>
         </div>
       </div>
     </div>
-    <script src="/static/faculty/js/main.js"></script>
-    <script src="/static/faculty/js/profile.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/profile.js"></script>
   </body>
 </html>

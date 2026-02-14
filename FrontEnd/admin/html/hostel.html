@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Hostel Management - Admin ERP</title>
-    <link href="/static/style.css" rel="stylesheet" />
-    <link href="/static/admin/css/components.css" rel="stylesheet" />
-    <link href="/static/admin/css/hostel.css" rel="stylesheet" />
+    <link href="../../style.css" rel="stylesheet" />
+    <link href="../css/components.css" rel="stylesheet" />
+    <link href="../css/hostel.css" rel="stylesheet" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -40,15 +40,29 @@
           </div>
           <div class="form-group">
             <label>Room ID </label>
-            <input id="alloc-room-id" placeholder="" type="number" />
+            <input id="alloc-room-id" placeholder="" type="text" />
           </div>
           <button onclick="allocateRoom()">
             <i class="fas fa-check-circle"></i> Allocate
           </button>
         </div>
+        <div class="card">
+          <h3><i class="fas fa-key"></i> Vacate Room</h3>
+          <div class="form-group">
+            <label>Student Roll Number</label>
+            <input id="vacate-roll" placeholder="" type="text" />
+          </div>
+          <div class="form-group">
+            <label>Room ID </label>
+            <input id="vacate-room-id" placeholder="" type="text" />
+          </div>
+          <button onclick="vacateRoom()">
+            <i class="fas fa-check-circle"></i> vacate
+          </button>
+        </div>
       </div>
     </div>
-    <script src="/static/admin/js/main.js"></script>
-    <script src="/static/admin/js/hostel.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/hostel.js"></script>
   </body>
 </html>

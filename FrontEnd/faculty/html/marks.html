@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Marks Entry</title>
-    <link href="/static/style.css" rel="stylesheet" />
-    <link href="/static/faculty/css/components.css" rel="stylesheet" />
-    <link href="/static/faculty/css/faculty.css" rel="stylesheet" />
-    <link href="/static/faculty/css/marks.css" rel="stylesheet" />
+    <link href="../../style.css" rel="stylesheet" />
+    <link href="../css/components.css" rel="stylesheet" />
+    <link href="../css/faculty.css" rel="stylesheet" />
+    <link href="../css/marks.css" rel="stylesheet" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -54,14 +54,15 @@
               type="text"
             />
           </div>
-          <div class="inline-group">
-            <label>Subject</label>
-            <select id="mk-sub" style="min-width: 160px">
-              <option value="CS301">Compiler Design</option>
-              <option value="CS302">Web Technologies</option>
-              <option value="CS303">Machine Learning</option>
-            </select>
-          </div>
+          <input
+            id="mk-sub"
+            type="text"
+            placeholder="Subject Code "
+            pattern="[A-Z]{2}[0-9]{3}"
+            title="Format: CS301"
+            style="min-width: 160px"
+          />
+
           <button
             class="primary-btn compact-btn"
             onclick="fetchStudentListForMarks()"
@@ -136,7 +137,7 @@
         </div>
       </div>
     </div>
-    <script src="/static/faculty/js/main.js"></script>
-    <script src="/static/faculty/js/marks.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/marks.js"></script>
   </body>
 </html>

@@ -11,6 +11,10 @@ from app.models.academic import Academic
 from app.models.internal_marks import InternalMarks
 from app.schemas.hod import HODProfileResponse, HODProfileUpdate
 from app.services.hod_service import get_hod_profile, update_hod_profile
+from app.services.attendance_service import (
+    get_semester_attendance_summary,
+
+)
 router = APIRouter(prefix="/hod", tags=["HOD"])
 
 @router.get("/profile", response_model=HODProfileResponse)
@@ -88,26 +92,56 @@ def get_student_analytics(
     if user["role"] != "HOD":
         raise HTTPException(403, "Only HOD allowed")
 
+    # Fetch students with optional internal marks
     results = db.query(Student, InternalMarks)\
         .join(Academic, Academic.sid == Student.id)\
-        .outerjoin(InternalMarks, InternalMarks.srno == Student.roll_no)\
+        .outerjoin(
+            InternalMarks,
+            (InternalMarks.srno == Student.roll_no) &
+            (InternalMarks.year == year) &
+            (InternalMarks.semester == semester)
+        )\
         .filter(
             Academic.year == year,
             Academic.semester == semester,
             Academic.section == section
         ).all()
 
-    return [
-        {
-            "roll": s.roll_no,
-            "name": f"{s.first_name} {s.last_name}",
-            "m1": (m.mid1_marks if m else 0), 
-            "m2": (m.mid2_marks if m else 0),
-            "att": "85%", 
-            "ph": s.parent_mobile_no
-        }
-        for s, m in results
-    ]
+    analytics = []
+    for student, marks in results:
+        # Calculate mids
+        if marks:
+            m1 = (
+                (marks.descriptive1 or 0) * 15 / 30 +
+                (marks.seminar1 or 0) * 5 / 5 +
+                (marks.objective1 or 0) * 10 / 20 +
+                (marks.openbook1 or 0) * 5 / 20
+            )
+            m2 = (
+                (marks.descriptive2 or 0) * 15 / 30 +
+                (marks.seminar2 or 0) * 5 / 5 +
+                (marks.objective2 or 0) * 10 / 20 +
+                (marks.openbook2 or 0) * 5 / 20
+            )
+        else:
+            m1 = 0
+            m2 = 0
+
+        # Calculate attendance percentage
+        att_summary = get_semester_attendance_summary(db, student.roll_no, semester)
+        attendance_pct = att_summary["attendance_percentage"]
+
+        analytics.append({
+            "roll": student.roll_no,
+            "name": f"{student.first_name} {student.last_name}",
+            "m1": round(m1, 2),
+            "m2": round(m2, 2),
+            "att": f"{attendance_pct}%",  # from attendance calculation
+            "ph": student.parent_mobile_no
+        })
+
+    return analytics
+
 
 @router.get("/student/{roll_no}")
 def hod_view_student_by_rollno(

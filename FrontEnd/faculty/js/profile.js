@@ -72,3 +72,9 @@ async function updateProfile() {
     alert("Network Error");
   }
 }
+
+function enableEdit() {
+  document.querySelectorAll("#profile-form input").forEach(input => {
+    input.removeAttribute("readonly");
+  });
+}

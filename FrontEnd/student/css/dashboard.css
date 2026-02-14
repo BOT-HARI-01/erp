@@ -22,7 +22,7 @@
   color: #b91c1c;
   padding: 15px 20px;
   border-radius: 8px;
-  margin-top: 20vh;
+  margin-top: 50vh;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -69,7 +69,6 @@
   grid-template-columns: repeat(2, minmax(420px, 1fr));
   gap: 30px;
 }
-
 
 .card {
   background: white;
@@ -214,4 +213,24 @@
   transform: translateY(-5px);
   /* Stronger shadow on hover */
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+
+.timetable-card {
+  padding: 10px 15px;
+  margin: 10px 0;
+  max-width: 600px;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+.timetable-card h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.timetable-placeholder {
+  text-align: center;
 }
